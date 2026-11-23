@@ -325,9 +325,329 @@ export function createHistoryPanelCanvas(exhibit: HistoryExhibit): HTMLCanvasEle
   ctx.lineWidth = 3
   ctx.strokeRect(60, 190, 680, 420)
 
-  // Visual content inside document box based on category
-  if (exhibit.category === 'decree' || exhibit.category === 'archive') {
-    // Official Government / Notary Document Layout
+  // Visual content inside document box based on category and exhibit ID
+  if (exhibit.id === 'archives-notary-1956') {
+    // Official Notary Deed 1956
+    ctx.fillStyle = '#1c1b18'
+    ctx.font = 'bold 20px "Times New Roman", serif'
+    ctx.fillText('NOTARIS R.M. SOEPRAPTO - SEMARANG', 400, 235)
+    ctx.font = 'italic 16px "Times New Roman", serif'
+    ctx.fillText('AKTE PENDIRIAN JAJASAN UNIVERSITAS SEMARANG NOMOR 59', 400, 260)
+
+    ctx.strokeStyle = '#8a7967'
+    ctx.lineWidth = 1.5
+    ctx.beginPath()
+    ctx.moveTo(90, 275)
+    ctx.lineTo(710, 275)
+    ctx.stroke()
+
+    ctx.textAlign = 'left'
+    ctx.fillStyle = '#2d2a24'
+    ctx.font = '14px "Courier New", monospace'
+    const notaryLines = [
+      'Pada hari ini, Selasa tanggal 4 Desember 1956,',
+      'Menghadap kepada saja, Raden Mas Soeprapto, Notaris di Semarang:',
+      '1. Mr. Soedarto (Djaksa Tinggi Djawa Tengah)',
+      '2. Mr. Dan Sulaiman (Pedjabat Kehakiman)',
+      '3. Mr. Imam Bardjo (Ketua Pengadilan Tinggi Djawa Tengah)',
+      '4. Mr. Goenawan Goetomo & Mr. Tan Tjing Hak',
+      '5. dr. Heyder bin Heyder (Direktur R.S. Semarang)',
+      'Sepakat mendirikan "JAJASAN UNIVERSITAS SEMARANG"',
+      'Guna mendidik putera bangsa berkarakter dan berdjiwa patriotik.',
+    ]
+    notaryLines.forEach((l, idx) => {
+      ctx.fillText(l, 85, 310 + idx * 26)
+    })
+
+    // Red Official Notary Wax Seal
+    ctx.fillStyle = '#8b181b'
+    ctx.beginPath()
+    ctx.arc(630, 520, 48, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.strokeStyle = '#ffd700'
+    ctx.lineWidth = 2
+    ctx.stroke()
+    ctx.fillStyle = '#ffd700'
+    ctx.font = 'bold 10px sans-serif'
+    ctx.textAlign = 'center'
+    ctx.fillText('NOTARIS', 630, 510)
+    ctx.fillText('R.M. SOEPRAPTO', 630, 524)
+    ctx.fillText('SEMARANG 1956', 630, 538)
+
+  } else if (exhibit.id === 'archives-statuta-1957') {
+    // Statuta & Pembukaan 1957
+    ctx.fillStyle = '#1a1815'
+    ctx.font = 'bold 20px "Times New Roman", serif'
+    ctx.fillText('UNIVERSITAS SEMARANG (EST. 1957)', 400, 235)
+    ctx.font = 'italic 16px "Times New Roman", serif'
+    ctx.fillText('Naskah Peresmian Pembukaan Perkuliahan & Statuta Perdana', 400, 260)
+
+    ctx.strokeStyle = '#8a7967'
+    ctx.lineWidth = 1.5
+    ctx.beginPath()
+    ctx.moveTo(90, 275)
+    ctx.lineTo(710, 275)
+    ctx.stroke()
+
+    ctx.textAlign = 'left'
+    ctx.fillStyle = '#2d2a24'
+    ctx.font = '14px "Courier New", monospace'
+    const statutaLines = [
+      'Peresmian Pembukaan : Rabu, 9 Djanuari 1957 di Semarang',
+      'Presiden Universitas: Mr. Imam Bardjo',
+      'Susunan Fakultas Perdana:',
+      '  • Fakultas Hukum dan Masjarakat (Dekan: Mr. Soedarto)',
+      '  • Akademi Administrasi Negara (Dekan: Mr. Goenawan Goetomo)',
+      'Pedoman Pengadjaran berlandaskan Pantjasila & UUD 1945.',
+      'Sumpah Akademik: Mengabdi untuk ketjerdasan dan martabat bangsa.',
+      'Terbuka bagi seluruh putera-puteri Indonesia tanpa diskriminasi.',
+    ]
+    statutaLines.forEach((l, idx) => {
+      ctx.fillText(l, 85, 312 + idx * 27)
+    })
+
+    // Green/Gold Academic Seal
+    ctx.fillStyle = '#0f4c3a'
+    ctx.beginPath()
+    ctx.arc(630, 520, 48, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.strokeStyle = '#d4af37'
+    ctx.lineWidth = 2
+    ctx.stroke()
+    ctx.fillStyle = '#ffd700'
+    ctx.font = 'bold 10px sans-serif'
+    ctx.textAlign = 'center'
+    ctx.fillText('SENAT MAHASISWA', 630, 512)
+    ctx.fillText('UNIVERSITAS SEMARANG', 630, 526)
+    ctx.fillText('9 JANUARI 1957', 630, 540)
+
+  } else if (exhibit.id === 'decree-sk-1961') {
+    // PP No. 7 Tahun 1961
+    ctx.fillStyle = '#111827'
+    ctx.font = 'bold 20px "Times New Roman", serif'
+    ctx.fillText('PERATURAN PEMERINTAH REPUBLIK INDONESIA', 400, 232)
+    ctx.font = 'bold 17px "Times New Roman", serif'
+    ctx.fillText('NOMOR 7 TAHUN 1961', 400, 255)
+    ctx.font = 'italic 15px "Times New Roman", serif'
+    ctx.fillText('Tentang Pendirian / Penegerian Universitas Diponegoro', 400, 276)
+
+    ctx.strokeStyle = '#8a7967'
+    ctx.lineWidth = 1.5
+    ctx.beginPath()
+    ctx.moveTo(90, 288)
+    ctx.lineTo(710, 288)
+    ctx.stroke()
+
+    ctx.textAlign = 'left'
+    ctx.fillStyle = '#222'
+    ctx.font = '14px "Courier New", monospace'
+    const ppLines = [
+      'Menimbang  : Pembinaan dan pengembangan pendidikan tinggi di Djawa Tengah',
+      'Mengingat  : Penetapan Presiden RI tanggal 9 Djanuari 1960',
+      'MEMUTUSKAN :',
+      'Pasal 1    : Mendirikan UNIVERSITAS DIPONEGORO di Semarang sebagai PTN.',
+      'Pasal 2    : Peraturan Pemerintah ini berlaku surut sedjak 15 Oktober 1957,',
+      '             ditetapkan sebagai HARI DIES NATALIS UNIVERSITAS DIPONEGORO',
+      '             mengenang Pertempuran Lima Hari di Kota Semarang.',
+      'Ditetapkan : Djakarta, 15 Oktober 1960. Presiden RI IR. SOEKARNO.',
+    ]
+    ppLines.forEach((l, idx) => {
+      ctx.fillText(l, 85, 318 + idx * 26)
+    })
+
+    // Red Republic of Indonesia State Seal
+    ctx.fillStyle = '#b91c1c'
+    ctx.beginPath()
+    ctx.arc(630, 520, 50, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.strokeStyle = '#ffd700'
+    ctx.lineWidth = 2.5
+    ctx.stroke()
+    ctx.fillStyle = '#ffffff'
+    ctx.font = 'bold 11px sans-serif'
+    ctx.textAlign = 'center'
+    ctx.fillText('REPUBLIK INDONESIA', 630, 514)
+    ctx.fillStyle = '#ffd700'
+    ctx.fillText('PP NO. 7 / 1961', 630, 532)
+
+  } else if (exhibit.id === 'decree-lembaran-negara') {
+    // Lembaran Negara 1961 No. 21
+    ctx.fillStyle = '#0f172a'
+    ctx.font = 'bold 22px "Times New Roman", serif'
+    ctx.fillText('LEMBARAN NEGARA REPUBLIK INDONESIA', 400, 235)
+    ctx.font = 'bold 16px "Times New Roman", serif'
+    ctx.fillText('TAHUN 1961 NOMOR 21', 400, 260)
+
+    ctx.strokeStyle = '#8a7967'
+    ctx.lineWidth = 1.5
+    ctx.beginPath()
+    ctx.moveTo(90, 275)
+    ctx.lineTo(710, 275)
+    ctx.stroke()
+
+    ctx.textAlign = 'left'
+    ctx.fillStyle = '#222'
+    ctx.font = '14px "Courier New", monospace'
+    const lnLines = [
+      'PERGURUAN TINGGI. UNIVERSITAS DIPONEGORO.',
+      'Pengesahan dan Penjelasaan Pendirian Universitas Negeri di Semarang.',
+      '1. Pengalihan seluruh hak, kewadjiban, dan kekaja-an Jajasan',
+      '   Universitas Semarang kepada Pemerintah Republik Indonesia.',
+      '2. Pembinaan di bawah Departemen Perguruan Tinggi & Ilmu Pengetahuan.',
+      '3. Wewenang penuh pemberian gelar kesardjanaan negara.',
+      'Disahkan di Djakarta dan diundangkan dalam Lembaran Negara.',
+      'Sekretaris Negara : Mr. A.W. Surjoadiningrat',
+    ]
+    lnLines.forEach((l, idx) => {
+      ctx.fillText(l, 85, 315 + idx * 27)
+    })
+
+    // Government Black/Gold Emblem
+    ctx.fillStyle = '#1e293b'
+    ctx.beginPath()
+    ctx.arc(630, 520, 48, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.strokeStyle = '#d4af37'
+    ctx.lineWidth = 2
+    ctx.stroke()
+    ctx.fillStyle = '#ffd700'
+    ctx.font = 'bold 10px sans-serif'
+    ctx.textAlign = 'center'
+    ctx.fillText('LEMBARAN NEGARA', 630, 512)
+    ctx.fillText('NO. 21 TH 1961', 630, 528)
+    ctx.fillText('DIUNDANGKAN', 630, 542)
+
+  } else if (exhibit.id === 'history-waduk-undip') {
+    // Waduk Undip & Sabuk Hijau Konservasi Painting / Landscape
+    const sky = ctx.createLinearGradient(65, 195, 65, 420)
+    sky.addColorStop(0, '#5ea3de')
+    sky.addColorStop(0.6, '#99cbf0')
+    sky.addColorStop(1, '#d5e9f8')
+    ctx.fillStyle = sky
+    ctx.fillRect(65, 195, 670, 410)
+
+    // Tembalang lush rolling green hills in background
+    ctx.fillStyle = '#3c7a3e'
+    ctx.beginPath()
+    ctx.moveTo(65, 380)
+    ctx.bezierCurveTo(200, 310, 360, 360, 500, 320)
+    ctx.bezierCurveTo(600, 300, 680, 340, 735, 350)
+    ctx.lineTo(735, 605)
+    ctx.lineTo(65, 605)
+    ctx.closePath()
+    ctx.fill()
+
+    // Closer emerald trees and shoreline
+    ctx.fillStyle = '#27582b'
+    ctx.beginPath()
+    ctx.moveTo(65, 400)
+    ctx.bezierCurveTo(220, 360, 400, 410, 580, 370)
+    ctx.lineTo(735, 390)
+    ctx.lineTo(735, 605)
+    ctx.lineTo(65, 605)
+    ctx.closePath()
+    ctx.fill()
+
+    // Serene Blue Lake Water (Waduk Diponegoro) with light ripple reflections
+    const water = ctx.createLinearGradient(65, 420, 65, 605)
+    water.addColorStop(0, '#3182ce')
+    water.addColorStop(0.5, '#2b6cb0')
+    water.addColorStop(1, '#1a4971')
+    ctx.fillStyle = water
+    ctx.beginPath()
+    ctx.moveTo(65, 430)
+    ctx.bezierCurveTo(250, 415, 450, 440, 735, 425)
+    ctx.lineTo(735, 605)
+    ctx.lineTo(65, 605)
+    ctx.closePath()
+    ctx.fill()
+
+    // Floating water lilies and reflection highlights
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)'
+    ctx.lineWidth = 2
+    for (let wy = 450; wy < 590; wy += 22) {
+      ctx.beginPath()
+      ctx.moveTo(120 + (wy % 40) * 5, wy)
+      ctx.lineTo(260 + (wy % 30) * 8, wy)
+      ctx.moveTo(380 + (wy % 25) * 6, wy + 8)
+      ctx.lineTo(540 + (wy % 35) * 5, wy + 8)
+      ctx.stroke()
+    }
+
+    // Title banner
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.88)'
+    ctx.fillRect(65, 565, 670, 40)
+    ctx.fillStyle = '#ffd700'
+    ctx.font = 'bold 15px Georgia, serif'
+    ctx.textAlign = 'center'
+    ctx.fillText('WADUK PENDIDIKAN & SABUK HIJAU KONSERVASI ECO-CAMPUS UNDIP', 400, 590)
+
+  } else if (exhibit.id === 'history-transformation') {
+    // Transformasi PTN-BH Visual Grand Certificate
+    const certBg = ctx.createLinearGradient(65, 195, 735, 605)
+    certBg.addColorStop(0, '#0c1e38')
+    certBg.addColorStop(0.5, '#132d56')
+    certBg.addColorStop(1, '#091527')
+    ctx.fillStyle = certBg
+    ctx.fillRect(65, 195, 670, 410)
+
+    // Inner gold border
+    ctx.strokeStyle = '#d4af37'
+    ctx.lineWidth = 2
+    ctx.strokeRect(80, 210, 640, 380)
+
+    ctx.textAlign = 'center'
+    ctx.fillStyle = '#ffd700'
+    ctx.font = 'bold 22px Georgia, serif'
+    ctx.fillText('UNIVERSITAS DIPONEGORO', 400, 250)
+
+    ctx.fillStyle = '#ffffff'
+    ctx.font = '16px sans-serif'
+    ctx.fillText('PERJALANAN TRANSFORMASI KELEMBAGAAN REVOLUSIONER', 400, 280)
+
+    // 3 Step Badges: PTN -> BLU -> PTN-BH
+    const milestones = [
+      { step: '1961', title: 'PTN', desc: 'PP No. 7 / 1961', col: '#3b82f6' },
+      { step: '2008', title: 'BLU', desc: 'KMK 259 / 2008', col: '#10b981' },
+      { step: '2015', title: 'PTN-BH', desc: 'PP 81/2014 & 52/2015', col: '#d4af37' },
+    ]
+    milestones.forEach((m, idx) => {
+      const bx = 160 + idx * 180
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)'
+      ctx.fillRect(bx - 70, 310, 140, 140)
+      ctx.strokeStyle = m.col
+      ctx.lineWidth = 2
+      ctx.strokeRect(bx - 70, 310, 140, 140)
+
+      ctx.fillStyle = m.col
+      ctx.font = 'bold 15px sans-serif'
+      ctx.fillText(m.step, bx, 340)
+      ctx.fillStyle = '#ffffff'
+      ctx.font = 'bold 22px Georgia, serif'
+      ctx.fillText(m.title, bx, 375)
+      ctx.fillStyle = '#cbd5e1'
+      ctx.font = '11px sans-serif'
+      ctx.fillText(m.desc, bx, 410)
+    })
+
+    // QS Employability No. 1 banner
+    ctx.fillStyle = '#f59e0b'
+    ctx.font = 'bold 16px Georgia, serif'
+    ctx.fillText('★ PERINGKAT #1 INDONESIA: LULUSAN TERCEPAT MENDAPAT KERJA ★', 400, 490)
+    ctx.fillStyle = '#94a3b8'
+    ctx.font = 'italic 13px sans-serif'
+    ctx.fillText('QS Graduate Employability Rankings & World Class University', 400, 515)
+
+    // Title banner
+    ctx.fillStyle = 'rgba(11, 29, 58, 0.95)'
+    ctx.fillRect(65, 565, 670, 40)
+    ctx.fillStyle = '#ffd700'
+    ctx.font = 'bold 15px Georgia, serif'
+    ctx.textAlign = 'center'
+    ctx.fillText('DOKUMENTASI RESMI STATUS PTN-BH UNIVERSITAS DIPONEGORO', 400, 590)
+
+  } else if (exhibit.category === 'decree' || exhibit.category === 'archive') {
+    // Generic Government / Notary Document Layout
     ctx.fillStyle = '#222'
     ctx.font = 'bold 22px "Times New Roman", serif'
     ctx.fillText('LEMBARAN NEGARA REPUBLIK INDONESIA', 400, 240)

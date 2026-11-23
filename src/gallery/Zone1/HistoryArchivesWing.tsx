@@ -23,42 +23,42 @@ interface SalonFrameConfig {
  */
 const SALON_LAYOUT: SalonFrameConfig[] = [
   // --- COLUMN 1 (Z = 5.6): Era Prakarsa & Statuta 1956-1957 ---
-  { exhibitId: 'archives-notary-1956', z: 5.6, y: 3.9, width: 1.15, height: 1.25, frameColor: '#d4af37' },
-  { exhibitId: 'archives-statuta-1957', z: 5.6, y: 2.05, width: 1.15, height: 1.25, frameColor: '#3d2516' },
+  { exhibitId: 'archives-notary-1956', z: 5.6, y: 3.9, width: 1.15, height: 1.35, frameColor: '#d4af37' },
+  { exhibitId: 'archives-statuta-1957', z: 5.6, y: 2.05, width: 1.15, height: 1.35, frameColor: '#3d2516' },
 
-  // --- COLUMN 2 (Z = 3.3): Kuliah Perdana di Panti Budaya & Mahasiswa 1957 ---
-  { exhibitId: 'early-photo-panti-budaya', z: 3.3, y: 3.9, width: 1.15, height: 1.2, frameColor: '#3d2516' },
-  { exhibitId: 'early-photo-students-1957', z: 3.3, y: 2.05, width: 1.15, height: 1.15, frameColor: '#2b1a10' },
+  // --- COLUMN 2 (Z = 3.3): Foto Patung Pleburan & Upacara Lapangan OR 1957 ---
+  { exhibitId: 'early-photo-panti-budaya', z: 3.3, y: 3.9, width: 1.3, height: 0.95, frameColor: '#3d2516' },
+  { exhibitId: 'early-photo-students-1957', z: 3.3, y: 2.05, width: 1.3, height: 0.95, frameColor: '#2b1a10' },
 
-  // --- COLUMN 3: MONUMENTAL CENTERPIECE 1 (Z = 1.1) ---
-  { exhibitId: 'artwork-diponegoro-center', z: 1.1, y: 2.95, width: 2.0, height: 1.5, frameColor: '#d4af37' },
+  // --- COLUMN 3: MONUMENTAL CENTERPIECE 1 (Z = 1.1): Mahakarya Raden Saleh ---
+  { exhibitId: 'artwork-diponegoro-center', z: 1.1, y: 2.95, width: 2.1, height: 1.45, frameColor: '#d4af37' },
 
-  // --- COLUMN 4 (Z = -1.5): Payung Hukum & Penegerian 1961 ---
-  { exhibitId: 'decree-sk-1961', z: -1.5, y: 3.9, width: 1.15, height: 1.25, frameColor: '#d4af37' },
-  { exhibitId: 'decree-lembaran-negara', z: -1.5, y: 2.05, width: 1.15, height: 1.2, frameColor: '#3d2516' },
+  // --- COLUMN 4 (Z = -1.5): Payung Hukum PP No. 7/1961 & Lembaran Negara ---
+  { exhibitId: 'decree-sk-1961', z: -1.5, y: 3.9, width: 1.15, height: 1.35, frameColor: '#d4af37' },
+  { exhibitId: 'decree-lembaran-negara', z: -1.5, y: 2.05, width: 1.15, height: 1.35, frameColor: '#3d2516' },
 
   // --- COLUMN 5 (Z = -3.5): DIRECTLY FACING CENTRAL MULADI DOME & CAMPUS MAKET ---
-  { exhibitId: 'history-muladi-dome', z: -3.5, y: 3.9, width: 1.25, height: 1.25, frameColor: '#d4af37' },
-  { exhibitId: 'history-widya-puraya', z: -3.5, y: 2.05, width: 1.25, height: 1.25, frameColor: '#3d2516' },
+  { exhibitId: 'history-muladi-dome', z: -3.5, y: 3.9, width: 1.35, height: 1.0, frameColor: '#d4af37' },
+  { exhibitId: 'history-widya-puraya', z: -3.5, y: 2.05, width: 1.35, height: 1.0, frameColor: '#3d2516' },
 
-  // --- COLUMN 6: MONUMENTAL CENTERPIECE 2 (Z = -5.7): Pidato Presiden Soekarno ---
-  { exhibitId: 'archives-soekarno-1960', z: -5.7, y: 2.95, width: 2.0, height: 1.5, frameColor: '#d4af37' },
+  // --- COLUMN 6: MONUMENTAL CENTERPIECE 2 (Z = -5.7): Potret Presiden Sukarno 1960 ---
+  { exhibitId: 'archives-soekarno-1960', z: -5.7, y: 2.95, width: 1.35, height: 1.85, frameColor: '#d4af37' },
 
-  // --- COLUMN 7 (Z = -7.9): Kunjungan Presiden & Kampus Pleburan Lama ---
-  { exhibitId: 'early-photo-soekarno-visit', z: -7.9, y: 3.9, width: 1.15, height: 1.2, frameColor: '#3d2516' },
-  { exhibitId: 'early-campus-pleburan', z: -7.9, y: 2.05, width: 1.15, height: 1.15, frameColor: '#2b1a10' },
+  // --- COLUMN 7 (Z = -7.9): Auditorium Pleburan & Gedung Pusat Riset ---
+  { exhibitId: 'early-photo-soekarno-visit', z: -7.9, y: 3.9, width: 1.3, height: 0.95, frameColor: '#3d2516' },
+  { exhibitId: 'early-campus-pleburan', z: -7.9, y: 2.05, width: 1.3, height: 1.0, frameColor: '#2b1a10' },
 
-  // --- COLUMN 8 (Z = -10.1): Masterplan & Peletakan Batu Pertama Tembalang ---
-  { exhibitId: 'history-masterplan-tembalang', z: -10.1, y: 3.9, width: 1.15, height: 1.25, frameColor: '#3d2516' },
-  { exhibitId: 'history-groundbreaking-tembalang', z: -10.1, y: 2.05, width: 1.15, height: 1.15, frameColor: '#d4af37' },
+  // --- COLUMN 8 (Z = -10.1): Monumen Patung Kuda & Kampus Manajemen Tembalang ---
+  { exhibitId: 'history-masterplan-tembalang', z: -10.1, y: 3.9, width: 1.15, height: 1.45, frameColor: '#3d2516' },
+  { exhibitId: 'history-groundbreaking-tembalang', z: -10.1, y: 2.05, width: 1.3, height: 0.95, frameColor: '#d4af37' },
 
-  // --- COLUMN 9 (Z = -12.3): Rumah Sakit RSND & Waduk Edukasi Undip ---
-  { exhibitId: 'history-rsnd', z: -12.3, y: 3.9, width: 1.15, height: 1.2, frameColor: '#3d2516' },
-  { exhibitId: 'history-waduk-undip', z: -12.3, y: 2.05, width: 1.15, height: 1.12, frameColor: '#2b1a10' },
+  // --- COLUMN 9 (Z = -12.3): RSND Tembalang & Waduk Edukasi Undip ---
+  { exhibitId: 'history-rsnd', z: -12.3, y: 3.9, width: 1.3, height: 0.95, frameColor: '#3d2516' },
+  { exhibitId: 'history-waduk-undip', z: -12.3, y: 2.05, width: 1.3, height: 0.95, frameColor: '#2b1a10' },
 
-  // --- COLUMN 10 (Z = -14.5): Wisuda Perdana & Transformasi PTN-BH ---
-  { exhibitId: 'history-wisuda-perdana', z: -14.5, y: 3.9, width: 1.15, height: 1.25, frameColor: '#3d2516' },
-  { exhibitId: 'history-transformation', z: -14.5, y: 2.05, width: 1.2, height: 1.2, frameColor: '#d4af37' },
+  // --- COLUMN 10 (Z = -14.5): Pangeran Diponegoro & Transformasi PTN-BH ---
+  { exhibitId: 'history-wisuda-perdana', z: -14.5, y: 3.9, width: 1.15, height: 1.45, frameColor: '#3d2516' },
+  { exhibitId: 'history-transformation', z: -14.5, y: 2.05, width: 1.3, height: 1.05, frameColor: '#d4af37' },
 ]
 
 interface SalonItemProps {
