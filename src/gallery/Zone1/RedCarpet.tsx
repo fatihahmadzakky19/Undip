@@ -26,7 +26,7 @@ export function RedCarpet() {
   return (
     <group position={[0, RED_CARPET.y, centerZ]}>
       {/* Main Velvet Carpet Runner Mesh */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[width, length]} />
         <meshStandardMaterial
           map={carpetTexture}

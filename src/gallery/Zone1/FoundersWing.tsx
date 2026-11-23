@@ -73,13 +73,13 @@ function FounderCard({
       }}
     >
       {/* 1. Dark Walnut Backing Board */}
-      <mesh position={[0, 0, -0.04]} castShadow>
+      <mesh position={[0, 0, -0.04]}>
         <boxGeometry args={[frameWidth + 0.08, frameHeight + 0.08, 0.04]} />
         <meshStandardMaterial color="#22150d" roughness={0.7} />
       </mesh>
 
       {/* 2. Outer Sculpted Frame (Gilded Gold for 5 Main Founders, Teak & Gold for Leadership) */}
-      <mesh position={[0, 0, 0]} castShadow receiveShadow>
+      <mesh position={[0, 0, 0]}>
         <boxGeometry args={[frameWidth, frameHeight, 0.09]} />
         <meshStandardMaterial
           color={
@@ -107,7 +107,7 @@ function FounderCard({
       </mesh>
 
       {/* 3. Deep Navy Matboard Inset */}
-      <mesh position={[0, 0, 0.035]} receiveShadow>
+      <mesh position={[0, 0, 0.035]}>
         <boxGeometry args={[frameWidth - 0.12, frameHeight - 0.12, 0.03]} />
         <meshStandardMaterial color="#0e2343" roughness={0.6} metalness={0.25} />
       </mesh>

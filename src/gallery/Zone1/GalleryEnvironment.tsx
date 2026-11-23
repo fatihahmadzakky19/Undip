@@ -48,7 +48,6 @@ export function GalleryEnvironment({
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, 0, centerZ]}
-        receiveShadow
       >
         <planeGeometry args={[halfW * 2, length]} />
         <meshStandardMaterial
@@ -62,7 +61,6 @@ export function GalleryEnvironment({
       <mesh
         position={[-halfW, height / 2, centerZ]}
         rotation={[0, Math.PI / 2, 0]}
-        receiveShadow
       >
         <planeGeometry args={[length, height]} />
         <meshStandardMaterial color="#f7f4ec" roughness={0.92} />
@@ -72,7 +70,6 @@ export function GalleryEnvironment({
       <mesh
         position={[halfW, height / 2, centerZ]}
         rotation={[0, -Math.PI / 2, 0]}
-        receiveShadow
       >
         <planeGeometry args={[length, height]} />
         <meshStandardMaterial color="#f7f4ec" roughness={0.92} />
@@ -82,7 +79,6 @@ export function GalleryEnvironment({
       <mesh
         position={[0, height / 2, HALL.zFront]}
         rotation={[0, Math.PI, 0]}
-        receiveShadow
       >
         <planeGeometry args={[halfW * 2, height]} />
         <meshStandardMaterial color="#f7f4ec" roughness={0.92} />
@@ -91,7 +87,6 @@ export function GalleryEnvironment({
       {/* 5. Back Focal Wall (Behind the Ceremonial Dais) - Royal Navy Blue */}
       <mesh
         position={[0, height / 2, HALL.zBack]}
-        receiveShadow
       >
         <planeGeometry args={[halfW * 2, height]} />
         <meshStandardMaterial color="#142e56" roughness={0.7} />
@@ -112,7 +107,7 @@ export function GalleryEnvironment({
           </mesh>
 
           {/* Heritage Brown Wainscot Panel */}
-          <mesh position={[side * (halfW - 0.04), 0.55, centerZ]} receiveShadow>
+          <mesh position={[side * (halfW - 0.04), 0.55, centerZ]}>
             <boxGeometry args={[0.08, 0.7, length]} />
             <meshStandardMaterial color="#3d2516" roughness={0.52} metalness={0.12} />
           </mesh>
@@ -139,13 +134,13 @@ export function GalleryEnvironment({
       {/* 7. Grand Classical Entrance Double Doors & Archway (Facing Inward to Visitor) */}
       <group position={[0, 0, HALL.zFront - 0.05]} rotation={[0, Math.PI, 0]}>
         {/* Outer Fluted Door Casing (Dark Teak) */}
-        <mesh position={[0, 2.2, 0.04]} castShadow receiveShadow>
+        <mesh position={[0, 2.2, 0.04]}>
           <boxGeometry args={[3.8, 4.4, 0.14]} />
           <meshStandardMaterial color="#2c1a0e" roughness={0.45} metalness={0.15} />
         </mesh>
 
         {/* Gilded Architrave / Pediment Header */}
-        <mesh position={[0, 4.45, 0.08]} castShadow>
+        <mesh position={[0, 4.45, 0.08]}>
           <boxGeometry args={[4.1, 0.35, 0.18]} />
           <meshStandardMaterial color="#142e56" roughness={0.35} metalness={0.25} />
         </mesh>
@@ -162,7 +157,7 @@ export function GalleryEnvironment({
         {[-0.9, 0.9].map((dx, di) => (
           <group key={di} position={[dx, 2.1, 0.08]}>
             {/* Door Leaf Body */}
-            <mesh castShadow receiveShadow>
+            <mesh>
               <boxGeometry args={[1.7, 4.0, 0.08]} />
               <meshStandardMaterial color="#24150b" roughness={0.5} metalness={0.12} />
             </mesh>
@@ -187,7 +182,7 @@ export function GalleryEnvironment({
 
             {/* Polished Brass Vertical Bar Pull Handle (Centered near meeting stile) */}
             <group position={[di === 0 ? 0.68 : -0.68, 0, 0.08]}>
-              <mesh castShadow>
+              <mesh>
                 <cylinderGeometry args={[0.02, 0.02, 0.65, 16]} />
                 <meshStandardMaterial color="#ffd700" roughness={0.2} metalness={0.92} />
               </mesh>

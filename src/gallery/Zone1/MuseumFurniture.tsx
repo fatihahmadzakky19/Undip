@@ -67,17 +67,17 @@ export function Bookshelf({ position, rotationY = 0 }: FurnitureProps) {
     <group position={position} rotation={[0, rotationY, 0]}>
       {/* 1. Main Outer Timber Frame */}
       {/* Left side panel */}
-      <mesh position={[-bw / 2 + 0.04, bh / 2, 0]} castShadow receiveShadow>
+      <mesh position={[-bw / 2 + 0.04, bh / 2, 0]}>
         <boxGeometry args={[0.08, bh, bd]} />
         <primitive object={materials.woodFrame} attach="material" />
       </mesh>
       {/* Right side panel */}
-      <mesh position={[bw / 2 - 0.04, bh / 2, 0]} castShadow receiveShadow>
+      <mesh position={[bw / 2 - 0.04, bh / 2, 0]}>
         <boxGeometry args={[0.08, bh, bd]} />
         <primitive object={materials.woodFrame} attach="material" />
       </mesh>
       {/* Top crown cornice */}
-      <mesh position={[0, bh + 0.05, 0]} castShadow>
+      <mesh position={[0, bh + 0.05, 0]}>
         <boxGeometry args={[bw + 0.12, 0.12, bd + 0.1]} />
         <primitive object={materials.woodFrame} attach="material" />
       </mesh>
@@ -87,7 +87,7 @@ export function Bookshelf({ position, rotationY = 0 }: FurnitureProps) {
         <primitive object={materials.goldTrim} attach="material" />
       </mesh>
       {/* Bottom base plinth */}
-      <mesh position={[0, 0.1, 0]} castShadow receiveShadow>
+      <mesh position={[0, 0.1, 0]}>
         <boxGeometry args={[bw + 0.08, 0.2, bd + 0.06]} />
         <primitive object={materials.woodFrame} attach="material" />
       </mesh>
@@ -103,7 +103,7 @@ export function Bookshelf({ position, rotationY = 0 }: FurnitureProps) {
         return (
           <group key={i}>
             {/* Shelf board */}
-            <mesh position={[0, shelfY, 0]} castShadow receiveShadow>
+            <mesh position={[0, shelfY, 0]}>
               <boxGeometry args={[bw - 0.08, 0.05, bd - 0.04]} />
               <primitive object={materials.woodFrame} attach="material" />
             </mesh>
@@ -124,7 +124,7 @@ export function Bookshelf({ position, rotationY = 0 }: FurnitureProps) {
                   return (
                     <group key={bIdx} position={[bIdx * 0.09, bHeight / 2, 0]}>
                       {/* Book spine/body */}
-                      <mesh castShadow>
+                      <mesh>
                         <boxGeometry args={[bWidth, bHeight, bDepth]} />
                         <primitive object={mat} attach="material" />
                       </mesh>
@@ -207,7 +207,7 @@ export function GlassTable({ position, rotationY = 0 }: FurnitureProps) {
   return (
     <group position={position} rotation={[0, rotationY, 0]}>
       {/* 1. Tempered Glass Top Plate */}
-      <mesh position={[0, th, 0]} castShadow receiveShadow>
+      <mesh position={[0, th, 0]}>
         <boxGeometry args={[tw, 0.02, tl]} />
         <primitive object={materials.glass} attach="material" />
       </mesh>
@@ -219,7 +219,7 @@ export function GlassTable({ position, rotationY = 0 }: FurnitureProps) {
       </mesh>
 
       {/* 2. Lower Wooden Magazine / Journal Shelf */}
-      <mesh position={[0, 0.18, 0]} castShadow receiveShadow>
+      <mesh position={[0, 0.18, 0]}>
         <boxGeometry args={[tw - 0.2, 0.025, tl - 0.2]} />
         <primitive object={materials.woodUnderShelf} attach="material" />
       </mesh>
@@ -230,7 +230,6 @@ export function GlassTable({ position, rotationY = 0 }: FurnitureProps) {
           <mesh
             key={`leg-${sx}-${sz}`}
             position={[sx * (tw / 2 - 0.08), th / 2, sz * (tl / 2 - 0.08)]}
-            castShadow
           >
             <cylinderGeometry args={[0.022, 0.018, th, 16]} />
             <primitive object={materials.goldLegs} attach="material" />
@@ -246,7 +245,7 @@ export function GlassTable({ position, rotationY = 0 }: FurnitureProps) {
 
       {/* 5. University Memorial Volume on top of table */}
       <group position={[0, th + 0.03, 0]} rotation={[0, 0.1, 0]}>
-        <mesh castShadow>
+        <mesh>
           <boxGeometry args={[0.42, 0.04, 0.32]} />
           <primitive object={materials.bookCover} attach="material" />
         </mesh>
@@ -298,19 +297,19 @@ export function Armchair({ position, rotationY = 0 }: FurnitureProps) {
   return (
     <group position={position} rotation={[0, rotationY, 0]}>
       {/* 1. Plush Seat Cushion */}
-      <mesh position={[0, 0.42, 0]} castShadow receiveShadow>
+      <mesh position={[0, 0.42, 0]}>
         <boxGeometry args={[0.74, 0.14, 0.72]} />
         <primitive object={materials.navyVelvet} attach="material" />
       </mesh>
 
       {/* 2. Seat Base Frame */}
-      <mesh position={[0, 0.32, 0]} castShadow>
+      <mesh position={[0, 0.32, 0]}>
         <boxGeometry args={[0.76, 0.06, 0.74]} />
         <primitive object={materials.woodFrame} attach="material" />
       </mesh>
 
       {/* 3. Curved Backrest */}
-      <mesh position={[0, 0.78, -0.32]} rotation={[0.08, 0, 0]} castShadow>
+      <mesh position={[0, 0.78, -0.32]} rotation={[0.08, 0, 0]}>
         <boxGeometry args={[0.72, 0.65, 0.14]} />
         <primitive object={materials.navyVelvet} attach="material" />
       </mesh>
@@ -318,7 +317,7 @@ export function Armchair({ position, rotationY = 0 }: FurnitureProps) {
       {/* 4. Left & Right Armrests */}
       {[-1, 1].map((s) => (
         <group key={s} position={[s * 0.4, 0.58, 0.02]}>
-          <mesh castShadow>
+          <mesh>
             <boxGeometry args={[0.1, 0.32, 0.68]} />
             <primitive object={materials.navyVelvet} attach="material" />
           </mesh>
@@ -337,7 +336,6 @@ export function Armchair({ position, rotationY = 0 }: FurnitureProps) {
             key={`aleg-${sx}-${sz}`}
             position={[sx * 0.32, 0.15, sz * 0.3]}
             rotation={[sz * 0.08, 0, sx * 0.08]}
-            castShadow
           >
             <cylinderGeometry args={[0.025, 0.016, 0.32, 12]} />
             <primitive object={materials.woodFrame} attach="material" />

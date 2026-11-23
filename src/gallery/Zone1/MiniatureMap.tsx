@@ -169,7 +169,7 @@ export function MiniatureMap({
       }}
     >
       {/* 1. Pedestal Base Floor Ring (Heritage Brown Teak) */}
-      <mesh position={[0, 0.04, 0]} castShadow receiveShadow>
+      <mesh position={[0, 0.04, 0]}>
         <boxGeometry args={[pw + 0.3, 0.08, pl + 0.3]} />
         <primitive object={materials.heritageBase} attach="material" />
       </mesh>
@@ -181,7 +181,7 @@ export function MiniatureMap({
       </mesh>
 
       {/* 2. Main Pedestal Body (Museum Ivory) */}
-      <mesh position={[0, ph / 2 + 0.09, 0]} castShadow receiveShadow>
+      <mesh position={[0, ph / 2 + 0.09, 0]}>
         <boxGeometry args={[pw, ph, pl]} />
         <primitive object={materials.ivoryBody} attach="material" />
       </mesh>
@@ -208,14 +208,14 @@ export function MiniatureMap({
 
       {/* 3. Front Informative Brass Plaque */}
       <group position={[0, ph * 0.65, pl / 2 + 0.02]}>
-        <mesh castShadow>
+        <mesh>
           <boxGeometry args={[1.5, 0.22, 0.02]} />
           <primitive object={materials.goldAccent} attach="material" />
         </mesh>
       </group>
 
       {/* 4. Pedestal Top Table Lip (Heritage Brown with Gold Rim) */}
-      <mesh position={[0, ph + 0.1, 0]} castShadow receiveShadow>
+      <mesh position={[0, ph + 0.1, 0]}>
         <boxGeometry args={[pw + 0.15, 0.05, pl + 0.15]} />
         <primitive object={materials.heritageBase} attach="material" />
       </mesh>
@@ -229,7 +229,6 @@ export function MiniatureMap({
       <mesh
         position={[0, ph + 0.14, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
-        receiveShadow
       >
         <planeGeometry args={[pw - 0.1, pl - 0.1]} />
         <meshStandardMaterial map={mapTexture} roughness={0.7} />
@@ -253,7 +252,7 @@ export function MiniatureMap({
           </mesh>
 
           {/* Lower Drum / Glass Rotunda Facade */}
-          <mesh position={[0, 0.055, 0]} castShadow>
+          <mesh position={[0, 0.055, 0]}>
             <cylinderGeometry args={[0.30, 0.32, 0.05, 36]} />
             <primitive object={materials.domeGlass} attach="material" />
           </mesh>
@@ -273,13 +272,13 @@ export function MiniatureMap({
           })}
 
           {/* Mid-Tier Cornice Ring */}
-          <mesh position={[0, 0.082, 0]} castShadow>
+          <mesh position={[0, 0.082, 0]}>
             <cylinderGeometry args={[0.28, 0.30, 0.012, 36]} />
             <primitive object={materials.domeMetallic} attach="material" />
           </mesh>
 
           {/* THE ICONIC MULADI DOME ROOF (Sweeping Champagne Gold Hemisphere) */}
-          <mesh position={[0, 0.088, 0]} castShadow>
+          <mesh position={[0, 0.088, 0]}>
             <sphereGeometry args={[0.25, 36, 18, 0, Math.PI * 2, 0, Math.PI * 0.5]} />
             <primitive object={materials.domeMetallic} attach="material" />
           </mesh>
@@ -295,7 +294,7 @@ export function MiniatureMap({
           </mesh>
 
           {/* Lantern Oculus / Spire Crown at Top of Muladi Dome */}
-          <mesh position={[0, 0.34, 0]} castShadow>
+          <mesh position={[0, 0.34, 0]}>
             <cylinderGeometry args={[0.038, 0.045, 0.025, 16]} />
             <primitive object={materials.ivoryBody} attach="material" />
           </mesh>
@@ -306,7 +305,7 @@ export function MiniatureMap({
 
           {/* Grand Curved Entrance Canopy Portico facing South Boulevard */}
           <group position={[0, 0.035, 0.32]}>
-            <mesh castShadow>
+            <mesh>
               <boxGeometry args={[0.22, 0.025, 0.12]} />
               <primitive object={materials.domeMetallic} attach="material" />
             </mesh>
@@ -336,17 +335,17 @@ export function MiniatureMap({
             <primitive object={materials.ivoryBody} attach="material" />
           </mesh>
           {/* Widya Puraya Lower Pyramid Tier */}
-          <mesh position={[0, 0.065, 0]} castShadow>
+          <mesh position={[0, 0.065, 0]}>
             <boxGeometry args={[0.34, 0.05, 0.34]} />
             <primitive object={materials.buildingWhite} attach="material" />
           </mesh>
           {/* Mid Stepped Tier */}
-          <mesh position={[0, 0.105, 0]} castShadow>
+          <mesh position={[0, 0.105, 0]}>
             <boxGeometry args={[0.24, 0.04, 0.24]} />
             <primitive object={materials.widyaRoofGold} attach="material" />
           </mesh>
           {/* Crown Pinnacle */}
-          <mesh position={[0, 0.15, 0]} castShadow>
+          <mesh position={[0, 0.15, 0]}>
             <coneGeometry args={[0.11, 0.11, 4]} />
             <primitive object={materials.widyaRoofGold} attach="material" />
           </mesh>
@@ -356,7 +355,7 @@ export function MiniatureMap({
             3. GEDUNG KULIAH BERSAMA (GKB) & ICT CENTER
             ============================================================ */}
         <group position={[-0.42, 0, -0.25]}>
-          <mesh position={[0, 0.06, 0]} castShadow>
+          <mesh position={[0, 0.06, 0]}>
             <boxGeometry args={[0.22, 0.12, 0.18]} />
             <primitive object={materials.buildingWhite} attach="material" />
           </mesh>
@@ -370,7 +369,7 @@ export function MiniatureMap({
             4. GEDUNG SA-MWA (SENAT AKADEMIK & MAJELIS WALI AMANAT)
             ============================================================ */}
         <group position={[0.42, 0, -0.25]}>
-          <mesh position={[0, 0.05, 0]} castShadow>
+          <mesh position={[0, 0.05, 0]}>
             <boxGeometry args={[0.22, 0.1, 0.18]} />
             <primitive object={materials.buildingWhite} attach="material" />
           </mesh>
@@ -400,7 +399,7 @@ export function MiniatureMap({
             ============================================================ */}
         {/* Fakultas Teknik (FT) - Blue Pavilion Wings */}
         <group position={[-0.72, 0, -0.65]}>
-          <mesh position={[0, 0.045, 0]} castShadow>
+          <mesh position={[0, 0.045, 0]}>
             <boxGeometry args={[0.34, 0.08, 0.22]} />
             <primitive object={materials.buildingWhite} attach="material" />
           </mesh>
@@ -412,7 +411,7 @@ export function MiniatureMap({
 
         {/* Fakultas Hukum (FH) - Heritage Brown Courts */}
         <group position={[0.72, 0, -0.65]}>
-          <mesh position={[0, 0.045, 0]} castShadow>
+          <mesh position={[0, 0.045, 0]}>
             <boxGeometry args={[0.32, 0.08, 0.22]} />
             <primitive object={materials.heritageBase} attach="material" />
           </mesh>
@@ -424,7 +423,7 @@ export function MiniatureMap({
 
         {/* Fakultas Ekonomika dan Bisnis (FEB) */}
         <group position={[-0.72, 0, 0.62]}>
-          <mesh position={[0, 0.045, 0]} castShadow>
+          <mesh position={[0, 0.045, 0]}>
             <boxGeometry args={[0.32, 0.08, 0.24]} />
             <primitive object={materials.buildingWhite} attach="material" />
           </mesh>
@@ -436,7 +435,7 @@ export function MiniatureMap({
 
         {/* Fakultas Kedokteran (FK) & RSND (Rumah Sakit Nasional Diponegoro) */}
         <group position={[0.72, 0, 0.62]}>
-          <mesh position={[0, 0.065, 0]} castShadow>
+          <mesh position={[0, 0.065, 0]}>
             <boxGeometry args={[0.36, 0.12, 0.26]} />
             <primitive object={materials.buildingWhite} attach="material" />
           </mesh>
@@ -448,13 +447,13 @@ export function MiniatureMap({
         </group>
 
         {/* FSM & FPIK */}
-        <mesh position={[-0.85, 0.035, 0.05]} castShadow>
+        <mesh position={[-0.85, 0.035, 0.05]}>
           <boxGeometry args={[0.18, 0.065, 0.28]} />
           <primitive object={materials.navyInset} attach="material" />
         </mesh>
 
         {/* FISIP & FIB */}
-        <mesh position={[0.85, 0.035, 0.05]} castShadow>
+        <mesh position={[0.85, 0.035, 0.05]}>
           <boxGeometry args={[0.18, 0.065, 0.28]} />
           <primitive object={materials.heritageBase} attach="material" />
         </mesh>
@@ -499,7 +498,7 @@ export function MiniatureMap({
       {/* 6. High-Clarity Glass Vitrine Case */}
       <group position={[0, ph + 0.14 + 0.35, 0]}>
         {/* Glass cube */}
-        <mesh castShadow receiveShadow>
+        <mesh>
           <boxGeometry args={[pw - 0.08, 0.7, pl - 0.08]} />
           <primitive object={materials.glass} attach="material" />
         </mesh>

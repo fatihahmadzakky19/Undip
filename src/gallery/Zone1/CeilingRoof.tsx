@@ -111,7 +111,6 @@ export function CeilingRoof() {
       <mesh
         rotation={[Math.PI / 2, 0, 0]}
         position={[0, 0, centerZ]}
-        receiveShadow
       >
         <planeGeometry args={[halfW * 2, length]} />
         <primitive object={materials.pvcIvoryBase} attach="material" />
@@ -150,7 +149,6 @@ export function CeilingRoof() {
             <mesh
               key={`t1-side-${s}`}
               position={[s * (bayWidth / 2 + 0.35), -0.16, 0]}
-              castShadow
             >
               <boxGeometry args={[0.7, 0.32, bayLength + 1.4]} />
               <primitive object={materials.pvcDropTier} attach="material" />
@@ -161,7 +159,6 @@ export function CeilingRoof() {
             <mesh
               key={`t1-end-${s}`}
               position={[0, -0.16, s * (bayLength / 2 + 0.35)]}
-              castShadow
             >
               <boxGeometry args={[bayWidth + 1.4, 0.32, 0.7]} />
               <primitive object={materials.pvcDropTier} attach="material" />
@@ -220,7 +217,7 @@ export function CeilingRoof() {
           {/* TIER 3: Center Recessed Ceiling with Diamond Lattice Motif (From Photo) */}
           <group position={[0, 0.12, 0]}>
             {/* Diamond Lattice PVC Motif Panel */}
-            <mesh rotation={[Math.PI / 2, 0, 0]} receiveShadow>
+            <mesh rotation={[Math.PI / 2, 0, 0]}>
               <planeGeometry args={[3.6, bayLength - 2.8]} />
               <meshStandardMaterial
                 map={diamondTexture}
