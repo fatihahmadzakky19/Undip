@@ -26,6 +26,13 @@ class AssetCache {
   }
 
   /**
+   * Get cached external texture if already loaded.
+   */
+  getExternalTexture(url: string): THREE.Texture | null {
+    return this.externalTextures.get(url) ?? null
+  }
+
+  /**
    * Asynchronously load and cache external image textures in memory.
    * Ensures files are fetched and decoded only once across mounts/renders.
    */

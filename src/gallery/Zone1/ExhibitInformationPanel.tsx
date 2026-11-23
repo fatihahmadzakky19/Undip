@@ -195,7 +195,10 @@ export function ExhibitInformationPanel({
                 />
                 <span className="gr-media-caption">
                   {isHistory && '✦ Arsip Dokumen Sejarah Undip'}
-                  {isFounder && '✦ Potret Tokoh Pendiri'}
+                  {isFounder &&
+                    (founderData?.category === 'direktorat-rektorat'
+                      ? '✦ Potret Resmi Rektor Universitas Diponegoro'
+                      : '✦ Potret Tokoh Pendiri Utama Undip')}
                   {isPrasasti && '✦ Prasasti Peresmian 1957'}
                 </span>
               </div>

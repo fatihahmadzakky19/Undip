@@ -6,7 +6,11 @@ import {
   FOUNDERS_FRAME_Y,
   FOUNDERS_WALL_X,
 } from './layout'
-import { createFounderPortraitTexture } from './textures'
+import {
+  createFounderPortraitTexture,
+  createSectionABannerTexture,
+  createSectionBBannerTexture,
+} from './textures'
 import { assetCache } from './cache'
 
 interface FounderCardProps {
@@ -36,7 +40,9 @@ function FounderCard({
     () => createFounderPortraitTexture(founder, index),
     [founder, index],
   )
-  const [loadedTexture, setLoadedTexture] = useState<THREE.Texture | null>(null)
+  const [loadedTexture, setLoadedTexture] = useState<THREE.Texture | null>(() => {
+    return founder.imagePath ? assetCache.getExternalTexture(founder.imagePath) : null
+  })
 
   useEffect(() => {
     if (!founder.imagePath) return
@@ -194,6 +200,9 @@ export function FoundersWing({
   onSelectFounder,
   onHover,
 }: FoundersWingProps) {
+  const sectionABannerTexture = useMemo(() => createSectionABannerTexture(), [])
+  const sectionBBannerTexture = useMemo(() => createSectionBBannerTexture(), [])
+
   return (
     <group>
       {/* ============================================================
@@ -212,6 +221,11 @@ export function FoundersWing({
         <mesh position={[0, 0.23, 0.04]}>
           <boxGeometry args={[9.5, 0.04, 0.02]} />
           <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+        </mesh>
+        {/* Banner Title Plate */}
+        <mesh position={[0, 0, 0.045]}>
+          <planeGeometry args={[9.3, 0.44]} />
+          <meshStandardMaterial map={sectionABannerTexture} roughness={0.3} />
         </mesh>
       </group>
 
@@ -262,6 +276,11 @@ export function FoundersWing({
         <mesh position={[0, 0.23, 0.04]}>
           <boxGeometry args={[20.5, 0.04, 0.02]} />
           <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+        </mesh>
+        {/* Banner Title Plate */}
+        <mesh position={[0, 0, 0.045]}>
+          <planeGeometry args={[20.3, 0.44]} />
+          <meshStandardMaterial map={sectionBBannerTexture} roughness={0.3} />
         </mesh>
       </group>
 

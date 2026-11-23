@@ -1886,3 +1886,49 @@ export function createIvoryGraniteTexture(): THREE.CanvasTexture {
     return toTexture(canvas)
   })
 }
+
+/** Architectural Header Banner for Section A: 5 Tokoh Pendiri Utama */
+export function createSectionABannerTexture(): THREE.CanvasTexture {
+  return assetCache.getTexture('section-a-banner-texture', () => {
+    const [canvas, ctx] = makeCanvas(2048, 128)
+    ctx.fillStyle = '#0f2240'
+    ctx.fillRect(0, 0, 2048, 128)
+
+    // Inner gold border
+    ctx.strokeStyle = '#d4af37'
+    ctx.lineWidth = 4
+    ctx.strokeRect(12, 12, 2048 - 24, 128 - 24)
+
+    // Text: PENDIRI UTAMA UNIVERSITAS DIPONEGORO (1956)
+    ctx.fillStyle = '#f8df95'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.font = 'bold 44px "Times New Roman", Georgia, serif'
+    ctx.fillText('★  PENDIRI UTAMA UNIVERSITAS DIPONEGORO (EST. 1956)  ★', 1024, 64)
+
+    return toTexture(canvas)
+  })
+}
+
+/** Architectural Header Banner for Section B: Rektor Universitas Diponegoro */
+export function createSectionBBannerTexture(): THREE.CanvasTexture {
+  return assetCache.getTexture('section-b-banner-texture', () => {
+    const [canvas, ctx] = makeCanvas(4096, 128)
+    ctx.fillStyle = '#0a1a33'
+    ctx.fillRect(0, 0, 4096, 128)
+
+    // Inner gold border
+    ctx.strokeStyle = '#d4af37'
+    ctx.lineWidth = 4
+    ctx.strokeRect(16, 12, 4096 - 32, 128 - 24)
+
+    // Text: REKTOR UNIVERSITAS DIPONEGORO DARI MASA KE MASA
+    ctx.fillStyle = '#f8df95'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.font = 'bold 46px "Times New Roman", Georgia, serif'
+    ctx.fillText('★  REKTOR UNIVERSITAS DIPONEGORO DARI MASA KE MASA  ★', 2048, 64)
+
+    return toTexture(canvas)
+  })
+}
