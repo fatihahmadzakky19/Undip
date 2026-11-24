@@ -646,8 +646,9 @@ export function CeremonialPodium({
           <primitive object={materials.redVelvet} attach="material" />
         </mesh>
 
-        {/* Ceremonial Carved Teakwood Podium Structure */}
-        <group position={[0, 0.34, 0.35]}>
+        {/* Ceremonial Carved Teakwood Podium Structure
+            Meticulously oriented so the front face and speaker lectern console directly face the entrance doors (+Z) */}
+        <group position={[0, 0.34, 0.25]}>
           {/* Base Plinth */}
           <mesh position={[0, 0.05, 0]} castShadow receiveShadow>
             <boxGeometry args={[1.2, 0.1, 0.8]} />
@@ -664,7 +665,10 @@ export function CeremonialPodium({
             <primitive object={materials.teakWood} attach="material" />
           </mesh>
 
-          {/* Carved Teak Front Frame (Clean, no weird blue plate) */}
+          {/* ============================================================
+              FRONT FACADE (Directly facing the Grand Entrance Doors at +Z)
+              Features Official UNDIP Shield Emblem, Carved Teak Frame & Gold Brass Plaque
+              ============================================================ */}
           <mesh position={[0, 0.58, 0.328]}>
             <boxGeometry args={[0.84, 0.72, 0.015]} />
             <primitive object={materials.darkTeakCarved} attach="material" />
@@ -674,7 +678,7 @@ export function CeremonialPodium({
             <primitive object={materials.goldTrim} attach="material" />
           </mesh>
 
-          {/* Official Undip Shield Emblem on Podium Front */}
+          {/* Official Undip Shield Emblem on Podium Front (Facing Entrance +Z) */}
           <mesh position={[0, 0.64, 0.342]}>
             <planeGeometry args={[0.38, 0.44]} />
             <meshStandardMaterial
@@ -689,42 +693,101 @@ export function CeremonialPodium({
             <primitive object={materials.goldBrass} attach="material" />
           </mesh>
 
-          {/* Slanted Reading Desk (Cleaned up: Zero vertical glitch boards) */}
-          <group position={[0, 1.05, 0]} rotation={[0.22, 0, 0]}>
+          {/* ============================================================
+              REAR FACADE (Facing the Speaker on the Stage Dais at -Z)
+              Carved Teakwood Finish with Dual-Sided UNDIP Emblem & Gold Trim
+              ============================================================ */}
+          <mesh position={[0, 0.58, -0.328]}>
+            <boxGeometry args={[0.84, 0.72, 0.015]} />
+            <primitive object={materials.darkTeakCarved} attach="material" />
+          </mesh>
+          <mesh position={[0, 0.58, -0.334]}>
+            <boxGeometry args={[0.82, 0.7, 0.008]} />
+            <primitive object={materials.goldTrim} attach="material" />
+          </mesh>
+          <mesh position={[0, 0.64, -0.342]} rotation={[0, Math.PI, 0]}>
+            <planeGeometry args={[0.38, 0.44]} />
+            <meshStandardMaterial
+              map={officialLogoTexture}
+              transparent
+              roughness={0.25}
+              metalness={0.5}
+            />
+          </mesh>
+          <mesh position={[0, 0.34, -0.34]}>
+            <boxGeometry args={[0.7, 0.07, 0.015]} />
+            <primitive object={materials.goldBrass} attach="material" />
+          </mesh>
+
+          {/* Left & Right Side Carved Teak Moldings with Gold Borders */}
+          {[-0.506, 0.506].map((sx, si) => (
+            <group key={`side-frame-${si}`} position={[sx, 0.58, 0]}>
+              <mesh>
+                <boxGeometry args={[0.012, 0.7, 0.48]} />
+                <primitive object={materials.darkTeakCarved} attach="material" />
+              </mesh>
+              <mesh position={[sx < 0 ? -0.004 : 0.004, 0, 0]}>
+                <boxGeometry args={[0.006, 0.68, 0.46]} />
+                <primitive object={materials.goldTrim} attach="material" />
+              </mesh>
+            </group>
+          ))}
+
+          {/* ============================================================
+              SLANTED READING DESK & SPEAKER LECTERN CONSOLE
+              Angled so a speaker standing at -Z looks forward facing the entrance (+Z).
+              Slopes down towards the speaker with document rail and microphone curving back.
+              Front has an elevated decorative teak baffle shielding speaker notes from audience.
+              ============================================================ */}
+          <group position={[0, 1.05, 0]} rotation={[-0.22, 0, 0]}>
+            {/* Main Carved Teak Desk Slab */}
             <mesh castShadow receiveShadow>
               <boxGeometry args={[1.12, 0.08, 0.75]} />
               <primitive object={materials.darkTeakCarved} attach="material" />
             </mesh>
 
-            {/* Inset Leather Desk Blotter (Properly flat in XZ plane) */}
+            {/* Raised Front Baffle / Lip (Elevated at +Z facing audience/entrance) */}
+            <mesh position={[0, 0.065, 0.365]}>
+              <boxGeometry args={[1.14, 0.06, 0.024]} />
+              <primitive object={materials.darkTeakCarved} attach="material" />
+            </mesh>
+            <mesh position={[0, 0.096, 0.365]}>
+              <boxGeometry args={[1.14, 0.01, 0.028]} />
+              <primitive object={materials.goldTrim} attach="material" />
+            </mesh>
+
+            {/* Inset Leather Desk Blotter */}
             <mesh position={[0, 0.042, 0]} rotation={[-Math.PI / 2, 0, 0]}>
               <planeGeometry args={[0.96, 0.6]} />
               <primitive object={materials.leatherBlotter} attach="material" />
             </mesh>
 
-            {/* Document Retaining Rail */}
-            <mesh position={[0, 0.055, 0.35]}>
+            {/* Document Retaining Rail (Lower edge at -Z near the speaker) */}
+            <mesh position={[0, 0.055, -0.34]}>
               <boxGeometry args={[1.0, 0.03, 0.03]} />
               <primitive object={materials.goldTrim} attach="material" />
             </mesh>
 
-            {/* Diplomatic Address Parchment Scroll (Properly flat in XZ plane) */}
-            <mesh position={[0, 0.045, 0.04]} rotation={[-Math.PI / 2, 0, 0.02]}>
+            {/* Diplomatic Address Parchment Scroll (Facing speaker reading position) */}
+            <mesh position={[0, 0.045, -0.04]} rotation={[-Math.PI / 2, 0, 0]}>
               <planeGeometry args={[0.38, 0.48]} />
               <primitive object={materials.parchment} attach="material" />
             </mesh>
 
-            {/* Condenser Studio Gooseneck Microphone */}
-            <group position={[0.26, 0.05, -0.15]}>
+            {/* Condenser Studio Gooseneck Microphone (Curving towards speaker at -Z) */}
+            <group position={[0.26, 0.05, 0.16]}>
+              {/* Heavy Gilded Microphone Mount */}
               <mesh castShadow>
                 <cylinderGeometry args={[0.04, 0.05, 0.025, 16]} />
                 <primitive object={materials.goldTrim} attach="material" />
               </mesh>
-              <mesh position={[0, 0.16, 0.05]} rotation={[0.3, 0, 0]} castShadow>
+              {/* Flexible Chrome Gooseneck Stem (Curving towards speaker at -Z) */}
+              <mesh position={[0, 0.16, -0.05]} rotation={[-0.3, 0, 0]} castShadow>
                 <cylinderGeometry args={[0.009, 0.009, 0.3, 10]} />
                 <primitive object={materials.microphoneChrome} attach="material" />
               </mesh>
-              <group position={[0, 0.32, 0.12]} rotation={[0.4, 0, 0]}>
+              {/* Professional Condenser Capsule & Acoustic Foam Pop Filter */}
+              <group position={[0, 0.32, -0.12]} rotation={[-0.4, 0, 0]}>
                 <mesh castShadow>
                   <cylinderGeometry args={[0.018, 0.018, 0.08, 16]} />
                   <primitive object={materials.microphoneChrome} attach="material" />
