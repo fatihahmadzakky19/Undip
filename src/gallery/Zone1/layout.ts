@@ -20,7 +20,7 @@ export const HALL_LENGTH = HALL.zFront - HALL.zBack // 38.0m
 export const HALL_CENTER_Z = (HALL.zFront + HALL.zBack) / 2 // -7.0m
 
 export const EYE_HEIGHT = 1.65
-export const START_POSITION: [number, number, number] = [0, EYE_HEIGHT, 11.4]
+export const START_POSITION: [number, number, number] = [0, EYE_HEIGHT, 9.5]
 export const WALK_SPEED = 3.6
 export const RUN_SPEED = 7.2 // 2x speed sprint with Shift key
 
@@ -29,13 +29,13 @@ export const BOUNDS = {
   minX: -(HALL.halfWidth - 1.2),
   maxX: HALL.halfWidth - 1.2,
   minZ: HALL.zBack + 1.8,
-  maxZ: HALL.zFront - 0.28, // Flush/mepet right at the entrance doors (Z = 11.72)
+  maxZ: HALL.zFront - 1.8,
 } as const
 
-/** Red Carpet - Runs flush from the entrance door sill (z = 11.88) to the stage front (z = -16.4) */
+/** Red Carpet - Terminates cleanly at the front step of the ceremonial stage (z = -16.4) */
 export const RED_CARPET = {
   width: 3.2,
-  zStart: 11.88,
+  zStart: 11.4,
   zEnd: -16.4,
   y: 0.02,
 } as const
@@ -60,7 +60,7 @@ export const DIRECTORY_BOARD_POS: [number, number, number] = [3.8, 0, 8.5]
 export const DIRECTORY_PROXIMITY_RADIUS = 3.2
 /** Section Teleport Targets for quick navigation */
 export const SECTION_TARGETS = {
-  entrance: [0, EYE_HEIGHT, 11.4] as [number, number, number],
+  entrance: [0, EYE_HEIGHT, 9.0] as [number, number, number],
   founders: [-4.5, EYE_HEIGHT, 0.0] as [number, number, number],
   map: [0, EYE_HEIGHT, 0.5] as [number, number, number],
   podium: [0, EYE_HEIGHT, -14.5] as [number, number, number],

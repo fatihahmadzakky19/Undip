@@ -32,40 +32,39 @@ export const EnhancedBookshelf = memo(function EnhancedBookshelf({
   const materials = useMemo(() => {
     return {
       woodFrame: new THREE.MeshStandardMaterial({
-        color: '#9c6239', // Coklat Kayu Jati Hangat Terang (Not dark brown) - clearly visible and warm
-        roughness: 0.44,
-        metalness: 0.06,
+        color: '#2a170d',
+        roughness: 0.5,
+        metalness: 0.12,
       }),
       woodBack: new THREE.MeshStandardMaterial({
-        color: '#844e2b', // Coklat medium hangat untuk bagian belakang lemari
-        roughness: 0.55,
-        metalness: 0.05,
+        color: '#1e0f07',
+        roughness: 0.65,
       }),
       goldTrim: new THREE.MeshStandardMaterial({
-        color: '#dfba45',
-        roughness: 0.25,
+        color: '#d4af37',
+        roughness: 0.28,
         metalness: 0.88,
       }),
       goldGilt: new THREE.MeshStandardMaterial({
-        color: '#ffdf4a',
+        color: '#ffd700',
         roughness: 0.2,
         metalness: 0.9,
       }),
       shelfWarmGlow: new THREE.MeshStandardMaterial({
-        color: '#ffeacc',
-        emissive: '#d4af37',
-        emissiveIntensity: 0.35,
-        roughness: 0.45,
+        color: '#fff8eb',
+        emissive: '#ffdca3',
+        emissiveIntensity: 2.6,
+        roughness: 0.25,
       }),
       bookSpines: [
-        new THREE.MeshStandardMaterial({ color: '#9e323e', roughness: 0.52 }), // Crimson Moroccan Leather
-        new THREE.MeshStandardMaterial({ color: '#2b5d99', roughness: 0.52 }), // Royal Undip Blue
-        new THREE.MeshStandardMaterial({ color: '#33784c', roughness: 0.52 }), // Oxford Emerald Green
-        new THREE.MeshStandardMaterial({ color: '#8c5632', roughness: 0.55 }), // Warm Cognac Leather
-        new THREE.MeshStandardMaterial({ color: '#445878', roughness: 0.55 }), // Scholar Slate / Indigo
+        new THREE.MeshStandardMaterial({ color: '#54151a', roughness: 0.6 }), // Burgundy
+        new THREE.MeshStandardMaterial({ color: '#0d2440', roughness: 0.6 }), // Navy
+        new THREE.MeshStandardMaterial({ color: '#163b22', roughness: 0.6 }), // Forest Green
+        new THREE.MeshStandardMaterial({ color: '#3d2516', roughness: 0.62 }), // Dark Brown
+        new THREE.MeshStandardMaterial({ color: '#1f1b29', roughness: 0.6 }), // Indigo
       ],
       pageEdges: new THREE.MeshStandardMaterial({
-        color: '#faf4e8',
+        color: '#f5eee1',
         roughness: 0.85,
       }),
     }
@@ -197,7 +196,10 @@ export const EnhancedBookshelf = memo(function EnhancedBookshelf({
           <planeGeometry args={[bw * 0.91, 0.21]} />
           <meshStandardMaterial
             map={pedimentPlateTexture}
-            roughness={0.35}
+            emissiveMap={pedimentPlateTexture}
+            emissive="#ffffff"
+            emissiveIntensity={1.4}
+            roughness={0.15}
             metalness={0.05}
           />
         </mesh>
@@ -213,10 +215,17 @@ export const EnhancedBookshelf = memo(function EnhancedBookshelf({
             <meshStandardMaterial
               color="#fffcf5"
               emissive="#ffe4b5"
-              emissiveIntensity={0.6}
-              roughness={0.3}
+              emissiveIntensity={3.2}
+              roughness={0.2}
             />
           </mesh>
+          <pointLight
+            position={[0, -0.04, 0.12]}
+            color="#fff6de"
+            intensity={20}
+            distance={4.0}
+            decay={2}
+          />
         </group>
       </group>
 
@@ -235,6 +244,9 @@ export const EnhancedBookshelf = memo(function EnhancedBookshelf({
         <boxGeometry args={[bw - 0.08, bh, 0.04]} />
         <primitive object={materials.woodBack} attach="material" />
       </mesh>
+
+      {/* Internal Warm Downlight to illuminate the books */}
+      <pointLight position={[0, bh - 0.3, bd / 4]} color="#ffe7ba" intensity={4.5} distance={3.8} decay={2} />
 
       {/* 2. Horizontal Shelves & Books */}
       {Array.from({ length: shelves }).map((_, i) => {

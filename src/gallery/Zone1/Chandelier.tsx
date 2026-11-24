@@ -147,6 +147,13 @@ export function Chandelier({ position, scale = 1 }: ChandelierProps) {
           <sphereGeometry args={[0.22, 16, 16]} />
           <primitive object={materials.lightGlow} attach="material" />
         </mesh>
+        {/* Warm radial chandelier illumination without shadow map overhead */}
+        <pointLight
+          color="#ffe7ba"
+          intensity={26}
+          distance={15}
+          decay={2}
+        />
       </group>
     </group>
   )

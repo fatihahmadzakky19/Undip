@@ -5,7 +5,6 @@ import { HISTORY_EXHIBITS } from './data/exhibits'
 import { HISTORY_WALL_X } from './layout'
 import { createHistoryPanelTexture } from './textures'
 import { assetCache } from './cache'
-import { CulledEntity } from '../common/CulledEntity'
 
 interface SalonFrameConfig {
   exhibitId: string
@@ -238,7 +237,22 @@ export const HistoryArchivesWing = memo(function HistoryArchivesWing({
   }, [])
 
   return (
-    <CulledEntity position={[HISTORY_WALL_X, 3.0, -4.5]} radius={13.0} maxDistance={38} name="history-archives-wing">
+    <group>
+      {/* Consolidated High-Efficiency Architectural Track Wash Downlights */}
+      {[3.5, -4.5, -12.5].map((wz, wi) => (
+        <spotLight
+          key={`history-wash-${wi}`}
+          position={[HISTORY_WALL_X - 1.8, 5.8, wz]}
+          target-position={[HISTORY_WALL_X, 2.5, wz]}
+          color="#fff4e0"
+          intensity={40}
+          angle={0.68}
+          penumbra={0.8}
+          distance={10.0}
+          decay={2}
+        />
+      ))}
+
       {/* Horizontal Museum Track-Lighting Beam running above the history gallery wall */}
       <group position={[HISTORY_WALL_X - 0.8, 5.2, -4.5]}>
         {/* Main Track Rail */}
@@ -281,6 +295,6 @@ export const HistoryArchivesWing = memo(function HistoryArchivesWing({
           />
         )
       })}
-    </CulledEntity>
+    </group>
   )
 })

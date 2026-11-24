@@ -212,6 +212,13 @@ export function DirectoryBoard({
             <planeGeometry args={[0.3, 0.06]} />
             <primitive object={materials.lampWarm} attach="material" />
           </mesh>
+          <pointLight
+            position={[0, -0.1, 0.1]}
+            color="#ffe7ba"
+            intensity={10}
+            distance={3.0}
+            decay={2}
+          />
         </group>
       </group>
 

@@ -204,6 +204,9 @@ export function GarudaPancasila({ position, scale = 1 }: GarudaProps) {
           <primitive object={materials.goldTrim} attach="material" />
         </mesh>
       </group>
+
+      {/* Subtle Warm Halo Light for Garuda */}
+      <pointLight position={[0, 0.2, 0.35]} color="#fff0c4" intensity={8} distance={3} />
     </group>
   )
 }

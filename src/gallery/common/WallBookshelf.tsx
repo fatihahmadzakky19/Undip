@@ -130,48 +130,48 @@ export const WallBookshelf = memo(function WallBookshelf({
   const materials = useMemo(() => {
     return {
       darkWalnut: new THREE.MeshStandardMaterial({
-        color: '#9c6239', // Coklat Kayu Jati Hangat Terang (Not dark brown) - clearly visible and warm
-        roughness: 0.44,
-        metalness: 0.06,
+        color: '#2a180e',
+        roughness: 0.52,
+        metalness: 0.12,
       }),
       darkWalnutCarved: new THREE.MeshStandardMaterial({
-        color: '#844e2b', // Coklat medium untuk lis profil ukiran dan plinth bawah
-        roughness: 0.4,
-        metalness: 0.08,
+        color: '#1f1109',
+        roughness: 0.45,
+        metalness: 0.15,
       }),
       goldTrim: new THREE.MeshStandardMaterial({
-        color: '#dfba45',
-        roughness: 0.25,
-        metalness: 0.88,
+        color: '#d4af37',
+        roughness: 0.28,
+        metalness: 0.85,
       }),
       goldAccentBright: new THREE.MeshStandardMaterial({
-        color: '#ffdf4a',
+        color: '#ffd700',
         roughness: 0.2,
         metalness: 0.9,
       }),
       warmLedGlow: new THREE.MeshStandardMaterial({
-        color: '#ffe7ba',
-        emissive: '#d4af37',
-        emissiveIntensity: 0.4,
-        roughness: 0.4,
+        color: '#fff8eb',
+        emissive: '#ffdca3',
+        emissiveIntensity: 2.5,
+        roughness: 0.25,
       }),
       leatherBlotter: new THREE.MeshStandardMaterial({
-        color: '#284770',
-        roughness: 0.6,
+        color: '#152438',
+        roughness: 0.65,
       }),
-      // Palette of authentic, vibrant historical leather & cloth book covers
-      bookNavy: new THREE.MeshStandardMaterial({ color: '#2b5d99', roughness: 0.52 }), // Royal Undip Blue
-      bookBurgundy: new THREE.MeshStandardMaterial({ color: '#9e323e', roughness: 0.52 }), // Crimson Moroccan Leather
-      bookGreen: new THREE.MeshStandardMaterial({ color: '#33784c', roughness: 0.52 }), // Oxford Emerald Green
-      bookBrown: new THREE.MeshStandardMaterial({ color: '#8c5632', roughness: 0.55 }), // Warm Cognac Leather
-      bookBlack: new THREE.MeshStandardMaterial({ color: '#4d4541', roughness: 0.58 }), // Classic Charcoal Calfskin
+      // Palette of authentic leather/cloth book covers
+      bookNavy: new THREE.MeshStandardMaterial({ color: '#0d2238', roughness: 0.6 }),
+      bookBurgundy: new THREE.MeshStandardMaterial({ color: '#54151a', roughness: 0.6 }),
+      bookGreen: new THREE.MeshStandardMaterial({ color: '#163822', roughness: 0.6 }),
+      bookBrown: new THREE.MeshStandardMaterial({ color: '#3d2516', roughness: 0.62 }),
+      bookBlack: new THREE.MeshStandardMaterial({ color: '#1a1918', roughness: 0.65 }),
       bookGoldFoil: new THREE.MeshStandardMaterial({
-        color: '#ffdf4a',
-        roughness: 0.2,
-        metalness: 0.88,
+        color: '#d4af37',
+        roughness: 0.25,
+        metalness: 0.82,
       }),
       pageEdgeIvory: new THREE.MeshStandardMaterial({
-        color: '#faf4e8',
+        color: '#f4ebd9',
         roughness: 0.85,
       }),
     }
@@ -295,12 +295,15 @@ export const WallBookshelf = memo(function WallBookshelf({
               <primitive object={materials.goldTrim} attach="material" />
             </mesh>
 
-            {/* Category Sign Face (Clear Royal Navy & Bright Gold, zero glare blowout) */}
+            {/* Glowing Category Sign Face (Emissive Royal Navy & Bright Gold) */}
             <mesh position={[0, 0, 0.012]}>
               <planeGeometry args={[plateW, plateH]} />
               <meshStandardMaterial
                 map={nameplateTexture}
-                roughness={0.35}
+                emissiveMap={nameplateTexture}
+                emissive="#ffffff"
+                emissiveIntensity={1.4}
+                roughness={0.15}
                 metalness={0.05}
               />
             </mesh>
@@ -308,7 +311,7 @@ export const WallBookshelf = memo(function WallBookshelf({
             {/* Dedicated Luminaire Hood / Gallery Picture Light Fixture */}
             <group position={[0, plateH / 2 + 0.08, 0.09]}>
               {/* Horizontal Polished Brass Shade Canopy */}
-              <mesh rotation={[0, 0, Math.PI / 2]}>
+              <mesh rotation={[0, 0, Math.PI / 2]} castShadow>
                 <cylinderGeometry args={[0.02, 0.02, plateW * 0.72, 16]} />
                 <primitive object={materials.goldTrim} attach="material" />
               </mesh>
@@ -318,8 +321,8 @@ export const WallBookshelf = memo(function WallBookshelf({
                 <meshStandardMaterial
                   color="#fffcf5"
                   emissive="#ffe4b5"
-                  emissiveIntensity={0.6}
-                  roughness={0.3}
+                  emissiveIntensity={3.2}
+                  roughness={0.2}
                 />
               </mesh>
               {/* Left & Right Brass Mounting Bracket Arms */}
@@ -329,6 +332,14 @@ export const WallBookshelf = memo(function WallBookshelf({
                   <primitive object={materials.goldTrim} attach="material" />
                 </mesh>
               ))}
+              {/* High-Luminance Downward Spotlight on Plaque & Shelf Top */}
+              <pointLight
+                position={[0, -0.05, 0.12]}
+                color="#fff6de"
+                intensity={22}
+                distance={4.2}
+                decay={2}
+              />
             </group>
           </group>
         )
@@ -343,6 +354,15 @@ export const WallBookshelf = memo(function WallBookshelf({
 
         return (
           <group key={`bay-books-${bayIdx}`} position={[bayCenterX, 0, 0]}>
+            {/* Shelf Bay Interior Warm Illumination */}
+            <pointLight
+              position={[0, 0.52, bd / 2 - 0.06]}
+              color="#ffeacc"
+              intensity={3.5}
+              distance={1.6}
+              decay={2}
+            />
+
             {/* --- Lower Shelf Books (Y = 0.18 to 0.52) --- */}
             <ShelfCluster
               shelfY={0.16}
@@ -536,6 +556,9 @@ function ShelfCluster({
 
             {/* Interactive Book Glowing Beacon / Hover Indicator */}
             <group position={[0, b.height / 2 + 0.04, b.depth / 2]}>
+              {isHovered && (
+                <pointLight color="#ffe899" intensity={6} distance={1.2} decay={2} />
+              )}
               <mesh>
                 <sphereGeometry args={[0.012, 12, 12]} />
                 <meshStandardMaterial

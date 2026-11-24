@@ -11,7 +11,6 @@ import { CeilingRoof } from './CeilingRoof'
 import { RedCarpet } from './RedCarpet'
 import { VisitorLounge } from './MuseumFurniture'
 import { DirectoryBoard } from './DirectoryBoard'
-import { CulledEntity } from '../common/CulledEntity'
 
 interface GalleryEnvironmentProps {
   isNearDirectory?: boolean
@@ -99,18 +98,18 @@ export const GalleryEnvironment = memo(function GalleryEnvironment({
           {/* Baseboard (Dark Walnut Teak) */}
           <mesh position={[side * (halfW - 0.05), 0.1, centerZ]}>
             <boxGeometry args={[0.1, 0.2, length]} />
-            <meshStandardMaterial color="#63391e" roughness={0.46} />
+            <meshStandardMaterial color="#2c1a0e" roughness={0.5} />
           </mesh>
           {/* Gold Inlay line on baseboard */}
           <mesh position={[side * (halfW - 0.09), 0.2, centerZ]}>
             <boxGeometry args={[0.02, 0.03, length]} />
-            <meshStandardMaterial color="#dfba45" roughness={0.25} metalness={0.88} />
+            <meshStandardMaterial color="#d4af37" roughness={0.28} metalness={0.85} />
           </mesh>
 
           {/* Heritage Brown Wainscot Panel */}
           <mesh position={[side * (halfW - 0.04), 0.55, centerZ]}>
             <boxGeometry args={[0.08, 0.7, length]} />
-            <meshStandardMaterial color="#7d4a29" roughness={0.46} metalness={0.08} />
+            <meshStandardMaterial color="#3d2516" roughness={0.52} metalness={0.12} />
           </mesh>
 
           {/* Gold Chair Rail Molding */}
@@ -205,21 +204,15 @@ export const GalleryEnvironment = memo(function GalleryEnvironment({
       <RedCarpet />
 
       {/* 12. EXTRA ASSETS: Visitor Lounge */}
-      <CulledEntity position={[4.8, 0.8, 3.8]} radius={3.2} maxDistance={28} name="lounge-right">
-        <VisitorLounge position={[4.8, 0, 3.8]} rotationY={-Math.PI / 6} />
-      </CulledEntity>
-      <CulledEntity position={[-4.8, 0.8, 3.8]} radius={3.2} maxDistance={28} name="lounge-left">
-        <VisitorLounge position={[-4.8, 0, 3.8]} rotationY={Math.PI / 6} />
-      </CulledEntity>
+      <VisitorLounge position={[4.8, 0, 3.8]} rotationY={-Math.PI / 6} />
+      <VisitorLounge position={[-4.8, 0, 3.8]} rotationY={Math.PI / 6} />
 
       {/* 13. EXTRA ASSET: Standing Wayfinding Directory Board */}
-      <CulledEntity position={DIRECTORY_BOARD_POS} radius={2.5} maxDistance={28} name="directory-board">
-        <DirectoryBoard
-          position={DIRECTORY_BOARD_POS}
-          rotationY={-Math.PI / 4}
-          isNear={isNearDirectory}
-        />
-      </CulledEntity>
+      <DirectoryBoard
+        position={DIRECTORY_BOARD_POS}
+        rotationY={-Math.PI / 4}
+        isNear={isNearDirectory}
+      />
     </group>
   )
 })

@@ -11,7 +11,6 @@ import {
 } from './textures'
 import { HALL } from './layout'
 import { assetCache } from './cache'
-import { CulledEntity } from '../common/CulledEntity'
 
 /**
  * Modern Architectural LED Ring Pendant Chandelier
@@ -105,6 +104,15 @@ function LedRingPendantChandelier({ position }: { position: [number, number, num
           />
         </mesh>
       </group>
+
+      {/* Soft Warm Cream Downward Illumination onto Dais (Gentle, non-glaring) */}
+      <pointLight
+        position={[0, -0.4, 0]}
+        color="#fff3e0"
+        intensity={24}
+        distance={10.0}
+        decay={2}
+      />
     </group>
   )
 }
@@ -342,13 +350,7 @@ export const CeremonialPodium = memo(function CeremonialPodium({
   const backWallZ = HALL.zBack - position[2] // relative to podium group
 
   return (
-    <CulledEntity
-      position={[position[0], 2.5, position[2] - 2.0]}
-      radius={9.5}
-      maxDistance={48}
-      name="ceremonial-podium-stage"
-    >
-      <group position={position}>
+    <group position={position}>
       {/* ============================================================
           1. BACK FOCAL WALL ARCHITECTURE & WAINSCOTING (Royal Navy)
           ============================================================ */}
@@ -408,6 +410,19 @@ export const CeremonialPodium = memo(function CeremonialPodium({
                 roughness={0.15}
               />
             </mesh>
+            {/* Optimized Spotlights placed on key structural bays (ri === 1, 3, 5) */}
+            {(ri === 1 || ri === 3 || ri === 5) && (
+              <spotLight
+                position={[0, -0.05, 0]}
+                target-position={[0, -5.0, 0]}
+                color="#fff4df"
+                intensity={38}
+                angle={0.65}
+                penumbra={0.8}
+                distance={11.0}
+                decay={2}
+              />
+            )}
           </group>
         ))}
 
@@ -917,6 +932,5 @@ export const CeremonialPodium = memo(function CeremonialPodium({
         </group>
       </group>
     </group>
-  </CulledEntity>
   )
 })

@@ -25,7 +25,6 @@ import { HistoryArchivesWing } from '../Zone1/HistoryArchivesWing'
 import { CeremonialPodium } from '../Zone1/CeremonialPodium'
 import { WallBookshelf } from './WallBookshelf'
 import { EnhancedBookshelf } from './EnhancedBookshelf'
-import { CulledEntity } from './CulledEntity'
 
 import '../Zone1/gallery.css'
 
@@ -149,7 +148,7 @@ export function MuseumGallery() {
     <div className={`gr-root${isMobile ? ' is-mobile' : ''}`}>
       {/* Three.js Monumental Heritage Scene - Optimized High-Performance Pipeline */}
       <Canvas
-        shadows={false}
+        shadows={!isMobile}
         dpr={[1, isMobile ? 1.25 : 1.75]}
         gl={{
           antialias: !isMobile,
@@ -175,8 +174,8 @@ export function MuseumGallery() {
         <AdaptiveEvents />
 
         <Suspense fallback={null}>
-          {/* Main Architectural Shell - Unified Shadow-Free Ambient Lighting */}
-          <GalleryLighting castShadows={false} />
+          {/* Main Architectural Shell */}
+          <GalleryLighting castShadows={!isMobile} />
           <GalleryEnvironment isNearDirectory={isNearDirectory} />
 
           {/* ============================================================
@@ -190,46 +189,40 @@ export function MuseumGallery() {
           />
 
           {/* Rak Buku di bawah 5 Tokoh Pendiri (Z = 8.5 to 0.5) */}
-          <CulledEntity position={[-halfW + 0.18, 0.5, 4.5]} radius={5.2} maxDistance={34} name="wall-bookshelf-pendiri">
-            <WallBookshelf
-              position={[-halfW + 0.18, 0, 4.5]}
-              rotationY={Math.PI / 2}
-              length={8.2}
-              categoryTitle="ZONA 1 — ARSIP SEJARAH PENDIRIAN & STATUTA 1956–1961"
-              interactiveBookIds={['book-akta-notaris-1956', 'book-statuta-perdana-1957', 'book-biografi-imam-bardjo']}
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
+          <WallBookshelf
+            position={[-halfW + 0.18, 0, 4.5]}
+            rotationY={Math.PI / 2}
+            length={8.2}
+            categoryTitle="ZONA 1 — ARSIP SEJARAH PENDIRIAN & STATUTA 1956–1961"
+            interactiveBookIds={['book-akta-notaris-1956', 'book-statuta-perdana-1957', 'book-biografi-imam-bardjo']}
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
 
           {/* Rak Buku di bawah Rektorat Era Pleburan (Z = -2.5 to -12.5) */}
-          <CulledEntity position={[-halfW + 0.18, 0.5, -7.5]} radius={6.0} maxDistance={34} name="wall-bookshelf-pleburan">
-            <WallBookshelf
-              position={[-halfW + 0.18, 0, -7.5]}
-              rotationY={Math.PI / 2}
-              length={9.6}
-              categoryTitle="ZONA 1 & 2 — KEPEMIMPINAN REKTORAT & KRONIKA FAKULTAS"
-              interactiveBookIds={['book-sejarah-14-fakultas', 'book-pidato-dies-sukarno-1960']}
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
+          <WallBookshelf
+            position={[-halfW + 0.18, 0, -7.5]}
+            rotationY={Math.PI / 2}
+            length={9.6}
+            categoryTitle="ZONA 1 & 2 — KEPEMIMPINAN REKTORAT & KRONIKA FAKULTAS"
+            interactiveBookIds={['book-sejarah-14-fakultas', 'book-pidato-dies-sukarno-1960']}
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
 
           {/* Rak Buku di bawah Rektorat Era Tembalang (Z = -13.5 to -23.5) */}
-          <CulledEntity position={[-halfW + 0.18, 0.5, -18.5]} radius={6.0} maxDistance={34} name="wall-bookshelf-tembalang">
-            <WallBookshelf
-              position={[-halfW + 0.18, 0, -18.5]}
-              rotationY={Math.PI / 2}
-              length={9.6}
-              categoryTitle="ZONA 3 — DOKUMENTASI REGALIA, FILSAFAH KESATRIA & HUMANIORA"
-              interactiveBookIds={['book-falsafah-kesatria-diponegoro', 'book-esai-eko-budiharjo', 'book-regalia-tongkat-rektor']}
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
+          <WallBookshelf
+            position={[-halfW + 0.18, 0, -18.5]}
+            rotationY={Math.PI / 2}
+            length={9.6}
+            categoryTitle="ZONA 3 — DOKUMENTASI REGALIA, FILSAFAH KESATRIA & HUMANIORA"
+            interactiveBookIds={['book-falsafah-kesatria-diponegoro', 'book-esai-eko-budiharjo', 'book-regalia-tongkat-rektor']}
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
 
           {/* ============================================================
               2. RIGHT WALL: GALERI SEJARAH 5 ZONA & RAK BUKU
@@ -242,95 +235,79 @@ export function MuseumGallery() {
           />
 
           {/* Rak Buku di bawah Dokumen Penegerian & Foto Pleburan (Z = 6.2 to -3.8) */}
-          <CulledEntity position={[halfW - 0.18, 0.5, 1.1]} radius={6.0} maxDistance={34} name="wall-bookshelf-penegerian">
-            <WallBookshelf
-              position={[halfW - 0.18, 0, 1.1]}
-              rotationY={-Math.PI / 2}
-              length={9.8}
-              categoryTitle="ZONA 1 & 2 — DOKUMEN PENEGERIAN PP 7/1961 & MASTERPLAN TEMBALANG"
-              interactiveBookIds={['book-pp-no-7-1961', 'book-pidato-dies-sukarno-1960', 'book-masterplan-tembalang-1977']}
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
+          <WallBookshelf
+            position={[halfW - 0.18, 0, 1.1]}
+            rotationY={-Math.PI / 2}
+            length={9.8}
+            categoryTitle="ZONA 1 & 2 — DOKUMEN PENEGERIAN PP 7/1961 & MASTERPLAN TEMBALANG"
+            interactiveBookIds={['book-pp-no-7-1961', 'book-pidato-dies-sukarno-1960', 'book-masterplan-tembalang-1977']}
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
 
           {/* Rak Buku di bawah Landmark Modern Tembalang & RSND (Z = -4.5 to -14.5) */}
-          <CulledEntity position={[halfW - 0.18, 0.5, -9.5]} radius={6.0} maxDistance={34} name="wall-bookshelf-rsnd">
-            <WallBookshelf
-              position={[halfW - 0.18, 0, -9.5]}
-              rotationY={-Math.PI / 2}
-              length={9.8}
-              categoryTitle="ZONA 4 — DOKUMENTASI KAMPUS MODERN TEMBALANG, MULADI DOME & RSND"
-              interactiveBookIds={['book-muladi-dome-monumen', 'book-rsnd-pendidikan-medis', 'book-ptnbh-transformasi-global']}
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
+          <WallBookshelf
+            position={[halfW - 0.18, 0, -9.5]}
+            rotationY={-Math.PI / 2}
+            length={9.8}
+            categoryTitle="ZONA 4 — DOKUMENTASI KAMPUS MODERN TEMBALANG, MULADI DOME & RSND"
+            interactiveBookIds={['book-muladi-dome-monumen', 'book-rsnd-pendidikan-medis', 'book-ptnbh-transformasi-global']}
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
 
           {/* Rak Buku di bawah Masa Depan & Inovasi (Z = -15.0 to -22.5) */}
-          <CulledEntity position={[halfW - 0.18, 0.5, -18.5]} radius={4.8} maxDistance={34} name="wall-bookshelf-future">
-            <WallBookshelf
-              position={[halfW - 0.18, 0, -18.5]}
-              rotationY={-Math.PI / 2}
-              length={7.6}
-              categoryTitle="ZONA 5 — BUKU PUTIH CETRAWISMA 2045, AI & GREEN CAMPUS NET ZERO"
-              interactiveBookIds={['book-undip-2045-blueprint', 'book-green-campus-net-zero', 'book-alumni-global-network']}
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
+          <WallBookshelf
+            position={[halfW - 0.18, 0, -18.5]}
+            rotationY={-Math.PI / 2}
+            length={7.6}
+            categoryTitle="ZONA 5 — BUKU PUTIH CETRAWISMA 2045, AI & GREEN CAMPUS NET ZERO"
+            interactiveBookIds={['book-undip-2045-blueprint', 'book-green-campus-net-zero', 'book-alumni-global-network']}
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
 
           {/* ============================================================
               3. LEMARI BUKU VERTIKAL (TALL HERITAGE BOOKCASES)
               ============================================================ */}
           {/* Pintu Masuk Kiri & Kanan */}
-          <CulledEntity position={[halfW - 0.35, 1.8, 10.6]} radius={2.8} maxDistance={30} name="tall-bookcase-front-right">
-            <EnhancedBookshelf
-              position={[halfW - 0.35, 0, 10.6]}
-              rotationY={-Math.PI / 2}
-              categoryTitle="ARSIP DOKUMEN PENDIRIAN & STATUTA RESMI"
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
-
-          <CulledEntity position={[-halfW + 0.35, 1.8, 10.6]} radius={2.8} maxDistance={30} name="tall-bookcase-front-left">
-            <EnhancedBookshelf
-              position={[-halfW + 0.35, 0, 10.6]}
-              rotationY={Math.PI / 2}
-              categoryTitle="KOLEKSI RISET FAKULTAS & SAINS KELAUTAN"
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
+          <EnhancedBookshelf
+            position={[halfW - 0.35, 0, 10.6]}
+            rotationY={-Math.PI / 2}
+            categoryTitle="ARSIP DOKUMEN PENDIRIAN & STATUTA RESMI"
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
+          <EnhancedBookshelf
+            position={[-halfW + 0.35, 0, 10.6]}
+            rotationY={Math.PI / 2}
+            categoryTitle="KOLEKSI RISET FAKULTAS & SAINS KELAUTAN"
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
 
           {/* Belakang Flanking Panggung Kiri & Kanan */}
-          <CulledEntity position={[halfW - 0.35, 1.8, -23.6]} radius={2.8} maxDistance={32} name="tall-bookcase-back-right">
-            <EnhancedBookshelf
-              position={[halfW - 0.35, 0, -23.6]}
-              rotationY={-Math.PI / 2}
-              categoryTitle="BUKU PUTIH TRANSFORMASI DIGITAL & AI UNDIP"
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
-
-          <CulledEntity position={[-halfW + 0.35, 1.8, -23.6]} radius={2.8} maxDistance={32} name="tall-bookcase-back-left">
-            <EnhancedBookshelf
-              position={[-halfW + 0.35, 0, -23.6]}
-              rotationY={Math.PI / 2}
-              categoryTitle="ARSIP JEJARING ALUMNI GLOBAL (IKA UNDIP)"
-              onSelectBook={handleSelectBook}
-              onHoverBook={handleHover}
-              hoveredBookId={hoveredId}
-            />
-          </CulledEntity>
+          <EnhancedBookshelf
+            position={[halfW - 0.35, 0, -23.6]}
+            rotationY={-Math.PI / 2}
+            categoryTitle="BUKU PUTIH TRANSFORMASI DIGITAL & AI UNDIP"
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
+          <EnhancedBookshelf
+            position={[-halfW + 0.35, 0, -23.6]}
+            rotationY={Math.PI / 2}
+            categoryTitle="ARSIP JEJARING ALUMNI GLOBAL (IKA UNDIP)"
+            onSelectBook={handleSelectBook}
+            onHoverBook={handleHover}
+            hoveredBookId={hoveredId}
+          />
 
           {/* ============================================================
               4. PANGGUNG UTAMA & PODIUM KEHORMATAN (TANPA MAKET MINIATUR)
