@@ -1,17 +1,37 @@
 import type { RefObject } from 'react'
 import type { Founder, HistoryExhibit } from './data/exhibits'
+import type { HeritageBook } from '../data/books'
+import type { HeritageArtifact } from '../data/artifacts'
+import type { ZoneId } from '../data/zones'
 
-export type ExhibitType = 'founder' | 'history' | 'miniature-map' | 'podium' | 'prasasti'
+export type { ZoneId, HeritageBook, HeritageArtifact }
+
+export type ExhibitType =
+  | 'founder'
+  | 'history'
+  | 'book'
+  | 'artifact'
+  | 'miniature-map'
+  | 'podium'
+  | 'prasasti'
 
 export interface SelectedExhibit {
   type: ExhibitType
-  data: Founder | HistoryExhibit | {
-    id: string
-    title: string
-    subtitle: string
-    description: string
-    highlights?: string[]
-  }
+  data:
+    | Founder
+    | HistoryExhibit
+    | HeritageBook
+    | HeritageArtifact
+    | {
+        id: string
+        title: string
+        subtitle?: string
+        description: string
+        highlights?: string[]
+        category?: string
+        period?: string
+        source?: string
+      }
 }
 
 export interface FounderFrameProps {

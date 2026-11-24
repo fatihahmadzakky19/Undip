@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { SelectedExhibit } from './types'
 import type { Founder, HistoryExhibit } from './data/exhibits'
+import type { HeritageBook } from '../data/books'
+import type { HeritageArtifact } from '../data/artifacts'
 import {
   createFounderDataURL,
   createHistoryDataURL,
@@ -74,12 +76,16 @@ export function ExhibitInformationPanel({
 
   const isFounder = selected.type === 'founder'
   const isHistory = selected.type === 'history'
+  const isBook = selected.type === 'book'
+  const isArtifact = selected.type === 'artifact'
   const isMap = selected.type === 'miniature-map'
   const isPodium = selected.type === 'podium'
   const isPrasasti = selected.type === 'prasasti'
 
   const founderData = isFounder ? (selected.data as Founder) : null
   const historyData = isHistory ? (selected.data as HistoryExhibit) : null
+  const bookData = isBook ? (selected.data as HeritageBook) : null
+  const artifactData = isArtifact ? (selected.data as HeritageArtifact) : null
 
   return (
     <>
@@ -103,6 +109,8 @@ export function ExhibitInformationPanel({
                   ? '🏛️ 5 Tokoh Pendiri Utama Undip'
                   : '🎓 Direktorat & Rektorat Undip')}
               {isHistory && `📜 ${historyData?.shortLabel || 'Arsip Sejarah'}`}
+              {isBook && `📚 Heritage Library • ${bookData?.category || 'Koleksi Buku'}`}
+              {isArtifact && `🏆 Artefak Akademik • ${artifactData?.category || 'Koleksi Museum'}`}
               {isMap && '🗺️ Maket Arsitektural'}
               {isPodium && '🎙️ Podium Kehormatan'}
               {isPrasasti && '🏛️ Prasasti Bersejarah'}
@@ -111,6 +119,8 @@ export function ExhibitInformationPanel({
             <h2 className="gr-name">
               {isFounder && founderData?.name}
               {isHistory && historyData?.title}
+              {isBook && bookData?.title}
+              {isArtifact && artifactData?.title}
               {isMap && 'Maket 3D Kampus Terpadu Universitas Diponegoro'}
               {isPodium && 'Podium Kehormatan Universitas Diponegoro'}
               {isPrasasti && 'Prasasti Pendirian & Peresmian Universitas Diponegoro'}
@@ -119,6 +129,8 @@ export function ExhibitInformationPanel({
             <p className="gr-years">
               {isFounder && `${founderData?.title} • (${founderData?.years})`}
               {isHistory && historyData?.period}
+              {isBook && `${bookData?.author} • (${bookData?.period})`}
+              {isArtifact && `${artifactData?.material} • (${artifactData?.period})`}
               {isMap && 'Pusat Utama Gedung Muladi Dome • Kawasan Tembalang'}
               {isPodium && 'Simbol Wibawa & Nilai Perjuangan Diponegoro'}
               {isPrasasti && '9 Januari 1957 • Diresmikan Presiden RI Ir. Soekarno'}
@@ -250,6 +262,70 @@ export function ExhibitInformationPanel({
                     </ul>
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* Heritage Library Book Specific Description */}
+            {isBook && bookData && (
+              <div className="gr-exhibit-text">
+                <h4 className="gr-sec-title">Kategori & Informasi Naskah</h4>
+                <p className="gr-desc-lead">{bookData.description}</p>
+
+                <div className="gr-highlights-box">
+                  <h4 className="gr-sec-title">Metadata Buku & Naskah:</h4>
+                  <ul className="gr-highlights-list">
+                    <li><strong>Penulis / Penerbit:</strong> {bookData.author}</li>
+                    <li><strong>Tahun / Periode:</strong> {bookData.period}</li>
+                    <li><strong>Klasifikasi:</strong> {bookData.category}</li>
+                    <li><strong>Lokasi Rak:</strong> Rak Buku {bookData.shelfType === 'wall' ? 'Dinding (Wall Shelf)' : 'Pulau (Island Shelf)'}</li>
+                  </ul>
+                </div>
+
+                <h4 className="gr-sec-title">Ulasan Akademik & Signifikansi Sejarah</h4>
+                <div className="gr-desc-content">
+                  {bookData.fullContent.split('\n\n').map((paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
+                  ))}
+                </div>
+
+                <div className="gr-highlights-box" style={{ marginTop: '16px' }}>
+                  <h4 className="gr-sec-title">Sumber Referensi & Kearsipan:</h4>
+                  <p className="gr-desc-text" style={{ fontStyle: 'italic', margin: 0 }}>
+                    {bookData.source}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Academic Artifact Specific Description */}
+            {isArtifact && artifactData && (
+              <div className="gr-exhibit-text">
+                <h4 className="gr-sec-title">Deskripsi Artefak Pameran</h4>
+                <p className="gr-desc-lead">{artifactData.description}</p>
+
+                <div className="gr-highlights-box">
+                  <h4 className="gr-sec-title">Identitas & Spesifikasi Artefak:</h4>
+                  <ul className="gr-highlights-list">
+                    <li><strong>Kategori Koleksi:</strong> {artifactData.category}</li>
+                    <li><strong>Periode Sejarah:</strong> {artifactData.period}</li>
+                    <li><strong>Bahan / Material:</strong> {artifactData.material}</li>
+                    <li><strong>Display:</strong> Lemari Kaca Pelindung Khusus (*Glass Display Cabinet*)</li>
+                  </ul>
+                </div>
+
+                <h4 className="gr-sec-title">Konteks Historis & Makna Keilmuan</h4>
+                <div className="gr-desc-content">
+                  {artifactData.fullContent.split('\n\n').map((paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
+                  ))}
+                </div>
+
+                <div className="gr-highlights-box" style={{ marginTop: '16px' }}>
+                  <h4 className="gr-sec-title">Asal Koleksi & Provenansi:</h4>
+                  <p className="gr-desc-text" style={{ fontStyle: 'italic', margin: 0 }}>
+                    {artifactData.source}
+                  </p>
+                </div>
               </div>
             )}
 

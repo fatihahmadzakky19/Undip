@@ -1,11 +1,11 @@
-import { Zone1 } from './gallery'
+import { MasterMuseum } from './gallery'
 
 /**
- * Museum Virtual Undip — Scalable Multi-Zone Architecture.
- * Currently displaying Zone 1 (Ruang Kehormatan & Sejarah Undip).
+ * Universitas Diponegoro Virtual Heritage Museum & Interactive Library
+ * 1 Room • 5 Thematic Zones • Dynamic Load-on-Demand Architecture
  */
 function App() {
-  return <Zone1 />
+  return <MasterMuseum />
 }
 
 export default App
