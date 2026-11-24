@@ -21,6 +21,13 @@ const LEFT_KEYS = new Set(['KeyA', 'ArrowLeft'])
 const RIGHT_KEYS = new Set(['KeyD', 'ArrowRight'])
 const SPRINT_KEYS = new Set(['ShiftLeft', 'ShiftRight', 'Shift'])
 
+function hasAnyKey(activeKeys: Set<string>, targetKeys: Set<string>): boolean {
+  for (const k of activeKeys) {
+    if (targetKeys.has(k)) return true
+  }
+  return false
+}
+
 /**
  * 2D First-Person Museum Controls:
  * - Desktop: Click empty space to lock pointer, look around with mouse,
@@ -187,14 +194,14 @@ export function FirstPersonControls({
   useFrame((_, delta) => {
     const dt = Math.min(delta, 0.05)
 
-    // Calculate movement vector in camera local space
+    // Calculate movement vector in camera local space (Zero-allocation check)
     let forward = 0
     let strafe = 0
 
-    if (Array.from(keys.current).some((c) => FORWARD_KEYS.has(c))) forward += 1
-    if (Array.from(keys.current).some((c) => BACKWARD_KEYS.has(c))) forward -= 1
-    if (Array.from(keys.current).some((c) => RIGHT_KEYS.has(c))) strafe += 1
-    if (Array.from(keys.current).some((c) => LEFT_KEYS.has(c))) strafe -= 1
+    if (hasAnyKey(keys.current, FORWARD_KEYS)) forward += 1
+    if (hasAnyKey(keys.current, BACKWARD_KEYS)) forward -= 1
+    if (hasAnyKey(keys.current, RIGHT_KEYS)) strafe += 1
+    if (hasAnyKey(keys.current, LEFT_KEYS)) strafe -= 1
 
     if (moveInputRef.current) {
       forward += moveInputRef.current.forward

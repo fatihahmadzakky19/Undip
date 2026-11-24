@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import type { Founder } from './data/exhibits'
 import { UNDIP_FOUNDERS_5, UNDIP_LEADERSHIP_13 } from './data/exhibits'
@@ -12,6 +12,7 @@ import {
   createSectionBBannerTexture,
 } from './textures'
 import { assetCache } from './cache'
+import { CulledEntity } from '../common/CulledEntity'
 
 interface FounderCardProps {
   founder: Founder
@@ -25,7 +26,7 @@ interface FounderCardProps {
   onHover: (id: string | null) => void
 }
 
-function FounderCard({
+const FounderCard = memo(function FounderCard({
   founder,
   index,
   position,
@@ -157,17 +158,10 @@ function FounderCard({
           <meshStandardMaterial
             color="#fff6e5"
             emissive="#ffd9a0"
-            emissiveIntensity={1.8}
+            emissiveIntensity={2.5}
             roughness={0.4}
           />
         </mesh>
-        <pointLight
-          position={[0, -0.08, 0.06]}
-          color="#ffe7ba"
-          intensity={isMainFounder ? 10 : 7}
-          distance={3.2}
-          decay={2}
-        />
       </group>
 
       {/* 8. Hover Highlight Underneath */}
@@ -179,7 +173,7 @@ function FounderCard({
       )}
     </group>
   )
-}
+})
 
 interface FoundersWingProps {
   selectedFounderId: string | null
@@ -194,7 +188,7 @@ interface FoundersWingProps {
  * 1. SECTION A: 5 Tokoh Pendiri Utama Undip (Pancamitra Pendiri 1956)
  * 2. SECTION B: 13 Tokoh Direktorat & Rektorat Undip (Pimpinan dari masa ke masa)
  */
-export function FoundersWing({
+export const FoundersWing = memo(function FoundersWing({
   selectedFounderId,
   hoveredId,
   onSelectFounder,
@@ -208,45 +202,47 @@ export function FoundersWing({
       {/* ============================================================
           SECTION A: 5 TOKOH PENDIRI UTAMA UNDIP (Z = 8.5 to 0.5)
           ============================================================ */}
-      {/* Section A Banner Header */}
-      <group position={[FOUNDERS_WALL_X + 0.1, 4.45, 4.5]} rotation={[0, Math.PI / 2, 0]}>
-        <mesh>
-          <boxGeometry args={[9.5, 0.52, 0.08]} />
-          <meshStandardMaterial color="#142e56" roughness={0.35} metalness={0.3} />
-        </mesh>
-        <mesh position={[0, -0.23, 0.04]}>
-          <boxGeometry args={[9.5, 0.04, 0.02]} />
-          <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
-        </mesh>
-        <mesh position={[0, 0.23, 0.04]}>
-          <boxGeometry args={[9.5, 0.04, 0.02]} />
-          <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
-        </mesh>
-        {/* Banner Title Plate */}
-        <mesh position={[0, 0, 0.045]}>
-          <planeGeometry args={[9.3, 0.44]} />
-          <meshStandardMaterial map={sectionABannerTexture} roughness={0.3} />
-        </mesh>
-      </group>
+      <CulledEntity position={[FOUNDERS_WALL_X, 3.2, 4.5]} radius={6.0} maxDistance={36} name="founders-section-a">
+        {/* Section A Banner Header */}
+        <group position={[FOUNDERS_WALL_X + 0.1, 4.45, 4.5]} rotation={[0, Math.PI / 2, 0]}>
+          <mesh>
+            <boxGeometry args={[9.5, 0.52, 0.08]} />
+            <meshStandardMaterial color="#142e56" roughness={0.35} metalness={0.3} />
+          </mesh>
+          <mesh position={[0, -0.23, 0.04]}>
+            <boxGeometry args={[9.5, 0.04, 0.02]} />
+            <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+          </mesh>
+          <mesh position={[0, 0.23, 0.04]}>
+            <boxGeometry args={[9.5, 0.04, 0.02]} />
+            <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+          </mesh>
+          {/* Banner Title Plate */}
+          <mesh position={[0, 0, 0.045]}>
+            <planeGeometry args={[9.3, 0.44]} />
+            <meshStandardMaterial map={sectionABannerTexture} roughness={0.3} />
+          </mesh>
+        </group>
 
-      {/* 5 Tokoh Pendiri Utama */}
-      {UNDIP_FOUNDERS_5.map((founder, idx) => {
-        const z = 8.5 - idx * 2.0
-        return (
-          <FounderCard
-            key={founder.id}
-            founder={founder}
-            index={idx}
-            position={[FOUNDERS_WALL_X, FOUNDERS_FRAME_Y, z]}
-            rotationY={Math.PI / 2}
-            isMainFounder={true}
-            isSelected={selectedFounderId === founder.id}
-            isHovered={hoveredId === founder.id}
-            onSelect={onSelectFounder}
-            onHover={onHover}
-          />
-        )
-      })}
+        {/* 5 Tokoh Pendiri Utama */}
+        {UNDIP_FOUNDERS_5.map((founder, idx) => {
+          const z = 8.5 - idx * 2.0
+          return (
+            <FounderCard
+              key={founder.id}
+              founder={founder}
+              index={idx}
+              position={[FOUNDERS_WALL_X, FOUNDERS_FRAME_Y, z]}
+              rotationY={Math.PI / 2}
+              isMainFounder={true}
+              isSelected={selectedFounderId === founder.id}
+              isHovered={hoveredId === founder.id}
+              onSelect={onSelectFounder}
+              onHover={onHover}
+            />
+          )
+        })}
+      </CulledEntity>
 
       {/* Architectural Fluted Divider Pilaster between Section A and Section B */}
       <group position={[FOUNDERS_WALL_X + 0.08, 2.5, -1.0]} rotation={[0, Math.PI / 2, 0]}>
@@ -263,45 +259,47 @@ export function FoundersWing({
       {/* ============================================================
           SECTION B: 13 TOKOH DIREKTORAT & REKTORAT (Z = -2.5 to -21.7)
           ============================================================ */}
-      {/* Section B Banner Header */}
-      <group position={[FOUNDERS_WALL_X + 0.1, 4.45, -12.1]} rotation={[0, Math.PI / 2, 0]}>
-        <mesh>
-          <boxGeometry args={[20.5, 0.52, 0.08]} />
-          <meshStandardMaterial color="#102646" roughness={0.4} metalness={0.3} />
-        </mesh>
-        <mesh position={[0, -0.23, 0.04]}>
-          <boxGeometry args={[20.5, 0.04, 0.02]} />
-          <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
-        </mesh>
-        <mesh position={[0, 0.23, 0.04]}>
-          <boxGeometry args={[20.5, 0.04, 0.02]} />
-          <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
-        </mesh>
-        {/* Banner Title Plate */}
-        <mesh position={[0, 0, 0.045]}>
-          <planeGeometry args={[20.3, 0.44]} />
-          <meshStandardMaterial map={sectionBBannerTexture} roughness={0.3} />
-        </mesh>
-      </group>
+      <CulledEntity position={[FOUNDERS_WALL_X, 3.2, -12.1]} radius={11.5} maxDistance={38} name="founders-section-b">
+        {/* Section B Banner Header */}
+        <group position={[FOUNDERS_WALL_X + 0.1, 4.45, -12.1]} rotation={[0, Math.PI / 2, 0]}>
+          <mesh>
+            <boxGeometry args={[20.5, 0.52, 0.08]} />
+            <meshStandardMaterial color="#102646" roughness={0.4} metalness={0.3} />
+          </mesh>
+          <mesh position={[0, -0.23, 0.04]}>
+            <boxGeometry args={[20.5, 0.04, 0.02]} />
+            <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+          </mesh>
+          <mesh position={[0, 0.23, 0.04]}>
+            <boxGeometry args={[20.5, 0.04, 0.02]} />
+            <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+          </mesh>
+          {/* Banner Title Plate */}
+          <mesh position={[0, 0, 0.045]}>
+            <planeGeometry args={[20.3, 0.44]} />
+            <meshStandardMaterial map={sectionBBannerTexture} roughness={0.3} />
+          </mesh>
+        </group>
 
-      {/* 13 Tokoh Direktorat & Rektorat */}
-      {UNDIP_LEADERSHIP_13.map((founder, idx) => {
-        const z = -2.5 - idx * 1.6
-        return (
-          <FounderCard
-            key={founder.id}
-            founder={founder}
-            index={idx + 5}
-            position={[FOUNDERS_WALL_X, FOUNDERS_FRAME_Y, z]}
-            rotationY={Math.PI / 2}
-            isMainFounder={false}
-            isSelected={selectedFounderId === founder.id}
-            isHovered={hoveredId === founder.id}
-            onSelect={onSelectFounder}
-            onHover={onHover}
-          />
-        )
-      })}
+        {/* 13 Tokoh Direktorat & Rektorat */}
+        {UNDIP_LEADERSHIP_13.map((founder, idx) => {
+          const z = -2.5 - idx * 1.6
+          return (
+            <FounderCard
+              key={founder.id}
+              founder={founder}
+              index={idx + 5}
+              position={[FOUNDERS_WALL_X, FOUNDERS_FRAME_Y, z]}
+              rotationY={Math.PI / 2}
+              isMainFounder={false}
+              isSelected={selectedFounderId === founder.id}
+              isHovered={hoveredId === founder.id}
+              onSelect={onSelectFounder}
+              onHover={onHover}
+            />
+          )
+        })}
+      </CulledEntity>
     </group>
   )
-}
+})

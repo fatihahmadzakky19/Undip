@@ -13,9 +13,6 @@ export function DesktopHints() {
       <span>
         <kbd>Shift</kbd> lari
       </span>
-      <span>
-        <kbd>1</kbd>–<kbd>5</kbd> Ganti Zona
-      </span>
       <span>klik & geser mouse untuk melihat</span>
       <span>klik foto / buku untuk membaca</span>
       <span>

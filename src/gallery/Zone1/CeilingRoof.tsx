@@ -253,15 +253,6 @@ export function CeilingRoof() {
 
           {/* 4. Grand Multi-Tiered Crystal Chandelier Suspended in Center of Bay */}
           <Chandelier position={[0, 0.12, 0]} scale={1.2} />
-
-          {/* Ambient Cove Fill Light for this bay */}
-          <pointLight
-            position={[0, -0.6, 0]}
-            color="#fff0cc"
-            intensity={24}
-            distance={14}
-            decay={2}
-          />
         </group>
       ))}
     </group>

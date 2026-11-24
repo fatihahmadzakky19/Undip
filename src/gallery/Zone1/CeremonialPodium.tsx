@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import * as THREE from 'three'
 import type { CeremonialPodiumProps } from './types'
 import {
@@ -11,6 +11,7 @@ import {
 } from './textures'
 import { HALL } from './layout'
 import { assetCache } from './cache'
+import { CulledEntity } from '../common/CulledEntity'
 
 /**
  * Modern Architectural LED Ring Pendant Chandelier
@@ -104,15 +105,6 @@ function LedRingPendantChandelier({ position }: { position: [number, number, num
           />
         </mesh>
       </group>
-
-      {/* Soft Warm Cream Downward Illumination onto Dais (Gentle, non-glaring) */}
-      <pointLight
-        position={[0, -0.4, 0]}
-        color="#fff3e0"
-        intensity={24}
-        distance={10.0}
-        decay={2}
-      />
     </group>
   )
 }
@@ -173,7 +165,7 @@ function StaticCurvedFlag({
  * 6. Naturally waving ceremonial flags (Indonesia & Pataka Undip) fluttering in the air.
  * 7. Carved teakwood ceremonial podium (without glitchy blue board) on 2-tier dais.
  */
-export function CeremonialPodium({
+export const CeremonialPodium = memo(function CeremonialPodium({
   position,
   isSelected: _isSelected,
   isHovered: _isHovered,
@@ -350,7 +342,13 @@ export function CeremonialPodium({
   const backWallZ = HALL.zBack - position[2] // relative to podium group
 
   return (
-    <group position={position}>
+    <CulledEntity
+      position={[position[0], 2.5, position[2] - 2.0]}
+      radius={9.5}
+      maxDistance={48}
+      name="ceremonial-podium-stage"
+    >
+      <group position={position}>
       {/* ============================================================
           1. BACK FOCAL WALL ARCHITECTURE & WAINSCOTING (Royal Navy)
           ============================================================ */}
@@ -400,7 +398,7 @@ export function CeremonialPodium({
               <cylinderGeometry args={[0.18, 0.18, 0.06, 24]} />
               <primitive object={materials.goldTrim} attach="material" />
             </mesh>
-            {/* Frosted Warm Cream LED Diode Lens */}
+            {/* Frosted Warm Cream LED Diode Lens (Visibly Glowing) */}
             <mesh position={[0, -0.015, 0]} rotation={[Math.PI / 2, 0, 0]}>
               <cylinderGeometry args={[0.13, 0.13, 0.02, 24]} />
               <meshStandardMaterial
@@ -410,17 +408,6 @@ export function CeremonialPodium({
                 roughness={0.15}
               />
             </mesh>
-            {/* Downward Focused Soft Warm Cream Spot */}
-            <spotLight
-              position={[0, -0.05, 0]}
-              target-position={[0, -5.0, 0]}
-              color="#fff4df"
-              intensity={32}
-              angle={0.52}
-              penumbra={0.7}
-              distance={11.0}
-              decay={2}
-            />
           </group>
         ))}
 
@@ -630,7 +617,7 @@ export function CeremonialPodium({
           <primitive object={materials.goldTrim} attach="material" />
         </mesh>
 
-        {/* Tier 2 Stage Platform */}
+        {/* Tier 2 Stage Platform (Pure Dark Teak Carved Wood - Clean surface without carpet) */}
         <mesh position={[0, 0.26, -0.2]} castShadow receiveShadow>
           <boxGeometry args={[4.8, 0.16, 2.8]} />
           <primitive object={materials.darkTeakCarved} attach="material" />
@@ -638,12 +625,6 @@ export function CeremonialPodium({
         <mesh position={[0, 0.33, 1.2]}>
           <boxGeometry args={[4.84, 0.02, 0.04]} />
           <primitive object={materials.goldTrim} attach="material" />
-        </mesh>
-
-        {/* Red Carpet on Stage Top */}
-        <mesh position={[0, 0.345, 0.1]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-          <planeGeometry args={[2.6, 2.4]} />
-          <primitive object={materials.redVelvet} attach="material" />
         </mesh>
 
         {/* Ceremonial Carved Teakwood Podium Structure
@@ -936,5 +917,6 @@ export function CeremonialPodium({
         </group>
       </group>
     </group>
+  </CulledEntity>
   )
-}
+})

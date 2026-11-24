@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import type { HistoryExhibit } from './data/exhibits'
 import { HISTORY_EXHIBITS } from './data/exhibits'
 import { HISTORY_WALL_X } from './layout'
 import { createHistoryPanelTexture } from './textures'
 import { assetCache } from './cache'
+import { CulledEntity } from '../common/CulledEntity'
 
 interface SalonFrameConfig {
   exhibitId: string
@@ -70,7 +71,7 @@ interface SalonItemProps {
   onHover: (id: string | null) => void
 }
 
-function SalonItem({
+const SalonItem = memo(function SalonItem({
   config,
   exhibit,
   isSelected,
@@ -166,7 +167,7 @@ function SalonItem({
       )}
     </group>
   )
-}
+})
 
 interface HistoryArchivesWingProps {
   selectedExhibitId: string | null
@@ -184,12 +185,6 @@ interface ActiveTrackSpotlightProps {
 }
 
 function ActiveTrackSpotlight({ z }: ActiveTrackSpotlightProps) {
-  const targetObj = useMemo(() => {
-    const obj = new THREE.Object3D()
-    obj.position.set(0.8, -2.3, 0)
-    return obj
-  }, [])
-
   return (
     <group position={[HISTORY_WALL_X - 0.8, 5.15, z]}>
       {/* Track Stem Connector attaching canister to horizontal pole */}
@@ -226,33 +221,11 @@ function ActiveTrackSpotlight({ z }: ActiveTrackSpotlightProps) {
         <cylinderGeometry args={[0.055, 0.055, 0.01, 16]} />
         <meshStandardMaterial color="#d4af37" metalness={0.9} roughness={0.2} />
       </mesh>
-
-      {/* Realistic Local Fixture Glow */}
-      <pointLight
-        position={[0.09, -0.11, 0]}
-        color="#ffe299"
-        intensity={3.5}
-        distance={2.0}
-        decay={2}
-      />
-
-      {/* Directed Warm Museum Wall Spotlight */}
-      <primitive object={targetObj} />
-      <spotLight
-        position={[0.08, -0.1, 0]}
-        target={targetObj}
-        color="#fff1dc"
-        intensity={36}
-        angle={0.62}
-        penumbra={0.7}
-        distance={8.5}
-        decay={2}
-      />
     </group>
   )
 }
 
-export function HistoryArchivesWing({
+export const HistoryArchivesWing = memo(function HistoryArchivesWing({
   selectedExhibitId,
   hoveredId,
   onSelectExhibit,
@@ -265,7 +238,7 @@ export function HistoryArchivesWing({
   }, [])
 
   return (
-    <group>
+    <CulledEntity position={[HISTORY_WALL_X, 3.0, -4.5]} radius={13.0} maxDistance={38} name="history-archives-wing">
       {/* Horizontal Museum Track-Lighting Beam running above the history gallery wall */}
       <group position={[HISTORY_WALL_X - 0.8, 5.2, -4.5]}>
         {/* Main Track Rail */}
@@ -308,6 +281,6 @@ export function HistoryArchivesWing({
           />
         )
       })}
-    </group>
+    </CulledEntity>
   )
-}
+})

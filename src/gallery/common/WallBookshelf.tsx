@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import type { HeritageBook } from '../data/books'
 import { HERITAGE_BOOKS } from '../data/books'
@@ -24,7 +24,7 @@ interface WallBookshelfProps {
  * - Realistic book arrangements (vertical clusters, leaning books, horizontal stacks)
  * - Clickable interactive books with golden hover aura
  */
-export function WallBookshelf({
+export const WallBookshelf = memo(function WallBookshelf({
   position,
   rotationY = 0,
   length = 4.8,
@@ -44,37 +44,82 @@ export function WallBookshelf({
       .filter((b): b is HeritageBook => b !== undefined)
   }, [interactiveBookIds])
 
-  // Canvas texture for brass category nameplate
+  // Canvas texture for luxury illuminated category nameplate
   const nameplateTexture = useMemo(() => {
     const canvas = document.createElement('canvas')
-    canvas.width = 1024
-    canvas.height = 128
+    canvas.width = 2048
+    canvas.height = 256
     const ctx = canvas.getContext('2d')
     if (ctx) {
-      // Antique Brushed Brass Background
-      const grad = ctx.createLinearGradient(0, 0, 1024, 0)
-      grad.addColorStop(0, '#785b24')
-      grad.addColorStop(0.2, '#c49b45')
-      grad.addColorStop(0.5, '#e4c478')
-      grad.addColorStop(0.8, '#c49b45')
-      grad.addColorStop(1, '#785b24')
-      ctx.fillStyle = grad
-      ctx.fillRect(0, 0, 1024, 128)
+      // 1. Prestigious Deep Royal UNDIP Navy Blue Enamel Background
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, 256)
+      bgGrad.addColorStop(0, '#0f2b5a')
+      bgGrad.addColorStop(0.3, '#0b1e3d')
+      bgGrad.addColorStop(0.7, '#07152b')
+      bgGrad.addColorStop(1, '#040d1c')
+      ctx.fillStyle = bgGrad
+      ctx.fillRect(0, 0, 2048, 256)
 
-      // Double Gold Rim Border
-      ctx.strokeStyle = '#3d2516'
-      ctx.lineWidth = 4
-      ctx.strokeRect(8, 8, 1008, 112)
-      ctx.strokeStyle = '#ffffff'
-      ctx.lineWidth = 1.5
-      ctx.strokeRect(14, 14, 996, 100)
+      // Subtle horizontal brushed sheen
+      const sheenGrad = ctx.createLinearGradient(0, 0, 2048, 0)
+      sheenGrad.addColorStop(0, 'rgba(212, 175, 55, 0.05)')
+      sheenGrad.addColorStop(0.2, 'rgba(255, 255, 255, 0.12)')
+      sheenGrad.addColorStop(0.5, 'rgba(255, 235, 170, 0.22)')
+      sheenGrad.addColorStop(0.8, 'rgba(255, 255, 255, 0.12)')
+      sheenGrad.addColorStop(1, 'rgba(212, 175, 55, 0.05)')
+      ctx.fillStyle = sheenGrad
+      ctx.fillRect(0, 0, 2048, 256)
 
-      // Embossed Serif Typography
-      ctx.fillStyle = '#1a0e05'
-      ctx.font = 'bold 36px "Cinzel", "Times New Roman", Georgia, serif'
+      // 2. Multi-Tiered Gilded Antique Gold Borders
+      // Outer Primary Gold Border
+      ctx.strokeStyle = '#d4af37'
+      ctx.lineWidth = 10
+      ctx.strokeRect(12, 12, 2024, 232)
+
+      // Inner Fine Gold Inlay
+      ctx.strokeStyle = '#ffe89c'
+      ctx.lineWidth = 3
+      ctx.strokeRect(26, 26, 1996, 204)
+
+      // Corner Ornamental Diamonds
+      const drawCornerDiamond = (x: number, y: number) => {
+        ctx.fillStyle = '#ffd700'
+        ctx.beginPath()
+        ctx.moveTo(x, y - 8)
+        ctx.lineTo(x + 8, y)
+        ctx.lineTo(x, y + 8)
+        ctx.lineTo(x - 8, y)
+        ctx.closePath()
+        ctx.fill()
+        ctx.strokeStyle = '#fff'
+        ctx.lineWidth = 1.5
+        ctx.stroke()
+      }
+      drawCornerDiamond(26, 26)
+      drawCornerDiamond(2022, 26)
+      drawCornerDiamond(26, 230)
+      drawCornerDiamond(2022, 230)
+
+      // Top & Bottom Gold Accent Accent Stripes
+      ctx.fillStyle = '#d4af37'
+      ctx.fillRect(60, 36, 1928, 2)
+      ctx.fillRect(60, 218, 1928, 2)
+
+      // 3. High-Contrast Luminous White-Gold Typography
+      ctx.shadowColor = 'rgba(255, 225, 120, 0.85)'
+      ctx.shadowBlur = 16
+      ctx.fillStyle = '#ffffff'
+      ctx.font = 'bold 50px "Cinzel", "Times New Roman", Georgia, serif'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
-      ctx.fillText(`✦  ${categoryTitle.toUpperCase()}  ✦`, 512, 64)
+
+      // Clean, authoritative uppercase title with decorative gold stars
+      ctx.fillText(`✦   ${categoryTitle.toUpperCase()}   ✦`, 1024, 128)
+
+      // Second crisp pass without shadow for razor sharpness
+      ctx.shadowBlur = 0
+      ctx.fillStyle = '#fffdf0'
+      ctx.fillText(`✦   ${categoryTitle.toUpperCase()}   ✦`, 1024, 128)
     }
     const tex = new THREE.CanvasTexture(canvas)
     tex.colorSpace = THREE.SRGBColorSpace
@@ -85,48 +130,48 @@ export function WallBookshelf({
   const materials = useMemo(() => {
     return {
       darkWalnut: new THREE.MeshStandardMaterial({
-        color: '#2a180e',
-        roughness: 0.52,
-        metalness: 0.12,
+        color: '#9c6239', // Coklat Kayu Jati Hangat Terang (Not dark brown) - clearly visible and warm
+        roughness: 0.44,
+        metalness: 0.06,
       }),
       darkWalnutCarved: new THREE.MeshStandardMaterial({
-        color: '#1f1109',
-        roughness: 0.45,
-        metalness: 0.15,
+        color: '#844e2b', // Coklat medium untuk lis profil ukiran dan plinth bawah
+        roughness: 0.4,
+        metalness: 0.08,
       }),
       goldTrim: new THREE.MeshStandardMaterial({
-        color: '#d4af37',
-        roughness: 0.28,
-        metalness: 0.85,
+        color: '#dfba45',
+        roughness: 0.25,
+        metalness: 0.88,
       }),
       goldAccentBright: new THREE.MeshStandardMaterial({
-        color: '#ffd700',
+        color: '#ffdf4a',
         roughness: 0.2,
         metalness: 0.9,
       }),
       warmLedGlow: new THREE.MeshStandardMaterial({
-        color: '#fff3db',
-        emissive: '#ffd9a0',
-        emissiveIntensity: 0.75,
-        roughness: 0.3,
+        color: '#ffe7ba',
+        emissive: '#d4af37',
+        emissiveIntensity: 0.4,
+        roughness: 0.4,
       }),
       leatherBlotter: new THREE.MeshStandardMaterial({
-        color: '#152438',
-        roughness: 0.65,
+        color: '#284770',
+        roughness: 0.6,
       }),
-      // Palette of authentic leather/cloth book covers
-      bookNavy: new THREE.MeshStandardMaterial({ color: '#0d2238', roughness: 0.6 }),
-      bookBurgundy: new THREE.MeshStandardMaterial({ color: '#54151a', roughness: 0.6 }),
-      bookGreen: new THREE.MeshStandardMaterial({ color: '#163822', roughness: 0.6 }),
-      bookBrown: new THREE.MeshStandardMaterial({ color: '#3d2516', roughness: 0.62 }),
-      bookBlack: new THREE.MeshStandardMaterial({ color: '#1a1918', roughness: 0.65 }),
+      // Palette of authentic, vibrant historical leather & cloth book covers
+      bookNavy: new THREE.MeshStandardMaterial({ color: '#2b5d99', roughness: 0.52 }), // Royal Undip Blue
+      bookBurgundy: new THREE.MeshStandardMaterial({ color: '#9e323e', roughness: 0.52 }), // Crimson Moroccan Leather
+      bookGreen: new THREE.MeshStandardMaterial({ color: '#33784c', roughness: 0.52 }), // Oxford Emerald Green
+      bookBrown: new THREE.MeshStandardMaterial({ color: '#8c5632', roughness: 0.55 }), // Warm Cognac Leather
+      bookBlack: new THREE.MeshStandardMaterial({ color: '#4d4541', roughness: 0.58 }), // Classic Charcoal Calfskin
       bookGoldFoil: new THREE.MeshStandardMaterial({
-        color: '#d4af37',
-        roughness: 0.25,
-        metalness: 0.82,
+        color: '#ffdf4a',
+        roughness: 0.2,
+        metalness: 0.88,
       }),
       pageEdgeIvory: new THREE.MeshStandardMaterial({
-        color: '#f4ebd9',
+        color: '#faf4e8',
         roughness: 0.85,
       }),
     }
@@ -230,20 +275,64 @@ export function WallBookshelf({
       </mesh>
 
       {/* ============================================================
-          3. ANTIQUE BRASS CATEGORY NAMEPLATE
-          Centered proudly on the top front mantle
+          3. ILLUMINATED ROYAL NAVY & GOLD CATEGORY NAMEPLATE
+          Enlarged, high-contrast, self-luminous with dedicated gallery spotlight
           ============================================================ */}
-      <group position={[0, bh + 0.08, bd / 2 - 0.01]}>
-        {/* Nameplate Base Plate */}
-        <mesh position={[0, 0, 0]} castShadow>
-          <boxGeometry args={[Math.min(bw * 0.75, 2.2), 0.12, 0.015]} />
-          <primitive object={materials.goldTrim} attach="material" />
-        </mesh>
-        <mesh position={[0, 0, 0.009]}>
-          <planeGeometry args={[Math.min(bw * 0.75, 2.16), 0.105]} />
-          <meshStandardMaterial map={nameplateTexture} roughness={0.3} metalness={0.7} />
-        </mesh>
-      </group>
+      {(() => {
+        const plateW = Math.min(bw * 0.85, 3.8)
+        const plateH = 0.24
+        return (
+          <group position={[0, bh + plateH / 2 + 0.04, bd / 2 - 0.01]}>
+            {/* Dark Walnut Architectural Backing Plaque */}
+            <mesh position={[0, 0, -0.01]} castShadow>
+              <boxGeometry args={[plateW + 0.1, plateH + 0.08, 0.025]} />
+              <primitive object={materials.darkWalnutCarved} attach="material" />
+            </mesh>
+
+            {/* Antique Gold Beveled Frame Trim */}
+            <mesh position={[0, 0, -0.002]} castShadow>
+              <boxGeometry args={[plateW + 0.06, plateH + 0.04, 0.02]} />
+              <primitive object={materials.goldTrim} attach="material" />
+            </mesh>
+
+            {/* Category Sign Face (Clear Royal Navy & Bright Gold, zero glare blowout) */}
+            <mesh position={[0, 0, 0.012]}>
+              <planeGeometry args={[plateW, plateH]} />
+              <meshStandardMaterial
+                map={nameplateTexture}
+                roughness={0.35}
+                metalness={0.05}
+              />
+            </mesh>
+
+            {/* Dedicated Luminaire Hood / Gallery Picture Light Fixture */}
+            <group position={[0, plateH / 2 + 0.08, 0.09]}>
+              {/* Horizontal Polished Brass Shade Canopy */}
+              <mesh rotation={[0, 0, Math.PI / 2]}>
+                <cylinderGeometry args={[0.02, 0.02, plateW * 0.72, 16]} />
+                <primitive object={materials.goldTrim} attach="material" />
+              </mesh>
+              {/* Frosted Warm White LED Diffuser Strip */}
+              <mesh position={[0, -0.012, 0]} rotation={[Math.PI / 2, 0, 0]}>
+                <boxGeometry args={[plateW * 0.7, 0.012, 0.016]} />
+                <meshStandardMaterial
+                  color="#fffcf5"
+                  emissive="#ffe4b5"
+                  emissiveIntensity={0.6}
+                  roughness={0.3}
+                />
+              </mesh>
+              {/* Left & Right Brass Mounting Bracket Arms */}
+              {[-plateW * 0.28, plateW * 0.28].map((armX, armIdx) => (
+                <mesh key={`arm-${armIdx}`} position={[armX, -0.04, -0.05]} rotation={[0.4, 0, 0]}>
+                  <cylinderGeometry args={[0.008, 0.008, 0.12, 8]} />
+                  <primitive object={materials.goldTrim} attach="material" />
+                </mesh>
+              ))}
+            </group>
+          </group>
+        )
+      })()}
 
       {/* ============================================================
           4. CURATED BOOK COLLECTIONS (LOWER & UPPER TIERS)
@@ -290,7 +379,7 @@ export function WallBookshelf({
       })}
     </group>
   )
-}
+})
 
 interface ShelfClusterProps {
   shelfY: number
@@ -380,32 +469,46 @@ function ShelfCluster({
 
         const isHovered = b.isInteractive && b.interactiveData?.id === activeHoverId
 
+        // High-Performance Optimization:
+        // Decorative background books do not need raycast listeners or micro-submeshes
+        if (!b.isInteractive) {
+          return (
+            <mesh
+              key={`bk-${idx}`}
+              position={[posX, b.height / 2, 0]}
+              rotation={[0, 0, b.tiltAngle]}
+            >
+              <boxGeometry args={[b.width, b.height, b.depth]} />
+              <primitive
+                object={materials[b.materialKey] || materials.bookNavy}
+                attach="material"
+              />
+            </mesh>
+          )
+        }
+
+        // Interactive Curated Historical Volumes:
+        // Full rich tactile leather details, gold spine bands, hover glowing beacon & raycasting
         return (
           <group
             key={`bk-${idx}`}
             position={[posX, b.height / 2, 0]}
             rotation={[0, 0, b.tiltAngle]}
             onPointerOver={(e) => {
-              if (b.isInteractive && b.interactiveData) {
-                e.stopPropagation()
-                onHoverBook?.(b.interactiveData.id)
-              }
+              e.stopPropagation()
+              if (b.interactiveData) onHoverBook?.(b.interactiveData.id)
             }}
             onPointerOut={(e) => {
-              if (b.isInteractive) {
-                e.stopPropagation()
-                onHoverBook?.(null)
-              }
+              e.stopPropagation()
+              onHoverBook?.(null)
             }}
             onClick={(e) => {
-              if (b.isInteractive && b.interactiveData) {
-                e.stopPropagation()
-                onSelectBook?.(b.interactiveData)
-              }
+              e.stopPropagation()
+              if (b.interactiveData) onSelectBook?.(b.interactiveData)
             }}
           >
             {/* Book Body */}
-            <mesh castShadow receiveShadow>
+            <mesh>
               <boxGeometry args={[b.width, b.height, b.depth]} />
               <primitive
                 object={
@@ -432,21 +535,16 @@ function ShelfCluster({
             </mesh>
 
             {/* Interactive Book Glowing Beacon / Hover Indicator */}
-            {b.isInteractive && (
-              <group position={[0, b.height / 2 + 0.04, b.depth / 2]}>
-                {isHovered && (
-                  <pointLight color="#ffe899" intensity={6} distance={1.2} decay={2} />
-                )}
-                <mesh>
-                  <sphereGeometry args={[0.012, 12, 12]} />
-                  <meshStandardMaterial
-                    color="#ffd700"
-                    emissive="#ffcc00"
-                    emissiveIntensity={isHovered ? 2.5 : 1.2}
-                  />
-                </mesh>
-              </group>
-            )}
+            <group position={[0, b.height / 2 + 0.04, b.depth / 2]}>
+              <mesh>
+                <sphereGeometry args={[0.012, 12, 12]} />
+                <meshStandardMaterial
+                  color="#ffd700"
+                  emissive="#ffcc00"
+                  emissiveIntensity={isHovered ? 2.5 : 1.2}
+                />
+              </mesh>
+            </group>
           </group>
         )
       })}

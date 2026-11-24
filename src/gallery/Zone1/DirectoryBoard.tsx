@@ -73,14 +73,7 @@ function createDirectoryTexture(): THREE.CanvasTexture {
   ctx.fillRect(360, 270, 80, 280)
   ctx.fillStyle = '#ffd966'
   ctx.font = 'bold 13px sans-serif'
-  ctx.fillText('Karpet Merah', 400, 470)
-
-  // Map box
-  ctx.fillStyle = '#d4af37'
-  ctx.fillRect(375, 360, 50, 40)
-  ctx.fillStyle = '#000'
-  ctx.font = 'bold 11px sans-serif'
-  ctx.fillText('Maket', 400, 385)
+  ctx.fillText('Karpet Merah', 400, 430)
 
   // Podium box
   ctx.fillStyle = '#d4af37'
@@ -97,7 +90,7 @@ function createDirectoryTexture(): THREE.CanvasTexture {
 
   const items = [
     '✦ Sayap Kiri: 13 Potret Pendiri Undip (Mr. Soedarto, Mr. Imam Bardjo, dll)',
-    '✦ Area Tengah: Karpet Merah Menuju Maket 3D Kampus & Podium Kehormatan',
+    '✦ Area Tengah: Karpet Merah Megah Menuju Panggung & Podium Kehormatan',
     '✦ Sayap Kanan: Arsip Pendirian 1956, SK Penegerian 1961, Foto Awal Kampus',
     '✦ Atap Arsitektur: Pola Ritmik Celah Persegi Panjang Emas & Pencahayaan Estetik',
   ]
@@ -219,13 +212,6 @@ export function DirectoryBoard({
             <planeGeometry args={[0.3, 0.06]} />
             <primitive object={materials.lampWarm} attach="material" />
           </mesh>
-          <pointLight
-            position={[0, -0.1, 0.1]}
-            color="#ffe7ba"
-            intensity={10}
-            distance={3.0}
-            decay={2}
-          />
         </group>
       </group>
 

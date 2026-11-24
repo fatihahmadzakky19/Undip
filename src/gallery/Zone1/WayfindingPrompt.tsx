@@ -1,24 +1,19 @@
 import { useState } from 'react'
 import type { SectionType } from './types'
-import { MUSEUM_ZONES } from '../data/zones'
 
 interface WayfindingPromptProps {
   visible: boolean
-  activeZoneId?: string
   onTeleport: (section: SectionType) => void
-  onSelectZone?: (zoneId: 'zone1' | 'zone2' | 'zone3' | 'zone4' | 'zone5') => void
   onDismiss?: () => void
 }
 
 /**
  * Interactive Wayfinding Prompt: "Mau kemana??"
- * Displays 5 Zones and prominent museum landmarks when the visitor approaches the 3D Directory Board.
+ * Appears when visitor stands near the 3D Directory Board near the entrance.
  */
 export function WayfindingPrompt({
   visible,
-  activeZoneId,
   onTeleport,
-  onSelectZone,
   onDismiss,
 }: WayfindingPromptProps) {
   const [dismissed, setDismissed] = useState(false)
@@ -30,13 +25,8 @@ export function WayfindingPrompt({
 
   if (!visible || dismissed) return null
 
-  const handleSelectSection = (section: SectionType) => {
+  const handleSelect = (section: SectionType) => {
     onTeleport(section)
-    setDismissed(true)
-  }
-
-  const handleSelectZone = (zoneId: 'zone1' | 'zone2' | 'zone3' | 'zone4' | 'zone5') => {
-    onSelectZone?.(zoneId)
     setDismissed(true)
   }
 
@@ -45,7 +35,7 @@ export function WayfindingPrompt({
       <div className="gr-wayfind-card">
         <header className="gr-wayfind-head">
           <div className="gr-wayfind-tag">
-            <span>📍 Papan Panduan & Direktori 5 Zona</span>
+            <span>📍 Papan Panduan & Direktori Museum</span>
           </div>
           <button
             type="button"
@@ -63,67 +53,55 @@ export function WayfindingPrompt({
         <div className="gr-wayfind-body">
           <h3 className="gr-wayfind-question">Mau kemana??</h3>
           <p className="gr-wayfind-subtitle">
-            Pilih Zona Sejarah atau Landmark Utama yang ingin Anda jelajahi:
+            Pilih area museum yang ingin Anda kunjungi secara langsung:
           </p>
 
-          {/* 5 Museum Zones */}
-          <div className="gr-wayfind-grid">
-            {MUSEUM_ZONES.map((zone) => {
-              const isCurrent = zone.id === activeZoneId
-              return (
-                <button
-                  key={zone.id}
-                  type="button"
-                  className={`gr-wayfind-btn ${isCurrent ? 'is-active' : 'gr-wayfind-gold'}`}
-                  onClick={() => handleSelectZone(zone.id)}
-                >
-                  <span className="gr-btn-icon">🏛️</span>
-                  <div className="gr-btn-text">
-                    <strong>Zona {zone.number}: {zone.title}</strong>
-                    <small>{zone.subtitle}</small>
-                  </div>
-                </button>
-              )
-            })}
-          </div>
-
-          <div className="gr-wayfind-divider" />
-
-          {/* Landmark Landmarks */}
           <div className="gr-wayfind-grid">
             <button
               type="button"
               className="gr-wayfind-btn gr-wayfind-gold"
-              onClick={() => handleSelectSection('podium')}
+              onClick={() => handleSelect('founders')}
             >
-              <span className="gr-btn-icon">🎙️</span>
+              <span className="gr-btn-icon">👥</span>
               <div className="gr-btn-text">
-                <strong>Podium Kehormatan</strong>
-                <small>Panggung Utama Dies Natalis</small>
+                <strong>5 Pendiri & 13 Rektorat</strong>
+                <small>Sayap Kiri • 5 Pendiri Utama & Pimpinan dari Masa ke Masa</small>
               </div>
             </button>
 
             <button
               type="button"
               className="gr-wayfind-btn gr-wayfind-gold"
-              onClick={() => handleSelectSection('map')}
-            >
-              <span className="gr-btn-icon">🗺️</span>
-              <div className="gr-btn-text">
-                <strong>Maket Kawasan Kampus</strong>
-                <small>Tata Ruang 3D Tembalang</small>
-              </div>
-            </button>
-
-            <button
-              type="button"
-              className="gr-wayfind-btn gr-wayfind-gold"
-              onClick={() => handleSelectSection('prasasti')}
+              onClick={() => handleSelect('history')}
             >
               <span className="gr-btn-icon">📜</span>
               <div className="gr-btn-text">
+                <strong>Galeri Sejarah 5 Zona & Arsip</strong>
+                <small>Sayap Kanan • Milestones Zona 1 hingga Zona 5</small>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              className="gr-wayfind-btn gr-wayfind-gold"
+              onClick={() => handleSelect('podium')}
+            >
+              <span className="gr-btn-icon">🎙️</span>
+              <div className="gr-btn-text">
+                <strong>Podium Kehormatan Undip</strong>
+                <small>Ujung Karpet Merah • Panggung Upacara & Orasi</small>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              className="gr-wayfind-btn gr-wayfind-gold"
+              onClick={() => handleSelect('prasasti')}
+            >
+              <span className="gr-btn-icon">🏛️</span>
+              <div className="gr-btn-text">
                 <strong>Prasasti Peresmian 1957</strong>
-                <small>Batu Obsidian Presiden Sukarno</small>
+                <small>Sisi Kiri Panggung • Marmer Hitam Obsidian Sukarno</small>
               </div>
             </button>
           </div>
@@ -132,3 +110,4 @@ export function WayfindingPrompt({
     </div>
   )
 }
+

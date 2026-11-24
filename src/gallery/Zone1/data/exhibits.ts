@@ -47,7 +47,7 @@ export const UNDIP_FOUNDERS_5: Founder[] = [
     role: 'Ketua Pengadilan Tinggi Jawa Tengah dan Rektor pertama yang meresmikan perkuliahan perdana tahun 1957.',
     description: 'Mr. Imam Bardjo memimpin universitas di masa-masa awal yang penuh keterbatasan. Dengan wibawa kepemimpinannya, beliau berhasil menyatukan para akademisi dan praktisi hukum untuk mendirikan Fakultas Hukum dan Masyarakat serta Akademi Administrasi Negara.',
     quote: 'Bermula dari cita-cita luhur di Kota Semarang untuk mencerdaskan generasi penerus bangsa.',
-    imagePath: '/textures/rektors/mr-imam-bardjo.jpg',
+    imagePath: '/textures/rektors/mr-imam-bardjo.webp',
     category: 'pendiri-utama',
   },
   {
@@ -91,7 +91,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     years: 'Periode : 1957 – 1961',
     role: 'Presiden (Rektor) pertama yang memimpin peletakan batu fondasi dan peresmian perkuliahan perdana.',
     description: 'Sebagai Presiden (Rektor) pertama, Mr. Imam Bardjo memimpin universitas di masa perintisan awal. Di tengah keterbatasan fasilitas dan sarana pascakemerdekaan, beliau berhasil menghimpun para tokoh hukum dan pemerintahan untuk menyelenggarakan pendidikan tinggi berkualitas di Semarang.',
-    imagePath: '/textures/rektors/mr-imam-bardjo.jpg',
+    imagePath: '/textures/rektors/mr-imam-bardjo.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -101,7 +101,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     years: 'Periode : 1 – 13 September 1963',
     role: 'Rektor pada masa transisi pimpinan universitas September 1963.',
     description: 'Mochtar mengemban amanah kepemimpinan sebagai Rektor Universitas Diponegoro pada awal September 1963. Pada masa peralihan kepemimpinan ini, beliau memastikan kesinambungan administrasi dan kelangsungan proses akademik universitas tetap berjalan tertib dan stabil.',
-    imagePath: '/textures/rektors/mochtar.jpg',
+    imagePath: '/textures/rektors/mochtar.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -111,7 +111,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     years: 'Periode : 1 – 13 September 1963',
     role: 'Tokoh nasional pergerakan kemerdekaan, mantan Menlu RI, dan Rektor Undip pembina integritas kebangsaan.',
     description: 'Prof. Sunario, S.H. adalah tokoh bangsa terkemuka yang berperan aktif dalam Kongres Pemuda II (Manifesto Sumpah Pemuda 1928) dan Konferensi Asia Afrika 1955. Selaku Rektor, beliau membawa kehormatan diplomasi dan wawasan kebangsaan mendalam ke seluruh civitas akademika Universitas Diponegoro.',
-    imagePath: '/textures/rektors/prof-sunario-sh.jpg',
+    imagePath: '/textures/rektors/prof-sunario-sh.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -121,7 +121,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     years: 'Periode : 14 April – 21 September 1966',
     role: 'Rektor tahun 1966 dan perintis keilmuan geodesi, geomatika & teknik nasional di Undip.',
     description: 'Prof. Ir. Jacub Rais memimpin Undip pada masa dinamis tahun 1966. Beliau adalah ilmuwan geodesi terkemuka Indonesia yang kemudian menjadi tokoh perintis Badan Koordinasi Survei dan Pemetaan Nasional (Bakosurtanal). Dedikasinya memperkuat fondasi Fakultas Teknik dan tradisi riset eksakta di Undip.',
-    imagePath: '/textures/rektors/prof-ir-jacub-rais.jpg',
+    imagePath: '/textures/rektors/prof-ir-jacub-rais.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -131,7 +131,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     years: 'Periode : 1966 – 1976',
     role: 'Rektor pemantap stabilitas kelembagaan dan pengembangan Fakultas Kedokteran selama satu dekade kepemimpinan.',
     description: 'Brigjen TNI Dr. A. Suroyo memimpin Undip selama satu dekade penuh (1966–1976). Di bawah kepemimpinannya, Undip mencapai stabilitas organisasi yang kokoh, penataan fakultas-fakultas baru, serta penguatan pendidikan kedokteran dan pelayanan kesehatan bagi masyarakat luas.',
-    imagePath: '/textures/rektors/brigjen-tni-dr-a-suroyo.jpg',
+    imagePath: '/textures/rektors/brigjen-tni-dr-a-suroyo.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -142,7 +142,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     role: 'Rektor pemrakarsa rencana induk pengembangan kampus terpadu Tembalang dan penguatan riset hukum pidana.',
     description: 'Prof. Sudarto, S.H. memimpin Universitas Diponegoro selama dua periode (1977–1986). Beliau adalah pakar hukum pidana terkemuka Indonesia yang turut menyusun naskah pembaruan hukum nasional. Di bawah kepemimpinannya, Undip mulai merintis pemindahan kampus ke kawasan Tembalang serta membangun tata kelola akademik modern dan berwibawa.',
     quote: 'Pendidikan hukum dan moralitas adalah benteng keadilan bangsa.',
-    imagePath: '/textures/rektors/prof-sudarto-sh.jpg',
+    imagePath: '/textures/rektors/prof-sudarto-sh.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -153,7 +153,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     role: 'Rektor visioner pelopor pembangunan dan relokasi kampus terpadu Tembalang 180 hektar.',
     description: 'Prof. Dr. dr. R. Moeljono Soegiarto Trastotenojo adalah dokter spesialis anak dan rektor yang merealisasikan megaproyek kampus terpadu Tembalang dengan dukungan Bank Dunia dan Pemerintah RI. Di bawah kepemimpinan beliau, Undip bertransformasi dari kampus terfragmentasi di Pleburan menjadi kawasan kampus terintegrasi modern.',
     quote: 'Membangun kampus bukan sekadar menata batu bata, tetapi membangun peradaban.',
-    imagePath: '/textures/rektors/prof-moeljono-trastotenojo.jpg',
+    imagePath: '/textures/rektors/prof-moeljono-trastotenojo.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -164,7 +164,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     role: 'Guru besar hukum pidana, Hakim Agung, dan Menteri Kehakiman RI yang mengharumkan nama Undip di kancah nasional dan internasional.',
     description: 'Prof. Dr. Muladi, S.H. adalah begawan hukum pidana dan hak asasi manusia terkemuka Indonesia. Beliau pernah menjabat sebagai Menteri Kehakiman RI, Menteri Sekretaris Negara, dan Gubernur Lemhannas. Di masa kepemimpinannya sebagai Rektor Undip, beliau memperkokoh martabat akademisi Undip dan memperluas kerjasama internasional. Sosok beliau diabadikan pada Muladi Dome.',
     quote: 'Hukum harus menjadi panglima yang mengayomi kemanusiaan dan keadilan.',
-    imagePath: '/textures/rektors/prof-muladi.jpg',
+    imagePath: '/textures/rektors/prof-muladi.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -175,7 +175,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     role: 'Sang Rektor Humanis, budayawan, dan pakar tata ruang arsitektur berwawasan lingkungan.',
     description: 'Prof. Ir. Eko Budiharjo, M.Sc. memimpin Universitas Diponegoro melewati masa genting reformasi dengan pendekatan kultural, dialogis, dan penuh humor humanis. Beliau adalah arsitek dan budayawan nasional yang sangat dicintai mahasiswa dan masyarakat luas, serta mempopulerkan penataan ruang kampus hijau dan berkarakter.',
     quote: 'Ilmu tanpa nurani dan sentuhan seni akan kehilangan makna kemanusiaannya.',
-    imagePath: '/textures/rektors/prof-eko-budiharjo.jpg',
+    imagePath: '/textures/rektors/prof-eko-budiharjo.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -186,7 +186,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     role: 'Pelopor universitas riset, pendiri RSND, dan pengembang program andrologi kedokteran unggulan.',
     description: 'Prof. Dr. dr. Susilo Wibowo, M.S. Med, Sp.And adalah pakar andrologi dan kedokteran reproduksi pertama di Indonesia yang memimpin Undip bertransformasi menjadi universitas riset. Beliau menggagas dan menginisiasi berdirinya Rumah Sakit Nasional Diponegoro (RSND) sebagai rumah sakit rujukan dan pendidikan modern di Jawa Tengah.',
     quote: 'Riset bermutu tinggi adalah nyawa utama kemajuan bangsa.',
-    imagePath: '/textures/rektors/prof-susilo-wibowo.jpg',
+    imagePath: '/textures/rektors/prof-susilo-wibowo.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -197,7 +197,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     role: 'Pelopor status PTN-BH Undip dan pengembang kampus hijau lestari (Green Campus).',
     description: 'Prof. Drs. Sudharto Prawata Hadi, MES, Ph.D. adalah pakar manajemen lingkungan hidup terkemuka Indonesia. Di bawah kepemimpinannya, Undip sukses bertransformasi menjadi Perguruan Tinggi Negeri Berbadan Hukum (PTN-BH) pada 2014 dan meraih peringkat teratas universitas ramah lingkungan UI GreenMetric.',
     quote: 'Kelestarian alam dan kemajuan ilmu pengetahuan harus senantiasa berjalan beriringan.',
-    imagePath: '/textures/rektors/prof-sudharto-p-hadi.jpg',
+    imagePath: '/textures/rektors/prof-sudharto-p-hadi.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -208,7 +208,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     role: 'Membawa Undip menembus peringkat 2 universitas paling diminati di Indonesia dan jajaran top perguruan tinggi dunia.',
     description: 'Prof. Dr. Yos Johan Utama, S.H., M.Hum. memimpin Undip selama hampir satu dekade (dua periode). Beliau berhasil mengakselerasi akreditasi internasional bagi puluhan program studi, memodernisasi fasilitas kampus megah seperti Muladi Dome, dan mengantarkan alumni Undip sebagai lulusan tercepat memperoleh pekerjaan di Indonesia (peringkat 1 QS Employability).',
     quote: 'Bekerja dengan hati, mengabdi untuk kemuliaan bangsa dan almamater.',
-    imagePath: '/textures/rektors/prof-yos-johan-utama.jpg',
+    imagePath: '/textures/rektors/prof-yos-johan-utama.webp',
     category: 'direktorat-rektorat',
   },
   {
@@ -219,7 +219,7 @@ export const UNDIP_LEADERSHIP_13: Founder[] = [
     role: 'Rektor Undip pembawa visi strategis "Undip Bermartabat, Undip Bermanfaat" era inovasi masa depan.',
     description: 'Prof. Dr. Suharnomo, S.E., M.Si. adalah pakar manajemen sumber daya manusia terkemuka dan mantan Dekan Fakultas Ekonomika dan Bisnis (FEB) Undip. Beliau memimpin Universitas Diponegoro menuju era transformasi digital, hilirisasi hasil riset terapan bagi industri, serta penguatan pengabdian masyarakat yang inklusif dan berdaya saing global.',
     quote: 'Undip Bermartabat, Undip Bermanfaat bagi nusa dan bangsa.',
-    imagePath: '/textures/rektors/prof-suharnomo.jpg',
+    imagePath: '/textures/rektors/prof-suharnomo.webp',
     category: 'direktorat-rektorat',
   },
 ]
@@ -243,7 +243,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Mahakarya Raden Saleh',
     description: 'Lukisan mahakarya legendaris karya Raden Saleh Syarif Bustaman (1857) yang melukiskan momen kepahlawanan dan keteguhan Pangeran Diponegoro di hadapan Jenderal De Kock.',
     fullContent: 'Karya seni monumental "Penangkapan Pangeran Diponegoro" (1857) dilukis oleh pelukis kenamaan dunia asal Semarang, Raden Saleh Syarif Bustaman. Lukisan ini menggambarkan puncak Perang Jawa (1825–1830) ketika Pangeran Diponegoro dijebak dan ditangkap secara licik saat perundingan damai di Wisma Karesidenan Magelang pada 28 Maret 1830.\n\nBerbeda dengan versi pelukis Belanda Nicolaas Pieneman yang menggambarkan Diponegoro tampak pasrah dan tunduk, Raden Saleh melukiskan sang Pangeran berdiri tegak dengan tatapan berani, tenang, penuh wibawa, dan menolak tunduk pada kolonialisme.\n\nSosok dan api perjuangan Pangeran Diponegoro inilah yang menjadi inspirasi luhur bagi Presiden RI Ir. Soekarno ketika menganugerahkan nama UNIVERSITAS DIPONEGORO pada 9 Januari 1960. Seluruh sivitas akademika Undip senantiasa meneladani karakter Diponegoro: jujur, berani, adil, peduli rakyat kecil, dan pantang menyerah.',
-    imagePath: '/textures/history/artwork-diponegoro-center.jpg',
+    imagePath: '/textures/history/artwork-diponegoro-center.webp',
     highlights: [
       'Mahakarya pelukis legendaris kelas dunia asal Semarang: Raden Saleh',
       'Menggambarkan keteguhan moral dan keberanian Pangeran Diponegoro',
@@ -301,7 +301,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Patung Diponegoro Pleburan',
     description: 'Dokumentasi arsip resmi Undip: Upacara peresmian patung Pangeran Diponegoro di halaman depan Biro Rektor Undip Kampus Pleburan Semarang.',
     fullContent: 'Foto arsip otentik bersejarah dari laman resmi Universitas Diponegoro merekam momen khidmat upacara peresmian patung Pangeran Diponegoro di pelataran halaman Gedung Biro Rektor Undip Kampus Pleburan Semarang.\n\nKampus Pleburan di Jalan Imam Bardjo berkembang menjadi pusat sentral aktivitas rektorat, senat, perkuliahan Fakultas Hukum, Fakultas Ekonomi, dan program magister-doktor. Patung Pangeran Diponegoro di depan gedung rektorat lama ini menjadi monumen ikonik kebanggaan sivitas akademika dan masyarakat Kota Semarang selama beberapa dasawarsa.',
-    imagePath: '/textures/history/early-photo-peresmian-patung-pleburan.jpg',
+    imagePath: '/textures/history/early-photo-peresmian-patung-pleburan.webp',
     highlights: [
       'Foto arsip resmi dari situs sejarah Universitas Diponegoro (undip.ac.id)',
       'Halaman Gedung Biro Rektor Undip di Kampus Pleburan Semarang',
@@ -321,7 +321,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Upacara Lapangan OR Pleburan',
     description: 'Dokumentasi arsip resmi Undip: Barisan ribuan mahasiswa dan sivitas akademika dalam apel upacara akbar di Lapangan Olah Raga Undip Pleburan.',
     fullContent: 'Dokumentasi fotografi langka dari arsip resmi Universitas Diponegoro memperlihatkan apel akbar sivitas akademika di Lapangan Olah Raga Undip Kampus Pleburan Semarang.\n\nLapangan OR Pleburan merupakan saksi sejarah tempat diselenggarakannya berbagai peristiwa penting kampus: orientasi penerimaan mahasiswa baru (Opspek/Penerimaan Mahasiswa), peringatan Dies Natalis, pekan olahraga mahasiswa, hingga apel kebangsaan. Di latar belakang tampak gedung perkuliahan bergaya arsitektur tropis 1960-an yang kokoh dan rindang dikelilingi pepohonan asam kranji.',
-    imagePath: '/textures/history/early-photo-upacara-lapangan-pleburan.jpg',
+    imagePath: '/textures/history/early-photo-upacara-lapangan-pleburan.webp',
     highlights: [
       'Foto arsip resmi dari situs sejarah Universitas Diponegoro (undip.ac.id)',
       'Upacara apel akbar mahasiswa di Lapangan Olah Raga Kampus Pleburan',
@@ -379,7 +379,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Amanat Presiden Soekarno',
     description: 'Potret Presiden Republik Indonesia Ir. Soekarno yang secara resmi menganugerahkan nama UNIVERSITAS DIPONEGORO pada Dies Natalis ke-3 tanggal 9 Januari 1960.',
     fullContent: 'Pada perayaan Dies Natalis ketiga Universitas Semarang tanggal 9 Januari 1960, Presiden Republik Indonesia Ir. Soekarno secara langsung mengganti nama universitas menjadi UNIVERSITAS DIPONEGORO.\n\nPerubahan nama agung ini merupakan anugerah dan bentuk penghargaan tertinggi dari Pemerintah Republik Indonesia atas prestasi luar biasa Universitas Semarang dalam memelopori dan membina pendidikan tinggi di Jawa Tengah.\n\nBung Karno berpesan agar sivitas akademika meneladani api jiwa perjuangan Pangeran Diponegoro: kejujuran yang teguh, keberanian moral membela kebenaran, keadilan sosial, dan kesetiaan mengabdi bagi rakyat marhaen dan bangsa Indonesia.\n\nDalam laporannya pada Dies Natalis ke-13, Rektor Undip menegaskan bahwa tahun 1957 ditetapkan sebagai tahun resmi berdirinya Undip, karena Universitas Semarang (1957) merupakan embrio yang tak terpisahkan dari Universitas Diponegoro.',
-    imagePath: '/textures/history/archives-soekarno-1960.jpg',
+    imagePath: '/textures/history/archives-soekarno-1960.webp',
     highlights: [
       'Peresmian nama Universitas Diponegoro pada 9 Januari 1960 oleh Ir. Soekarno',
       'Penghargaan presiden atas dedikasi pendidikan tinggi di Jawa Tengah',
@@ -399,7 +399,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Auditorium Pleburan',
     description: 'Dokumentasi arsip resmi Undip: Pandangan sudut atas dari balkon ruang Auditorium Universitas Diponegoro Kampus Pleburan Semarang.',
     fullContent: 'Foto arsip otentik dari situs resmi Universitas Diponegoro menampilkan kemegahan interior ruang Auditorium Undip Kampus Pleburan yang dilihat dari arah balkon lantai atas.\n\nAuditorium Pleburan merupakan ruang aula serbaguna paling prestisius di Semarang pada jamannya. Di aula berlantai kayu jati ini berlangsung berbagai peristiwa bersejarah universitas, mulai dari pidato tahunan rektor, perayaan Dies Natalis, kuliah umum para tokoh nasional dan menteri, hingga prosesi wisuda sarjana periode awal Undip.',
-    imagePath: '/textures/history/early-photo-auditorium-pleburan.jpg',
+    imagePath: '/textures/history/early-photo-auditorium-pleburan.webp',
     highlights: [
       'Foto arsip resmi dari situs sejarah Universitas Diponegoro (undip.ac.id)',
       'Interior megah Auditorium Kampus Pleburan dari sudut pandang balkon',
@@ -419,7 +419,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Gedung Pusat Riset',
     description: 'Dokumentasi arsip resmi Undip: Bangunan Gedung Pusat Riset Universitas Diponegoro di kompleks Kampus Pleburan Semarang.',
     fullContent: 'Foto arsip resmi Universitas Diponegoro memperlihatkan fasad Gedung Pusat Riset Undip di Kampus Pleburan. Bangunan bertingkat dengan jendela kaca lebar khas arsitektur modern 1970-an ini menjadi embrio lembaga penelitian dan pengabdian masyarakat (LPPM) Undip.\n\nDi gedung inilah para peneliti Undip merintis riset-riset strategis dalam bidang keilmuan kelautan dan pesisir (Pola Ilmiah Pokok/PIP Undip: Pengembangan Wilayah Pesisir), riset hukum progresif, kajian kependudukan, energi alternatif, dan kedokteran tropis yang mengharumkan nama Undip.',
-    imagePath: '/textures/history/early-photo-pusat-riset-pleburan.jpg',
+    imagePath: '/textures/history/early-photo-pusat-riset-pleburan.webp',
     highlights: [
       'Foto arsip resmi dari situs sejarah Universitas Diponegoro (undip.ac.id)',
       'Gedung Pusat Riset Undip di kawasan Kampus Pleburan Semarang',
@@ -439,7 +439,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Patung Kuda Rektorat',
     description: 'Dokumentasi monumen patung Pangeran Diponegoro menunggang kuda yang berdiri kokoh di bundaran depan Gedung Rektorat Widya Puraya Kampus Tembalang.',
     fullContent: 'Monumen Patung Pangeran Diponegoro menunggang kuda perkasa di pelataran bundaran Gedung Rektorat Widya Puraya merupakan simbol selamat datang dan landmark paling ikonik di Kampus Terpadu Tembalang.\n\nPangeran Diponegoro digambarkan dengan sorban dan jubah putih, memegang kendali kuda yang tengah meringkik gagah dengan dua kaki depan terangkat ke udara. Sikap ini melambangkan keberanian menerobos rintangan masa depan, semangat kepemimpinan yang progresif, dan komitmen seluruh sivitas akademika Undip untuk terus maju mengukir prestasi dunia.',
-    imagePath: '/textures/history/monument-patung-kuda-rektorat.jpg',
+    imagePath: '/textures/history/monument-patung-kuda-rektorat.webp',
     highlights: [
       'Landmark sentral paling ikonik di gerbang Rektorat Widya Puraya Tembalang',
       'Patung Pangeran Diponegoro menunggang kuda dengan posisi gagah perkasa',
@@ -459,7 +459,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Kampus Tembalang Modern',
     description: 'Dokumentasi arsitektur modern gedung fakultas dan manajemen di kawasan kampus terpadu perbukitan Tembalang seluas 180 hektar.',
     fullContent: 'Pembangunan Kampus Terpadu Tembalang seluas lebih dari 180 hektar dirintis sejak akhir dekade 1970-an di bawah kepemimpinan Rektor Prof. Sudarto, S.H. dan direalisasikan secara masif oleh Rektor Prof. Dr. Moeljono S. Trastotenojo dengan dukungan pendanaan Bank Dunia dan Pemerintah RI.\n\nKawasan perbukitan Tembalang yang sejuk kini menjadi rumah bersama bagi 11 Fakultas, 2 Sekolah (Sekolah Pascasarjana dan Sekolah Vokasi), laboratorium terpadu, perpustakaan modern, gelanggang olahraga, dan asrama mahasiswa berkelas internasional.',
-    imagePath: '/textures/history/history-gedung-manajemen.jpg',
+    imagePath: '/textures/history/history-gedung-manajemen.webp',
     highlights: [
       'Relokasi kampus terpadu perbukitan Tembalang seluas 180+ hektar',
       'Konsep kampus hijau terpadu (Integrated Eco-Campus)',
@@ -479,7 +479,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Rektorat Widya Puraya',
     description: 'Foto ikonik Gedung Rektorat Widya Puraya dengan menara jam khas dan atap limas bertingkat di jantung Kampus Tembalang.',
     fullContent: 'Gedung Widya Puraya diresmikan pada dekade 1990-an sebagai jantung administratif dan seremonial utama Universitas Diponegoro di Kampus Tembalang. Nama "Widya Puraya" bermakna "Istana Ilmu Pengetahuan".\n\nBangunan ini memiliki arsitektur megah yang memadukan filosofi tradisional limasan Jawa dengan fungsionalitas modern, dilengkapi menara jam tinggi yang membunyikan genta setiap pergantian jam perkuliahan. Di pelataran luas Widya Puraya diselenggarakan upacara bendera kenegaraan, penerimaan mahasiswa baru (Penerimaan Mahasiswa Baru/PMB), dan berbagai parade budaya universitas.',
-    imagePath: '/textures/history/history-widya-puraya.jpg',
+    imagePath: '/textures/history/history-widya-puraya.webp',
     highlights: [
       'Gedung Rektorat sentral pusat tata kelola dan administrasi universitas',
       'Arsitektur ikonik menara jam genta dan atap limasan berlapis emas',
@@ -499,7 +499,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Gedung Muladi Dome',
     description: 'Foto resmi Gedung Muladi Dome berkapasitas 4.000+ delegasi dengan kubah champagne gold megah untuk konferensi internasional dan wisuda akbar.',
     fullContent: 'Gedung Muladi Dome dinamai secara khusus untuk menghormati jasa agung Prof. Dr. Muladi, S.H., mantan Rektor Universitas Diponegoro (1994–1998) yang juga menjabat Menteri Kehakiman RI, Menteri Sekretaris Negara, dan Gubernur Lemhannas.\n\nDiinisiasi di era kepemimpinan Rektor Prof. Dr. Yos Johan Utama, S.H., M.Hum. dan diselesaikan modern, gedung megah beratap kubah emas champagne ini merupakan gedung pertemuan dan pameran (Convention & Multi-Purpose Expo Hall) termegah dan berteknologi akustik mutakhir di Jawa Tengah. Muladi Dome menjadi pusat penyelenggaraan wisuda sarjana, konser simfoni, expo riset teknologi, serta konferensi internasional.',
-    imagePath: '/textures/history/history-muladi-dome.jpg',
+    imagePath: '/textures/history/history-muladi-dome.webp',
     highlights: [
       'Foto resmi dari situs Universitas Diponegoro (undip.ac.id)',
       'Dinamai untuk mengenang begawan hukum nasional Prof. Dr. Muladi, S.H.',
@@ -519,7 +519,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'RSND Tembalang',
     description: 'Foto Rumah Sakit Nasional Diponegoro (RSND) Tipe B di Kampus Tembalang yang menjadi pusat rujukan kesehatan dan riset medis modern.',
     fullContent: 'Rumah Sakit Nasional Diponegoro (RSND) berdiri megah di kawasan timur Kampus Tembalang sebagai wujud nyata komitmen Undip dalam memberikan layanan kesehatan prima kepada masyarakat dan sarana pendidikan klinis bagi mahasiswa Fakultas Kedokteran.\n\nGagasan berdirinya RSND dipelopori oleh Rektor Prof. Dr. dr. Susilo Wibowo, M.S. Med, Sp.And dan diresmikan beroperasi penuh pada tahun 2014. Sebagai Rumah Sakit Pendidikan Utama Tipe B dengan akreditasi Paripurna, RSND dilengkapi fasilitas IGD 24 jam, kamar bedah canggih, radiologi intervensi, pusat rehabilitasi medik, serta pusat unggulan riset kedokteran tropis dan onkologi.',
-    imagePath: '/textures/history/history-rsnd.jpg',
+    imagePath: '/textures/history/history-rsnd.webp',
     highlights: [
       'Rumah Sakit Pendidikan Utama Tipe B terakreditasi Paripurna',
       'Pusat pelayanan kesehatan masyarakat Jawa Tengah dan riset medis terapan',
@@ -558,7 +558,7 @@ export const HISTORY_EXHIBITS: HistoryExhibit[] = [
     shortLabel: 'Pangeran Diponegoro',
     description: 'Potret agung pahlawan nasional Pangeran Harya Dipanegara yang menjadi nama abadi almamater tercinta Universitas Diponegoro.',
     fullContent: 'Pangeran Diponegoro (lahir di Yogyakarta, 11 November 1785 – wafat di Makassar, 8 Januari 1855) adalah Pahlawan Nasional Indonesia yang memimpin Perang Jawa (Diponegoro War, 1825–1830) melawan penindasan penjajah Belanda.\n\nPerang yang dipimpinnya merupakan perang terbesar dan paling mengguncang keuangan pemerintah kolonial Hindia Belanda. Pangeran Diponegoro menolak segala bentuk kompromi yang mengorbankan harkat martabat rakyat kecil dan kesucian agama.\n\nSebagai penghormatan abadi atas jiwa kepahlawanan beliau, Presiden Sukarno menetapkan nama UNIVERSITAS DIPONEGORO pada tahun 1960. Nilai-nilai keberanian moral, kejujuran nurani, dan keikhlasan berkorban untuk nusa dan bangsa menjadi kompas spiritual seluruh insan Diponegoro (Dipo Muda) di mana pun mengabdi.',
-    imagePath: '/textures/history/portrait-diponegoro-hero.jpg',
+    imagePath: '/textures/history/portrait-diponegoro-hero.webp',
     highlights: [
       'Pahlawan Nasional pemimpin Perang Jawa (1825–1830) melawan kolonialisme',
       'Tokoh pemersatu rakyat, ulama, dan bangsawan demi kedaulatan bangsa',

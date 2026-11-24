@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import * as THREE from 'three'
 import {
   DIRECTORY_BOARD_POS,
@@ -9,8 +9,9 @@ import {
 import { createFloorTexture } from './textures'
 import { CeilingRoof } from './CeilingRoof'
 import { RedCarpet } from './RedCarpet'
-import { Bookshelf, VisitorLounge } from './MuseumFurniture'
+import { VisitorLounge } from './MuseumFurniture'
 import { DirectoryBoard } from './DirectoryBoard'
+import { CulledEntity } from '../common/CulledEntity'
 
 interface GalleryEnvironmentProps {
   isNearDirectory?: boolean
@@ -26,7 +27,7 @@ interface GalleryEnvironmentProps {
  * - Center: Red Carpet, Miniature Map, and Ceremonial Podium
  * - Back Wall: Royal Navy Blue Wall with high contrast
  */
-export function GalleryEnvironment({
+export const GalleryEnvironment = memo(function GalleryEnvironment({
   isNearDirectory = false,
 }: GalleryEnvironmentProps) {
   const floorTexture = useMemo(() => {
@@ -98,18 +99,18 @@ export function GalleryEnvironment({
           {/* Baseboard (Dark Walnut Teak) */}
           <mesh position={[side * (halfW - 0.05), 0.1, centerZ]}>
             <boxGeometry args={[0.1, 0.2, length]} />
-            <meshStandardMaterial color="#2c1a0e" roughness={0.5} />
+            <meshStandardMaterial color="#63391e" roughness={0.46} />
           </mesh>
           {/* Gold Inlay line on baseboard */}
           <mesh position={[side * (halfW - 0.09), 0.2, centerZ]}>
             <boxGeometry args={[0.02, 0.03, length]} />
-            <meshStandardMaterial color="#d4af37" roughness={0.28} metalness={0.85} />
+            <meshStandardMaterial color="#dfba45" roughness={0.25} metalness={0.88} />
           </mesh>
 
           {/* Heritage Brown Wainscot Panel */}
           <mesh position={[side * (halfW - 0.04), 0.55, centerZ]}>
             <boxGeometry args={[0.08, 0.7, length]} />
-            <meshStandardMaterial color="#3d2516" roughness={0.52} metalness={0.12} />
+            <meshStandardMaterial color="#7d4a29" roughness={0.46} metalness={0.08} />
           </mesh>
 
           {/* Gold Chair Rail Molding */}
@@ -203,20 +204,22 @@ export function GalleryEnvironment({
       {/* 10. Central Red Carpet */}
       <RedCarpet />
 
-      {/* 11. EXTRA ASSETS: 3D Archival Bookshelves */}
-      <Bookshelf position={[halfW - 0.35, 0, 10.6]} rotationY={-Math.PI / 2} />
-      <Bookshelf position={[-halfW + 0.35, 0, 10.6]} rotationY={Math.PI / 2} />
-
       {/* 12. EXTRA ASSETS: Visitor Lounge */}
-      <VisitorLounge position={[4.8, 0, 3.8]} rotationY={-Math.PI / 6} />
-      <VisitorLounge position={[-4.8, 0, 3.8]} rotationY={Math.PI / 6} />
+      <CulledEntity position={[4.8, 0.8, 3.8]} radius={3.2} maxDistance={28} name="lounge-right">
+        <VisitorLounge position={[4.8, 0, 3.8]} rotationY={-Math.PI / 6} />
+      </CulledEntity>
+      <CulledEntity position={[-4.8, 0.8, 3.8]} radius={3.2} maxDistance={28} name="lounge-left">
+        <VisitorLounge position={[-4.8, 0, 3.8]} rotationY={Math.PI / 6} />
+      </CulledEntity>
 
       {/* 13. EXTRA ASSET: Standing Wayfinding Directory Board */}
-      <DirectoryBoard
-        position={DIRECTORY_BOARD_POS}
-        rotationY={-Math.PI / 4}
-        isNear={isNearDirectory}
-      />
+      <CulledEntity position={DIRECTORY_BOARD_POS} radius={2.5} maxDistance={28} name="directory-board">
+        <DirectoryBoard
+          position={DIRECTORY_BOARD_POS}
+          rotationY={-Math.PI / 4}
+          isNear={isNearDirectory}
+        />
+      </CulledEntity>
     </group>
   )
-}
+})
