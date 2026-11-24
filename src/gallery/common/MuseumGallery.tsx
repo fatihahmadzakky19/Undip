@@ -165,7 +165,7 @@ export function MuseumGallery() {
           makeDefault
           position={START_POSITION}
           fov={isMobile ? 66 : 56}
-          near={0.1}
+          near={0.05}
           far={65}
         />
 

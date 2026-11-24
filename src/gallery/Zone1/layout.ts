@@ -20,19 +20,19 @@ export const HALL_LENGTH = HALL.zFront - HALL.zBack // 38.0m
 export const HALL_CENTER_Z = (HALL.zFront + HALL.zBack) / 2 // -7.0m
 
 export const EYE_HEIGHT = 1.65
-export const START_POSITION: [number, number, number] = [0, EYE_HEIGHT, 10.5]
+export const START_POSITION: [number, number, number] = [0, EYE_HEIGHT, 11.0]
 export const WALK_SPEED = 3.6
 export const RUN_SPEED = 7.2 // 2x speed sprint with Shift key
 
-/** Navigation Clamping Limits */
+/** Navigation Clamping Limits - Camera can press flush against the entrance double doors */
 export const BOUNDS = {
   minX: -(HALL.halfWidth - 1.2),
   maxX: HALL.halfWidth - 1.2,
   minZ: HALL.zBack + 1.8,
-  maxZ: HALL.zFront - 0.35, // Allows camera to get flush/mepet right up against the entrance doors (z = 11.65)
+  maxZ: HALL.zFront - 0.30, // 11.70m: right flush against entrance doors with zero gap
 } as const
 
-/** Red Carpet - Runs from flush against the entrance door threshold (z = 11.80) to front step of ceremonial stage (z = -16.4) */
+/** Red Carpet - Starts flush against the entrance door threshold (z = 11.80) to podium (z = -16.4) */
 export const RED_CARPET = {
   width: 3.2,
   zStart: 11.80,
