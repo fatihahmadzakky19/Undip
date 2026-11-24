@@ -1,28 +1,28 @@
 /**
- * Museum Virtual Undip — Master Zone & Heritage Library Registry
- * Comprehensive architectural entry point:
- * - Master Museum Environment (Single Static Room with Dynamic Zone Loading)
- * - 5 Interactive Thematic Zones (The Origin of Undip, Growth of Knowledge, Heritage of Undip, Undip Today, Undip Future)
- * - Heritage Library (Wall Bookshelves, Island Bookshelves, Glass Display Cabinets)
+ * Museum Virtual Undip — Master Zone & Library Registry
+ * Comprehensive entry point for the Interactive Heritage Library & Historical Museum
+ * Single Grand Hall housing 5 Distinct Curated Exhibition Zones:
+ * - Zone 1: The Origin of Undip (1956–1961)
+ * - Zone 2: The Growth of Knowledge (1961–1990)
+ * - Zone 3: The Heritage of Undip (1990–2010)
+ * - Zone 4: Undip Today (2010–Sekarang)
+ * - Zone 5: Undip Future (Menuju 2045)
  */
-export { MasterMuseum, MasterMuseum as Zone1, MasterMuseum as Zone1Scene, MasterMuseum as GalleryScene } from './MasterMuseum'
 
-// 5 Exhibition Zones
+export { MuseumGallery, MuseumGallery as default, MuseumGallery as Zone1, MuseumGallery as Zone1Scene, MuseumGallery as GalleryScene } from './common/MuseumGallery'
+export { WallBookshelf } from './common/WallBookshelf'
+export { EnhancedBookshelf } from './common/EnhancedBookshelf'
+export { ZoneNavigator } from './common/ZoneNavigator'
+export { InteractiveBookModal } from './common/InteractiveBookModal'
+
+// The 5 Zone Content Components
 export { Zone1Content } from './Zone1/Zone1Content'
 export { Zone2Content } from './Zone2/Zone2Content'
 export { Zone3Content } from './Zone3/Zone3Content'
 export { Zone4Content } from './Zone4/Zone4Content'
 export { Zone5Content } from './Zone5/Zone5Content'
 
-// Heritage Library & Navigation Components
-export { WallBookshelf } from './common/WallBookshelf'
-export { IslandBookshelf } from './common/IslandBookshelf'
-export { GlassDisplayCabinet } from './common/GlassDisplayCabinet'
-export { ReadingLounge } from './common/ReadingLounge'
-export { ZoneNavigator } from './common/ZoneNavigator'
-export { ZoneHUD } from './common/ZoneHUD'
-
-// Preserved Core Architecture & Wings
+// Shared Architectural Shell Elements
 export { FoundersWing } from './Zone1/FoundersWing'
 export { HistoryArchivesWing } from './Zone1/HistoryArchivesWing'
 export { CeremonialPodium } from './Zone1/CeremonialPodium'
@@ -39,10 +39,11 @@ export { FirstPersonControls } from './Zone1/FirstPersonControls'
 export { MobileControls } from './Zone1/MobileControls'
 export { DesktopHints } from './Zone1/DesktopHints'
 
-// Data Catalogs
-export { ZONES_METADATA, type ZoneId, type ZoneConfig } from './data/zones'
-export { HERITAGE_BOOKS, type HeritageBook } from './data/books'
-export { HERITAGE_ARTIFACTS, type HeritageArtifact } from './data/artifacts'
+// Data Models
+export { HERITAGE_BOOKS } from './data/books'
+export type { HeritageBook } from './data/books'
+export { MUSEUM_ZONES } from './data/zones'
+export type { ZoneConfig } from './data/zones'
 export { UNDIP_FOUNDERS, HISTORY_EXHIBITS } from './Zone1/data/exhibits'
 export * from './Zone1/types'
 export * from './Zone1/layout'

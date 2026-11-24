@@ -1,136 +1,138 @@
 import { useMemo } from 'react'
 import * as THREE from 'three'
-import { assetCache } from '../Zone1/cache'
-import { HERITAGE_BOOKS, type HeritageBook } from '../data/books'
-import { HERITAGE_ARTIFACTS, type HeritageArtifact } from '../data/artifacts'
+import type { HeritageBook } from '../data/books'
 import { WallBookshelf } from '../common/WallBookshelf'
-import { IslandBookshelf } from '../common/IslandBookshelf'
-import { GlassDisplayCabinet } from '../common/GlassDisplayCabinet'
-import { ReadingLounge } from '../common/ReadingLounge'
+import { EnhancedBookshelf } from '../common/EnhancedBookshelf'
+import { HALL, MINIATURE_MAP_POS } from '../Zone1/layout'
+import { MiniatureMap } from '../Zone1/MiniatureMap'
 
 interface Zone4ContentProps {
-  selectedBookId?: string | null
-  selectedArtifactId?: string | null
-  hoveredId?: string | null
+  selectedExhibitId: string | null
+  hoveredId: string | null
+  onSelectExhibit: (exhibit: { id: string; title: string; subtitle: string; description: string; highlights?: string[] }) => void
   onSelectBook: (book: HeritageBook) => void
-  onSelectArtifact: (artifact: HeritageArtifact) => void
-  onSelectExhibit?: (data: any) => void
+  onSelectMap: () => void
   onHover: (id: string | null) => void
 }
 
+interface ModernLandmark {
+  id: string
+  title: string
+  subtitle: string
+  year: string
+  description: string
+  highlights: string[]
+}
+
+const MODERN_LANDMARKS: ModernLandmark[] = [
+  {
+    id: 'lnd-muladi-dome',
+    title: 'Gedung Muladi Dome Tembalang',
+    subtitle: 'Landmark Kubah Emas Multifungsi Terbesar di Jawa Tengah (Kapasitas 5.000)',
+    year: '2023',
+    description: 'Pusat konvensi akbar dan pertunjukan bertaraf internasional yang dinamai untuk mengenang jasa mantan Rektor Undip dan Menteri Kehakiman RI Prof. Dr. Muladi, S.H. Gedung ini dilengkapi tata akustik canggih dan kubah emas ikonik.',
+    highlights: [
+      'Kapasitas: 5.000 kursi amfiteater bertingkat',
+      'Fasilitas: Hall konvensi utama, ruang seminar paralel, museum dan ballroom',
+      'Ikon Arsitektur: Menjadi gerbang selamat datang kemegahan kampus Tembalang',
+    ],
+  },
+  {
+    id: 'lnd-rsnd',
+    title: 'Rumah Sakit Nasional Diponegoro (RSND)',
+    subtitle: 'RSPTN Rujukan Unggulan dengan Fasilitas Kedokteran Terpadu',
+    year: '2014 – Sekarang',
+    description: 'Rumah sakit pendidikan tipe B terakreditasi paripurna yang mengintegrasikan layanan medis spesialis, bedah modern, riset klinis biomedis, dan pelayanan kesehatan masyarakat Jawa Tengah.',
+    highlights: [
+      'Layanan Unggulan: Pusat Onkologi, Kardiologi, dan Bedah Terpadu',
+      'Pendidikan Medis: Wahana pelatihan klinis dokter spesialis dan peneliti',
+      'Kerjasama: Kolaborasi riset internasional dengan universitas terkemuka dunia',
+    ],
+  },
+  {
+    id: 'lnd-widya-puraya',
+    title: 'Gedung Rektorat & Senat Widya Puraya',
+    subtitle: 'Simbol Piramida Monumental Episentrum Tata Kelola Universitas',
+    year: '1995 – Sekarang',
+    description: 'Bangunan monumental berundak khas arsitektur vernakular modern tropis yang menaungi Kantor Rektorat, Sidang Senat Akademik, dan Dewan Guru Besar Universitas Diponegoro.',
+    highlights: [
+      'Gaya Arsitektur: Piramida berundak dengan atap perisai berlapis',
+      'Fungsi: Episentrum tata kelola PTN-BH dan sidang penganugerahan gelar',
+      'Ruang Publik: Dikelilingi plaza upacara bendera dan kolam air mancur',
+    ],
+  },
+  {
+    id: 'lnd-qs-rankings',
+    title: 'Capaian Prestasi Global & Peringkat Dunia Undip',
+    subtitle: 'Top 100 Asia QS Asia University Rankings & Peringkat 1 Kesiapan Kerja Lulusan',
+    year: '2024',
+    description: 'Pengakuan internasional atas mutu akademik, reputasi lulusan, dan dampak riset Undip di tingkat global. Undip secara konsisten menempati peringkat teratas nasional dalam QS Graduate Employability Rankings.',
+    highlights: [
+      'QS World University Rankings: Jajaran 700 Besar Dunia',
+      'Employability: Peringkat #1 di Indonesia dalam kecepatan serapan lulusan kerja',
+      'Akreditasi Internasional: Lebih dari 50 program studi terakreditasi ASIIN, FIBAA, ABET & IABEE',
+    ],
+  },
+]
+
 /**
- * ZONA 4: UNDIP TODAY
- * PTN-BH, Modern Campus Architecture & World Class University:
- * - Left Wall: Modern Landmark Architecture (Muladi Dome, RSND, ICT, MSTP Jepara)
- * - Right Wall: QS World Rankings, Hilirisasi Paten, & Global Partnerships
- * - Center Stage: Maket Arsitektur 3D Muladi Dome & Kawasan Tembalang Modern
- * - Bookshelves: Publikasi Scopus Q1, Hilirisasi Riset, & Inovasi Medis RSND
- * - Glass Cabinets: Piala Juara Umum PIMNAS & Piagam Akreditasi Internasional ABET/ASIIN
+ * ZONE 4: UNDIP TODAY (2010–SEKARANG)
+ * Theme: Modern Campus Landmarks, Muladi Dome, RSND, World-Class University Achievements.
  */
 export function Zone4Content({
-  selectedBookId = null,
-  selectedArtifactId = null,
-  hoveredId = null,
-  onSelectBook,
-  onSelectArtifact,
+  selectedExhibitId,
+  hoveredId,
   onSelectExhibit,
+  onSelectBook,
+  onSelectMap,
   onHover,
 }: Zone4ContentProps) {
+  const halfW = HALL.halfWidth
+
   const materials = useMemo(() => {
     return {
-      darkWalnut: assetCache.getMaterial(
-        'z4-walnut',
-        () =>
-          new THREE.MeshStandardMaterial({
-            color: '#201309',
-            roughness: 0.42,
-            metalness: 0.15,
-          }),
-      ),
-      goldTrim: assetCache.getMaterial(
-        'z4-gold',
-        () =>
-          new THREE.MeshStandardMaterial({
-            color: '#d4af37',
-            roughness: 0.25,
-            metalness: 0.88,
-          }),
-      ),
-      royalNavy: assetCache.getMaterial(
-        'z4-navy',
-        () =>
-          new THREE.MeshStandardMaterial({
-            color: '#0e2b47',
-            roughness: 0.35,
-            metalness: 0.25,
-          }),
-      ),
-      domeIvory: assetCache.getMaterial(
-        'z4-dome-ivory',
-        () =>
-          new THREE.MeshStandardMaterial({
-            color: '#ece8de',
-            roughness: 0.35,
-            metalness: 0.1,
-          }),
-      ),
+      darkTeak: new THREE.MeshStandardMaterial({ color: '#2c1a0e', roughness: 0.5 }),
+      goldTrim: new THREE.MeshStandardMaterial({ color: '#d4af37', roughness: 0.28, metalness: 0.88 }),
+      goldBright: new THREE.MeshStandardMaterial({ color: '#ffd700', roughness: 0.2, metalness: 0.9 }),
+      bannerBlue: new THREE.MeshStandardMaterial({ color: '#003b70', roughness: 0.35, metalness: 0.25 }),
+      plaqueIvory: new THREE.MeshStandardMaterial({ color: '#f7f4ec', roughness: 0.4 }),
     }
   }, [])
 
-  const zone4Books = useMemo(() => HERITAGE_BOOKS.filter((b) => b.zone === 4), [])
-  const zone4Artifacts = useMemo(() => HERITAGE_ARTIFACTS.filter((a) => a.zone === 4), [])
-
-  const wallBooks = useMemo(() => zone4Books.filter((b) => b.shelfType === 'wall'), [zone4Books])
-  const islandBooks = useMemo(() => zone4Books.filter((b) => b.shelfType === 'island'), [zone4Books])
-
   return (
-    <group name="Zone4-UndipToday">
-      {/* 1. Left Wall (X = -7.44): Modern Campus Landmark Architecture */}
-      <group position={[-7.44, 0, 0]}>
-        {[
-          {
-            id: 'mod-muladi-dome',
-            title: 'Gedung Serbaguna Muladi Dome Tembalang',
-            sub: 'Convention Center Terbesar & Termodern di Jawa Tengah',
-            z: 7.0,
-            desc: 'Gedung konvensi megah berkapasitas 5.000 orang yang diresmikan untuk menghormati jasa Rektor Prof. Dr. Muladi, S.H. Pusat wisuda, orasi ilmiah internasional, dan konser budaya.',
-          },
-          {
-            id: 'mod-rsnd',
-            title: 'Rumah Sakit Nasional Diponegoro (RSND)',
-            sub: 'Rumah Sakit Pendidikan Tinggi Negeri Tipe B Terakreditasi Paripurna',
-            z: 2.0,
-            desc: 'Pusat layanan kesehatan rujukan dengan fasilitas radioterapi, bedah invasif minimal, rehabilitasi medik robotik, dan riset klinis translaksional.',
-          },
-          {
-            id: 'mod-ict-lab',
-            title: 'Gedung ICT & Laboratorium Terpadu Sentral Undip',
-            sub: 'Pusat Komputasi Awan, Big Data & Sains Terapan',
-            z: -3.0,
-            desc: 'Menampung superkomputer riset, jaringan backbone serat optik kampus, dan inkubator inovasi teknologi digital mahasiswa.',
-          },
-          {
-            id: 'mod-mstp-jepara',
-            title: 'Marine Science Techno Park (MSTP) Teluk Awur Jepara',
-            sub: 'Kawasan Sains dan Teknologi Kelautan Tropis',
-            z: -8.0,
-            desc: 'Fasilitas riset kelautan nasional dengan kolam penetasan, laboratorium bioteknologi mikroalga, tambak udang presisi, dan wisma riset pesisir.',
-          },
-          {
-            id: 'mod-widya-puraya',
-            title: 'Gedung Rektorat & Landmark Widya Puraya',
-            sub: 'Pusat Tata Kelola Otonom & Lambang Wibawa Kampus',
-            z: -13.0,
-            desc: 'Kompleks kantor pusat administrasi universitas, menara lonceng, dan lapangan upacara utama yang memadukan arsitektur vernakular Jawa dengan gaya modern.',
-          },
-        ].map((item) => (
+    <group>
+      {/* Upper Architectural Banner */}
+      <group position={[-halfW + 0.1, 4.45, -5.0]} rotation={[0, Math.PI / 2, 0]}>
+        <mesh>
+          <boxGeometry args={[26.0, 0.52, 0.08]} />
+          <primitive object={materials.bannerBlue} attach="material" />
+        </mesh>
+        <mesh position={[0, -0.23, 0.04]}>
+          <boxGeometry args={[26.0, 0.04, 0.02]} />
+          <primitive object={materials.goldTrim} attach="material" />
+        </mesh>
+        <mesh position={[0, 0.23, 0.04]}>
+          <boxGeometry args={[26.0, 0.04, 0.02]} />
+          <primitive object={materials.goldTrim} attach="material" />
+        </mesh>
+      </group>
+
+      {/* ============================================================
+          1. LEFT WALL: LANDMARK MODERN & PRESTASI DENGAN RAK BUKU
+          ============================================================ */}
+      {MODERN_LANDMARKS.slice(0, 2).map((lnd, idx) => {
+        const z = 4.0 - idx * 5.0
+        const isSelected = selectedExhibitId === lnd.id
+        const isHovered = hoveredId === lnd.id
+
+        return (
           <group
-            key={item.id}
-            position={[0, 2.9, item.z]}
+            key={lnd.id}
+            position={[-halfW + 0.14, 2.75, z]}
             rotation={[0, Math.PI / 2, 0]}
             onPointerOver={(e) => {
               e.stopPropagation()
-              onHover(item.id)
+              onHover(lnd.id)
             }}
             onPointerOut={(e) => {
               e.stopPropagation()
@@ -138,76 +140,63 @@ export function Zone4Content({
             }}
             onClick={(e) => {
               e.stopPropagation()
-              onSelectExhibit?.({
-                type: 'history',
-                data: {
-                  id: item.id,
-                  title: item.title,
-                  category: 'campus-photo',
-                  period: 'Fasilitas Kampus Modern',
-                  shortLabel: 'Kampus Modern',
-                  description: item.desc,
-                  fullContent: `${item.title} (${item.sub}): ${item.desc} Fasilitas ini menjadi penopang utama ekosistem pembelajaran modern dan riset berdaya saing global di Universitas Diponegoro.`,
-                },
-              })
+              onSelectExhibit(lnd)
             }}
           >
-            {/* Dark Walnut Display Frame */}
             <mesh castShadow receiveShadow>
-              <boxGeometry args={[2.3, 1.42, 0.08]} />
-              <primitive object={materials.darkWalnut} attach="material" />
+              <boxGeometry args={[2.5, 1.6, 0.09]} />
+              <primitive
+                object={isSelected ? materials.goldBright : isHovered ? materials.goldTrim : materials.darkTeak}
+                attach="material"
+              />
             </mesh>
-            <mesh position={[0, 0, 0.042]}>
-              <boxGeometry args={[2.16, 1.28, 0.01]} />
-              <primitive object={materials.goldTrim} attach="material" />
+            <mesh position={[0, 0, 0.045]}>
+              <boxGeometry args={[2.3, 1.4, 0.01]} />
+              <primitive object={materials.plaqueIvory} attach="material" />
             </mesh>
-            <mesh position={[0, 0, 0.046]}>
-              <boxGeometry args={[2.08, 1.2, 0.005]} />
-              <primitive object={materials.royalNavy} attach="material" />
-            </mesh>
+            <pointLight position={[0, 1.0, 0.4]} color="#ffe7ba" intensity={6} distance={3.5} decay={2} />
           </group>
-        ))}
-      </group>
+        )
+      })}
 
-      {/* 2. Right Wall (X = 7.44): Excellence & World Class University Gallery */}
-      <group position={[7.44, 0, 0]}>
-        {[
-          {
-            id: 'wcu-qs-ranking',
-            title: 'Peringkat QS World University Rankings & THE Impact',
-            year: 'Pencapaian 2024',
-            z: 5.5,
-            desc: 'Undip melesat di peringkat 700 besar dunia QS WUR dan peringkat 1 di Indonesia untuk indikator serapan kerja lulusan tercepat (Graduate Employability).',
-          },
-          {
-            id: 'wcu-hilirisasi-paten',
-            title: 'Pusat Hilirisasi Inovasi & Hak Kekayaan Intelektual (HAKI)',
-            year: 'Portofolio Industri',
-            z: 0.0,
-            desc: 'Ratusan paten terdaftar dan produk inovasi komersial: implan ortopedi biomedis, pakan ikan kaya probiotik, dan ozonizer pengawet hasil pertanian.',
-          },
-          {
-            id: 'wcu-global-partnership',
-            title: 'Kemitraan Internasional & Mobilitas Akademik Global',
-            year: '150+ Mitra Universitas Dunia',
-            z: -5.5,
-            desc: 'Program gelar ganda (Double Degree), pertukaran mahasiswa IISMA ke universitas top dunia, dan konsorsium riset internasional lintas benua.',
-          },
-          {
-            id: 'wcu-sdg-greenmetric',
-            title: 'Peringkat UI GreenMetric & Komitmen Keberlanjutan SDG',
-            year: 'Kampus Hijau Berkelanjutan',
-            z: -11.0,
-            desc: 'Undip secara konsisten masuk dalam Top 5 Kampus Paling Berkelanjutan di Indonesia dengan pengelolaan air daur ulang, tata hijau 70%, dan bus listrik kampus.',
-          },
-        ].map((item) => (
+      {/* --- RAK BUKU KAMPUS MODERN & RSND (SISI KIRI) --- */}
+      <WallBookshelf
+        position={[-halfW + 0.18, 0, 1.0]}
+        rotationY={Math.PI / 2}
+        length={12.0}
+        categoryTitle="MONOGRAF FASILITAS MODERN & MULADI DOME"
+        interactiveBookIds={['book-muladi-dome-monumen', 'book-rsnd-pendidikan-medis']}
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+      <WallBookshelf
+        position={[-halfW + 0.18, 0, -13.0]}
+        rotationY={Math.PI / 2}
+        length={11.0}
+        categoryTitle="DOKUMENTASI RISET MEDIS & KESEHATAN RSND"
+        interactiveBookIds={['book-rsnd-pendidikan-medis']}
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+
+      {/* ============================================================
+          2. RIGHT WALL: REKOGNISI GLOBAL & PTN-BH DENGAN RAK BUKU
+          ============================================================ */}
+      {MODERN_LANDMARKS.slice(2).map((lnd, idx) => {
+        const z = 2.0 - idx * 5.0
+        const isSelected = selectedExhibitId === lnd.id
+        const isHovered = hoveredId === lnd.id
+
+        return (
           <group
-            key={item.id}
-            position={[0, 2.9, item.z]}
+            key={lnd.id}
+            position={[halfW - 0.14, 2.75, z]}
             rotation={[0, -Math.PI / 2, 0]}
             onPointerOver={(e) => {
               e.stopPropagation()
-              onHover(item.id)
+              onHover(lnd.id)
             }}
             onPointerOut={(e) => {
               e.stopPropagation()
@@ -215,128 +204,73 @@ export function Zone4Content({
             }}
             onClick={(e) => {
               e.stopPropagation()
-              onSelectExhibit?.({
-                type: 'history',
-                data: {
-                  id: item.id,
-                  title: item.title,
-                  category: 'archive',
-                  period: item.year,
-                  shortLabel: 'Prestasi Global',
-                  description: item.desc,
-                  fullContent: `${item.title}: ${item.desc} Mencerminkan kepemimpinan akademik yang kokoh dan dedikasi seluruh sivitas akademika dalam mewujudkan visi World Class University.`,
-                },
-              })
+              onSelectExhibit(lnd)
             }}
           >
-            {/* Monumental Frame */}
             <mesh castShadow receiveShadow>
-              <boxGeometry args={[2.3, 1.42, 0.08]} />
-              <primitive object={materials.darkWalnut} attach="material" />
+              <boxGeometry args={[2.5, 1.6, 0.09]} />
+              <primitive
+                object={isSelected ? materials.goldBright : isHovered ? materials.goldTrim : materials.darkTeak}
+                attach="material"
+              />
             </mesh>
-            <mesh position={[0, 0, 0.042]}>
-              <boxGeometry args={[2.16, 1.28, 0.01]} />
-              <primitive object={materials.goldTrim} attach="material" />
+            <mesh position={[0, 0, 0.045]}>
+              <boxGeometry args={[2.3, 1.4, 0.01]} />
+              <primitive object={materials.plaqueIvory} attach="material" />
             </mesh>
-            <mesh position={[0, 0, 0.046]}>
-              <boxGeometry args={[2.08, 1.2, 0.005]} />
-              <primitive object={materials.royalNavy} attach="material" />
-            </mesh>
+            <pointLight position={[0, 1.0, 0.4]} color="#ffe7ba" intensity={6} distance={3.5} decay={2} />
           </group>
-        ))}
-      </group>
+        )
+      })}
 
-      {/* 3. Center Stage Architectural Maket: Muladi Dome 3D Centerpiece (Z = -3.5) */}
-      <group position={[0, 0, -3.5]}>
-        {/* Tiered Granite Plinth */}
-        <mesh position={[0, 0.22, 0]} castShadow receiveShadow>
-          <cylinderGeometry args={[2.2, 2.35, 0.44, 32]} />
-          <primitive object={materials.darkWalnut} attach="material" />
-        </mesh>
-        <mesh position={[0, 0.445, 0]}>
-          <cylinderGeometry args={[2.22, 2.22, 0.015, 32]} />
-          <primitive object={materials.goldTrim} attach="material" />
-        </mesh>
-
-        {/* 3D Representation of Muladi Dome */}
-        <group position={[0, 0.46, 0]}>
-          {/* Base Arena Building Body */}
-          <mesh position={[0, 0.4, 0]} castShadow receiveShadow>
-            <cylinderGeometry args={[1.5, 1.6, 0.8, 32]} />
-            <primitive object={materials.royalNavy} attach="material" />
-          </mesh>
-          {/* Gilded Tension Ring */}
-          <mesh position={[0, 0.82, 0]}>
-            <torusGeometry args={[1.52, 0.04, 16, 32]} />
-            <primitive object={materials.goldTrim} attach="material" />
-          </mesh>
-          {/* Majestic Curved Dome Roof */}
-          <mesh position={[0, 0.82, 0]} castShadow>
-            <sphereGeometry args={[1.52, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2.3]} />
-            <primitive object={materials.domeIvory} attach="material" />
-          </mesh>
-          {/* Crown Lantern Spire */}
-          <mesh position={[0, 1.68, 0]}>
-            <coneGeometry args={[0.12, 0.45, 16]} />
-            <primitive object={materials.goldTrim} attach="material" />
-          </mesh>
-        </group>
-      </group>
-
-      {/* 4. Heritage Library Bookshelves for Zone 4 */}
-      {/* Tall Wall Bookshelf: Publikasi Scopus & Paten Hilirisasi (Left Flank, Z = -16.0) */}
+      {/* --- RAK BUKU PTN-BH & REKOGNISI GLOBAL (SISI KANAN) --- */}
       <WallBookshelf
-        position={[-6.8, 0, -16.0]}
+        position={[halfW - 0.18, 0, 1.0]}
+        rotationY={-Math.PI / 2}
+        length={12.0}
+        categoryTitle="LAPORAN PTN-BH & REKOGNISI PERINGKAT DUNIA"
+        interactiveBookIds={['book-ptnbh-transformasi-global']}
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+      <WallBookshelf
+        position={[halfW - 0.18, 0, -13.0]}
+        rotationY={-Math.PI / 2}
+        length={11.0}
+        categoryTitle="PUBLIKASI ILMIAH INTERNASIONAL & HILIRISASI RISET"
+        interactiveBookIds={['book-ptnbh-transformasi-global', 'book-muladi-dome-monumen']}
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+
+      {/* Preserved & Enhanced Vertical Bookcases */}
+      <EnhancedBookshelf
+        position={[halfW - 0.35, 0, 10.6]}
+        rotationY={-Math.PI / 2}
+        categoryTitle="WORLD CLASS UNIVERSITY PAPERS"
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+      <EnhancedBookshelf
+        position={[-halfW + 0.35, 0, 10.6]}
         rotationY={Math.PI / 2}
-        categoryTitle="PUBLIKASI SCOPUS & PATEN INOVASI UNDIP"
-        interactiveBooks={wallBooks}
-        selectedBookId={selectedBookId}
-        hoveredId={hoveredId}
+        categoryTitle="CAMPUS DEVELOPMENT RECORDS"
         onSelectBook={onSelectBook}
-        onHover={onHover}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
       />
 
-      {/* Island Bookshelf: Inovasi Medis RSND (Right Flank, Z = -16.0) */}
-      <IslandBookshelf
-        position={[4.6, 0, -16.0]}
-        rotationY={0}
-        categoryTitle="INOVASI KESEHATAN RSND & KEDOKTERAN"
-        interactiveBooks={islandBooks}
-        selectedBookId={selectedBookId}
-        hoveredId={hoveredId}
-        onSelectBook={onSelectBook}
+      {/* Centerpiece: Maket 3D Kawasan Kampus Tembalang & Muladi Dome */}
+      <MiniatureMap
+        position={MINIATURE_MAP_POS}
+        isSelected={selectedExhibitId === 'miniature-map'}
+        isHovered={hoveredId === 'miniature-map'}
+        onSelect={onSelectMap}
         onHover={onHover}
       />
-
-      {/* 5. Glass Display Cabinets */}
-      {/* Cabinet 1: Piala Emas Juara Umum PIMNAS Kontingen Undip */}
-      {zone4Artifacts[0] && (
-        <GlassDisplayCabinet
-          position={[-4.5, 0, -10.5]}
-          rotationY={Math.PI / 4}
-          artifact={zone4Artifacts[0]}
-          isSelected={selectedArtifactId === zone4Artifacts[0].id}
-          isHovered={hoveredId === zone4Artifacts[0].id}
-          onSelectArtifact={onSelectArtifact}
-          onHover={onHover}
-        />
-      )}
-
-      {/* Cabinet 2: Piagam Akreditasi Internasional ABET & ASIIN */}
-      {zone4Artifacts[1] && (
-        <GlassDisplayCabinet
-          position={[4.5, 0, -10.5]}
-          rotationY={-Math.PI / 4}
-          artifact={zone4Artifacts[1]}
-          isSelected={selectedArtifactId === zone4Artifacts[1].id}
-          isHovered={hoveredId === zone4Artifacts[1].id}
-          onSelectArtifact={onSelectArtifact}
-          onHover={onHover}
-        />
-      )}
-
-      {/* 6. Visitor Study & Reading Alcove (Left Corridor, Z = 5.0) */}
-      <ReadingLounge position={[-4.8, 0, 5.0]} rotationY={Math.PI / 2} />
     </group>
   )
 }

@@ -1,11 +1,11 @@
-import { MasterMuseum } from './gallery'
+import { MuseumGallery } from './gallery'
 
 /**
- * Universitas Diponegoro Virtual Heritage Museum & Interactive Library
- * 1 Room • 5 Thematic Zones • Dynamic Load-on-Demand Architecture
+ * Universitas Diponegoro Interactive Heritage Library & Historical Museum
+ * Scalable 5-Zone Heritage Architecture in a Single Grand Monumental Hall.
  */
 function App() {
-  return <MasterMuseum />
+  return <MuseumGallery />
 }
 
 export default App

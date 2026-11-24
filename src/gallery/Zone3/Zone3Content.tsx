@@ -1,172 +1,129 @@
 import { useMemo } from 'react'
 import * as THREE from 'three'
-import { assetCache } from '../Zone1/cache'
-import { HERITAGE_BOOKS, type HeritageBook } from '../data/books'
-import { HERITAGE_ARTIFACTS, type HeritageArtifact } from '../data/artifacts'
+import type { HeritageBook } from '../data/books'
 import { WallBookshelf } from '../common/WallBookshelf'
-import { IslandBookshelf } from '../common/IslandBookshelf'
-import { GlassDisplayCabinet } from '../common/GlassDisplayCabinet'
-import { ReadingLounge } from '../common/ReadingLounge'
+import { EnhancedBookshelf } from '../common/EnhancedBookshelf'
+import { HALL, PODIUM_POS } from '../Zone1/layout'
+import { CeremonialPodium } from '../Zone1/CeremonialPodium'
+import { DiponegoroStatue } from '../Zone1/DiponegoroStatue'
 
 interface Zone3ContentProps {
-  selectedBookId?: string | null
-  selectedArtifactId?: string | null
-  hoveredId?: string | null
+  selectedExhibitId: string | null
+  hoveredId: string | null
+  onSelectExhibit: (exhibit: { id: string; title: string; subtitle: string; description: string; highlights?: string[] }) => void
   onSelectBook: (book: HeritageBook) => void
-  onSelectArtifact: (artifact: HeritageArtifact) => void
-  onSelectExhibit?: (data: any) => void
+  onSelectPodium: () => void
+  onSelectPrasasti: () => void
   onHover: (id: string | null) => void
 }
 
+interface HeritageArtifact {
+  id: string
+  title: string
+  subtitle: string
+  year: string
+  description: string
+  highlights: string[]
+}
+
+const HERITAGE_ARTIFACTS: HeritageArtifact[] = [
+  {
+    id: 'art-tongkat-pedel',
+    title: 'Tongkat Pedel & Regalia Rektorat Undip',
+    subtitle: 'Kayu Jati Berukir & Kuningan Emas • Simbol Kewibawaan Akademik',
+    year: '1960',
+    description: 'Tongkat kehormatan yang dibawa oleh Pedel memimpin prosesi Sidang Senat Terbuka Guru Besar dan Upacara Dies Natalis. Ujung tongkat dihiasi patung perunggu Pangeran Diponegoro menunggang kuda tempur.',
+    highlights: [
+      'Material: Kayu Jati Perhutani Pilihan dengan Sepuh Emas 24 Karat',
+      'Pahatan: Flora Jawa Tradisional & Lambang Bunga Teratai',
+      'Makna Filosofis: Kepemimpinan akademis yang berani dan berpijak pada kebenaran',
+    ],
+  },
+  {
+    id: 'art-kalung-rektor',
+    title: 'Kalung Emas Jabatan Rektor (Samir Kehormatan)',
+    subtitle: 'Mata Rantai Berlambang 14 Fakultas & Perisai Diponegoro',
+    year: '1961',
+    description: 'Insignia resmi jabatan yang dikalungkan pada leher Rektor saat pelantikan dan memimpin upacara wisuda sarjana. Setiap mata rantai melambangkan sinergi seluruh cabang keilmuan almamater.',
+    highlights: [
+      'Ornamen Utama: Lambang Perisai Segi Lima Universitas Diponegoro',
+      'Mata Rantai: Pelat Emas Simbolik Ragam Fakultas',
+      'Tradisi: Dikenakan saat pengukuhan Guru Besar dan Wisuda',
+    ],
+  },
+  {
+    id: 'art-mahakarya-raden-saleh',
+    title: 'Mahakarya Seni Visual: Penangkapan Pangeran Diponegoro',
+    subtitle: 'Reproduksi Kanvas Agung Koleksi Bersejarah Undip',
+    year: '1857 / Koleksi Undip',
+    description: 'Lukisan legendaris karya perintis seni modern Indonesia Raden Saleh Syarif Bustaman yang merekam detik-detik penangkapan Pangeran Diponegoro oleh Jenderal De Kock di Magelang pada 28 Maret 1830.',
+    highlights: [
+      'Pelukis: Raden Saleh Syarif Bustaman',
+      'Makna: Simbol perlawanan moral dan martabat bangsa terjajah',
+      'Koleksi: Dipajang sebagai inspirasi kepahlawanan utama sivitas akademika',
+    ],
+  },
+]
+
 /**
- * ZONA 3: THE HERITAGE OF UNDIP
- * Academic Regalia, Tokoh Memorabilia, & Diponegoro Heritage:
- * - Left Wall: Academic Regalia Glass Showcases (Toga, Tongkat Pedel, Medali)
- * - Right Wall: Pangeran Diponegoro Heritage Gallery & Nilai-Nilai Luhur
- * - Center Stage: Keris Pusaka Pangeran Diponegoro Monument Showcase
- * - Bookshelves: Babad Diponegoro, Orasi Guru Besar, & Skripsi Perdana 1963
- * - Audiovisual Kiosk: Dokumentasi Wisuda & Pidato Bersejarah
+ * ZONE 3: THE HERITAGE OF UNDIP (1990–2010)
+ * Focus: Academic Regalia, Rectoral Artifacts, Diponegoro Heroic Legacy, and Cultural Philosophy.
  */
 export function Zone3Content({
-  selectedBookId = null,
-  selectedArtifactId = null,
-  hoveredId = null,
-  onSelectBook,
-  onSelectArtifact,
+  selectedExhibitId,
+  hoveredId,
   onSelectExhibit,
+  onSelectBook,
+  onSelectPodium,
+  onSelectPrasasti,
   onHover,
 }: Zone3ContentProps) {
+  const halfW = HALL.halfWidth
+
   const materials = useMemo(() => {
     return {
-      darkWalnut: assetCache.getMaterial(
-        'z3-walnut',
-        () =>
-          new THREE.MeshStandardMaterial({
-            color: '#24150b',
-            roughness: 0.42,
-            metalness: 0.15,
-          }),
-      ),
-      goldTrim: assetCache.getMaterial(
-        'z3-gold',
-        () =>
-          new THREE.MeshStandardMaterial({
-            color: '#d4af37',
-            roughness: 0.25,
-            metalness: 0.88,
-          }),
-      ),
-      heritageCrimson: assetCache.getMaterial(
-        'z3-crimson',
-        () =>
-          new THREE.MeshStandardMaterial({
-            color: '#421217',
-            roughness: 0.7,
-            metalness: 0.1,
-          }),
-      ),
-      screenGlow: assetCache.getMaterial(
-        'z3-screen',
-        () =>
-          new THREE.MeshStandardMaterial({
-            color: '#1a3048',
-            emissive: '#102236',
-            emissiveIntensity: 0.4,
-            roughness: 0.2,
-          }),
-      ),
+      darkTeak: new THREE.MeshStandardMaterial({ color: '#2c1a0e', roughness: 0.5 }),
+      goldTrim: new THREE.MeshStandardMaterial({ color: '#d4af37', roughness: 0.28, metalness: 0.88 }),
+      goldBright: new THREE.MeshStandardMaterial({ color: '#ffd700', roughness: 0.2, metalness: 0.9 }),
+      glass: new THREE.MeshStandardMaterial({ color: '#ffffff', transparent: true, opacity: 0.35, roughness: 0.05 }),
+      bannerPlum: new THREE.MeshStandardMaterial({ color: '#4a154b', roughness: 0.35, metalness: 0.25 }),
     }
   }, [])
 
-  const zone3Books = useMemo(() => HERITAGE_BOOKS.filter((b) => b.zone === 3), [])
-  const zone3Artifacts = useMemo(() => HERITAGE_ARTIFACTS.filter((a) => a.zone === 3), [])
-
-  const wallBooks = useMemo(() => zone3Books.filter((b) => b.shelfType === 'wall'), [zone3Books])
-  const islandBooks = useMemo(() => zone3Books.filter((b) => b.shelfType === 'island'), [zone3Books])
-
   return (
-    <group name="Zone3-TheHeritageOfUndip">
-      {/* 1. Left Wall Showcase Area: Academic Regalia & Historical Cabinets */}
-      {/* Glass Cabinet 1: Toga Rektor Era Awal & Kalung Jabatan Senat Emas */}
-      {zone3Artifacts[0] && (
-        <GlassDisplayCabinet
-          position={[-5.8, 0, 4.0]}
-          rotationY={Math.PI / 2}
-          artifact={zone3Artifacts[0]}
-          isSelected={selectedArtifactId === zone3Artifacts[0].id}
-          isHovered={hoveredId === zone3Artifacts[0].id}
-          onSelectArtifact={onSelectArtifact}
-          onHover={onHover}
-        />
-      )}
+    <group>
+      {/* Upper Architectural Banner */}
+      <group position={[-halfW + 0.1, 4.45, -5.0]} rotation={[0, Math.PI / 2, 0]}>
+        <mesh>
+          <boxGeometry args={[26.0, 0.52, 0.08]} />
+          <primitive object={materials.bannerPlum} attach="material" />
+        </mesh>
+        <mesh position={[0, -0.23, 0.04]}>
+          <boxGeometry args={[26.0, 0.04, 0.02]} />
+          <primitive object={materials.goldTrim} attach="material" />
+        </mesh>
+        <mesh position={[0, 0.23, 0.04]}>
+          <boxGeometry args={[26.0, 0.04, 0.02]} />
+          <primitive object={materials.goldTrim} attach="material" />
+        </mesh>
+      </group>
 
-      {/* Glass Cabinet 2: Tongkat Pedel Upacara Wisuda Kuningan Resmi 1960 */}
-      {zone3Artifacts[1] && (
-        <GlassDisplayCabinet
-          position={[-5.8, 0, -2.0]}
-          rotationY={Math.PI / 2}
-          artifact={zone3Artifacts[1]}
-          isSelected={selectedArtifactId === zone3Artifacts[1].id}
-          isHovered={hoveredId === zone3Artifacts[1].id}
-          onSelectArtifact={onSelectArtifact}
-          onHover={onHover}
-        />
-      )}
+      {/* ============================================================
+          1. LEFT WALL: ARTEFAK & REGALIA AKADEMIK DENGAN RAK BUKU
+          ============================================================ */}
+      {HERITAGE_ARTIFACTS.map((art, idx) => {
+        const z = 4.0 - idx * 4.5
+        const isSelected = selectedExhibitId === art.id
+        const isHovered = hoveredId === art.id
 
-      {/* 2. Center Monument Showcase: Keris Pusaka Warisan Pangeran Diponegoro */}
-      {zone3Artifacts[2] && (
-        <group position={[0, 0, -3.5]}>
-          <GlassDisplayCabinet
-            position={[0, 0, 0]}
-            rotationY={0}
-            artifact={zone3Artifacts[2]}
-            isSelected={selectedArtifactId === zone3Artifacts[2].id}
-            isHovered={hoveredId === zone3Artifacts[2].id}
-            onSelectArtifact={onSelectArtifact}
-            onHover={onHover}
-          />
-        </group>
-      )}
-
-      {/* 3. Right Wall (X = 7.44): Pangeran Diponegoro Heritage & Academic Memorabilia Gallery */}
-      <group position={[7.44, 0, 0]}>
-        {[
-          {
-            id: 'her-falsafah-diponegoro',
-            title: 'Falsafah Luhur Pangeran Diponegoro: Jujur, Berani, Peduli',
-            era: 'Nilai Karakter Abadi',
-            z: 6.0,
-            desc: 'Pengejawantahan nilai-nilai kepahlawanan Pangeran Diponegoro ke dalam jiwa sivitas akademika Universitas Diponegoro.',
-          },
-          {
-            id: 'her-babad-diponegoro-unesco',
-            title: 'Babad Diponegoro: Warisan Ingatan Dunia UNESCO',
-            era: 'Memory of the World',
-            z: 0.5,
-            desc: 'Autobiografi legendaris karya Pangeran Diponegoro yang merefleksikan kejujuran intelektual, ketakwaan, dan perlawanan terhadap penindasan.',
-          },
-          {
-            id: 'her-lukisan-raden-saleh',
-            title: 'Mahakarya Penangkapan Pangeran Diponegoro (Raden Saleh)',
-            era: 'Koleksi Seni Bersejarah',
-            z: -5.0,
-            desc: 'Analisis historis dan artistik atas lukisan monumental Raden Saleh yang menggambarkan keteguhan sikap Pangeran Diponegoro.',
-          },
-          {
-            id: 'her-tradisi-wisuda',
-            title: 'Tradisi Sakral Prosesi Wisuda & Sidang Senat Terbuka',
-            era: 'Tradisi Akademik 1957–Kini',
-            z: -10.5,
-            desc: 'Tata upacara penerimaan mahasiswa baru dan pelepasan wisudawan dengan arak-arakan Pedel Upacara dan Gamelan Jawa Corobalen.',
-          },
-        ].map((item) => (
+        return (
           <group
-            key={item.id}
-            position={[0, 3.0, item.z]}
-            rotation={[0, -Math.PI / 2, 0]}
+            key={art.id}
+            position={[-halfW + 0.14, 2.75, z]}
+            rotation={[0, Math.PI / 2, 0]}
             onPointerOver={(e) => {
               e.stopPropagation()
-              onHover(item.id)
+              onHover(art.id)
             }}
             onPointerOut={(e) => {
               e.stopPropagation()
@@ -174,87 +131,119 @@ export function Zone3Content({
             }}
             onClick={(e) => {
               e.stopPropagation()
-              onSelectExhibit?.({
-                type: 'history',
-                data: {
-                  id: item.id,
-                  title: item.title,
-                  category: 'archive',
-                  period: item.era,
-                  shortLabel: 'Warisan & Identitas',
-                  description: item.desc,
-                  fullContent: `${item.title}: ${item.desc} Menjadi fondasi jati diri insan akademik Undip yang senantiasa berakar pada kebudayaan luhur bangsa dan menjunjung tinggi kejujuran ilmiah.`,
-                },
-              })
+              onSelectExhibit(art)
             }}
           >
-            {/* Architectural Heritage Frame */}
+            {/* Framed Exhibit Display */}
             <mesh castShadow receiveShadow>
-              <boxGeometry args={[2.4, 1.45, 0.09]} />
-              <primitive object={materials.darkWalnut} attach="material" />
+              <boxGeometry args={[2.4, 1.6, 0.09]} />
+              <primitive
+                object={isSelected ? materials.goldBright : isHovered ? materials.goldTrim : materials.darkTeak}
+                attach="material"
+              />
             </mesh>
-            <mesh position={[0, 0, 0.046]}>
-              <boxGeometry args={[2.26, 1.32, 0.01]} />
-              <primitive object={materials.goldTrim} attach="material" />
+            <mesh position={[0, 0, 0.045]}>
+              <boxGeometry args={[2.2, 1.4, 0.01]} />
+              <meshStandardMaterial color="#f7f4ec" roughness={0.4} />
             </mesh>
-            <mesh position={[0, 0, 0.05]}>
-              <boxGeometry args={[2.18, 1.24, 0.005]} />
-              <primitive object={materials.heritageCrimson} attach="material" />
-            </mesh>
+            <pointLight position={[0, 1.0, 0.4]} color="#ffe7ba" intensity={6} distance={3.5} decay={2} />
           </group>
-        ))}
-      </group>
+        )
+      })}
 
-      {/* 4. Heritage Library Bookshelf System for Zone 3 */}
-      {/* Tall Wall Bookshelf: Babad Diponegoro & Pidato Guru Besar (Left Flank, Z = -14.5) */}
+      {/* --- RAK BUKU WARISAN & FILSAFAT DIPONEGORO (SISI KIRI) --- */}
       <WallBookshelf
-        position={[-6.8, 0, -14.5]}
+        position={[-halfW + 0.18, 0, 0.0]}
         rotationY={Math.PI / 2}
-        categoryTitle="MANUSKRIP WARISAN & ORASI GURU BESAR"
-        interactiveBooks={wallBooks}
-        selectedBookId={selectedBookId}
-        hoveredId={hoveredId}
+        length={12.0}
+        categoryTitle="FILSAFAH KESATRIA & KAJIAN HUMANIORA DIPONEGORO"
+        interactiveBookIds={['book-falsafah-kesatria-diponegoro', 'book-esai-eko-budiharjo']}
         onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+      <WallBookshelf
+        position={[-halfW + 0.18, 0, -13.5]}
+        rotationY={Math.PI / 2}
+        length={11.0}
+        categoryTitle="KATALOG REGALIA & PIDATO RESMI DIES NATALIS"
+        interactiveBookIds={['book-regalia-tongkat-rektor']}
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+
+      {/* ============================================================
+          2. RIGHT WALL: KARYA SENI & DOKUMENTASI SEJARAH DENGAN RAK BUKU
+          ============================================================ */}
+      <WallBookshelf
+        position={[halfW - 0.18, 0, 1.0]}
+        rotationY={-Math.PI / 2}
+        length={12.0}
+        categoryTitle="HISTORIOGRAFI PERJUANGAN & WARISAN BUDAYA JAWA TENGAH"
+        interactiveBookIds={['book-falsafah-kesatria-diponegoro']}
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+      <WallBookshelf
+        position={[halfW - 0.18, 0, -13.0]}
+        rotationY={-Math.PI / 2}
+        length={11.0}
+        categoryTitle="ANTOLOGI ARSITEKTUR & KEBUDAYAAN ALMAMATER"
+        interactiveBookIds={['book-esai-eko-budiharjo', 'book-regalia-tongkat-rektor']}
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+
+      {/* Preserved & Enhanced Vertical Bookcases */}
+      <EnhancedBookshelf
+        position={[halfW - 0.35, 0, 10.6]}
+        rotationY={-Math.PI / 2}
+        categoryTitle="SPECIAL HERITAGE COLLECTION"
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+      <EnhancedBookshelf
+        position={[-halfW + 0.35, 0, 10.6]}
+        rotationY={Math.PI / 2}
+        categoryTitle="UNIVERSITY DOCUMENTATION"
+        onSelectBook={onSelectBook}
+        onHoverBook={onHover}
+        hoveredBookId={hoveredId}
+      />
+
+      {/* Centerpiece: Monumental Diponegoro Statue & Ceremonial Dais Podium */}
+      <DiponegoroStatue
+        position={[0, 0, -4.5]}
+        isSelected={selectedExhibitId === 'statue-diponegoro'}
+        isHovered={hoveredId === 'statue-diponegoro'}
+        onSelect={() =>
+          onSelectExhibit({
+            id: 'statue-diponegoro',
+            title: 'Monumen Pangeran Diponegoro & Kuda Tempur',
+            subtitle: 'Patung Perunggu Bersejarah • Simbol Keteguhan Hati & Integritas',
+            description: 'Monumen patung pahlawan nasional Pangeran Diponegoro menunggang kuda perang dengan jubah berkibar, menggambarkan gelora perjuangan Perang Jawa (1825–1830) membela kedaulatan rakyat.',
+            highlights: [
+              'Simbolisme: Kesatria tangguh, rendah hati, dan berjiwa merdeka',
+              'Material: Perunggu Tempa Klasik dengan Tatakan Granit Hitam',
+              'Penempatan: Pusat Kehormatan Sayap Warisan Budaya Universitas',
+            ],
+          })
+        }
         onHover={onHover}
       />
 
-      {/* Island Bookshelf: Arsip Skripsi & Yudisium Perdana 1963 (Right Flank, Z = -14.5) */}
-      <IslandBookshelf
-        position={[4.6, 0, -14.5]}
-        rotationY={0}
-        categoryTitle="ARSIP SKRIPSI & KELULUSAN PERDANA"
-        interactiveBooks={islandBooks}
-        selectedBookId={selectedBookId}
-        hoveredId={hoveredId}
-        onSelectBook={onSelectBook}
+      <CeremonialPodium
+        position={PODIUM_POS}
+        isSelected={selectedExhibitId === 'podium'}
+        isHovered={hoveredId === 'podium'}
+        onSelect={onSelectPodium}
+        onSelectPrasasti={onSelectPrasasti}
         onHover={onHover}
       />
-
-      {/* 5. Historical Audiovisual Station (Right Side, Z = 2.0) */}
-      <group position={[4.6, 0, 2.0]}>
-        {/* Dark Walnut Kiosk Stand */}
-        <mesh position={[0, 0.85, 0]} castShadow receiveShadow>
-          <boxGeometry args={[1.6, 1.7, 0.45]} />
-          <primitive object={materials.darkWalnut} attach="material" />
-        </mesh>
-        <mesh position={[0, 1.71, 0]}>
-          <boxGeometry args={[1.64, 0.02, 0.49]} />
-          <primitive object={materials.goldTrim} attach="material" />
-        </mesh>
-        {/* Wide Presentation Screen Display */}
-        <mesh position={[0, 1.15, 0.23]} castShadow>
-          <boxGeometry args={[1.35, 0.78, 0.02]} />
-          <primitive object={materials.screenGlow} attach="material" />
-        </mesh>
-        {/* Gold Caption Plaque */}
-        <mesh position={[0, 0.42, 0.23]}>
-          <boxGeometry args={[1.1, 0.12, 0.015]} />
-          <primitive object={materials.goldTrim} attach="material" />
-        </mesh>
-      </group>
-
-      {/* 6. Visitor Study & Reading Alcove (Left Corridor, Z = 8.5) */}
-      <ReadingLounge position={[-4.8, 0, 8.5]} rotationY={Math.PI / 2} />
     </group>
   )
 }
