@@ -5,6 +5,7 @@ import { HISTORY_EXHIBITS } from './data/exhibits'
 import { HISTORY_WALL_X } from './layout'
 import { createHistoryPanelTexture } from './textures'
 import { assetCache } from './cache'
+import { CulledEntity } from '../common/CulledEntity'
 
 interface SalonFrameConfig {
   exhibitId: string
@@ -279,22 +280,55 @@ export const HistoryArchivesWing = memo(function HistoryArchivesWing({
         <ActiveTrackSpotlight key={`active-track-spot-${sIdx}`} z={spotZ} />
       ))}
 
-      {/* Museum Gallery Wall Items */}
-      {SALON_LAYOUT.map((config) => {
-        const exhibit = exhibitMap.get(config.exhibitId)
-        if (!exhibit) return null
-        return (
-          <SalonItem
-            key={config.exhibitId}
-            config={config}
-            exhibit={exhibit}
-            isSelected={selectedExhibitId === exhibit.id}
-            isHovered={hoveredId === exhibit.id}
-            onSelect={onSelectExhibit}
-            onHover={onHover}
-          />
-        )
-      })}
+      {/* Museum Gallery Wall Items - Section 1: Early History & Decrees (Columns 1 to 5) */}
+      <CulledEntity
+        position={[HISTORY_WALL_X, 3.0, 1.0]}
+        radius={6.5}
+        maxDistance={45}
+        name="history-section-columns-1-5"
+        forceVisible={selectedExhibitId !== null}
+      >
+        {SALON_LAYOUT.filter((c) => c.z >= -4.0).map((config) => {
+          const exhibit = exhibitMap.get(config.exhibitId)
+          if (!exhibit) return null
+          return (
+            <SalonItem
+              key={config.exhibitId}
+              config={config}
+              exhibit={exhibit}
+              isSelected={selectedExhibitId === exhibit.id}
+              isHovered={hoveredId === exhibit.id}
+              onSelect={onSelectExhibit}
+              onHover={onHover}
+            />
+          )
+        })}
+      </CulledEntity>
+
+      {/* Museum Gallery Wall Items - Section 2: Tembalang, Modern Era & PTN-BH (Columns 6 to 10) */}
+      <CulledEntity
+        position={[HISTORY_WALL_X, 3.0, -10.1]}
+        radius={6.5}
+        maxDistance={45}
+        name="history-section-columns-6-10"
+        forceVisible={selectedExhibitId !== null}
+      >
+        {SALON_LAYOUT.filter((c) => c.z < -4.0).map((config) => {
+          const exhibit = exhibitMap.get(config.exhibitId)
+          if (!exhibit) return null
+          return (
+            <SalonItem
+              key={config.exhibitId}
+              config={config}
+              exhibit={exhibit}
+              isSelected={selectedExhibitId === exhibit.id}
+              isHovered={hoveredId === exhibit.id}
+              onSelect={onSelectExhibit}
+              onHover={onHover}
+            />
+          )
+        })}
+      </CulledEntity>
     </group>
   )
 })

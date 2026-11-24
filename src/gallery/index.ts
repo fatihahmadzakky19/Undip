@@ -12,6 +12,7 @@
 export { MuseumGallery, MuseumGallery as default, MuseumGallery as Zone1, MuseumGallery as Zone1Scene, MuseumGallery as GalleryScene } from './common/MuseumGallery'
 export { WallBookshelf } from './common/WallBookshelf'
 export { EnhancedBookshelf } from './common/EnhancedBookshelf'
+export { CulledEntity } from './common/CulledEntity'
 export { ZoneNavigator } from './common/ZoneNavigator'
 export { InteractiveBookModal } from './common/InteractiveBookModal'
 

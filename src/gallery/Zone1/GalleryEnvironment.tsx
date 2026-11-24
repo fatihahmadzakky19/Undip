@@ -11,6 +11,7 @@ import { CeilingRoof } from './CeilingRoof'
 import { RedCarpet } from './RedCarpet'
 import { VisitorLounge } from './MuseumFurniture'
 import { DirectoryBoard } from './DirectoryBoard'
+import { CulledEntity } from '../common/CulledEntity'
 
 interface GalleryEnvironmentProps {
   isNearDirectory?: boolean
@@ -132,70 +133,77 @@ export const GalleryEnvironment = memo(function GalleryEnvironment({
       ))}
 
       {/* 7. Grand Classical Entrance Double Doors & Archway (Facing Inward to Visitor) */}
-      <group position={[0, 0, HALL.zFront - 0.05]} rotation={[0, Math.PI, 0]}>
-        {/* Outer Fluted Door Casing (Dark Teak) */}
-        <mesh position={[0, 2.2, 0.04]}>
-          <boxGeometry args={[3.8, 4.4, 0.14]} />
-          <meshStandardMaterial color="#2c1a0e" roughness={0.45} metalness={0.15} />
-        </mesh>
+      <CulledEntity
+        position={[0, 2.2, HALL.zFront - 0.05]}
+        radius={3.8}
+        maxDistance={45}
+        name="entrance-double-doors"
+      >
+        <group position={[0, 0, HALL.zFront - 0.05]} rotation={[0, Math.PI, 0]}>
+          {/* Outer Fluted Door Casing (Dark Teak) */}
+          <mesh position={[0, 2.2, 0.04]}>
+            <boxGeometry args={[3.8, 4.4, 0.14]} />
+            <meshStandardMaterial color="#2c1a0e" roughness={0.45} metalness={0.15} />
+          </mesh>
 
-        {/* Gilded Architrave / Pediment Header */}
-        <mesh position={[0, 4.45, 0.08]}>
-          <boxGeometry args={[4.1, 0.35, 0.18]} />
-          <meshStandardMaterial color="#142e56" roughness={0.35} metalness={0.25} />
-        </mesh>
-        <mesh position={[0, 4.65, 0.1]}>
-          <boxGeometry args={[4.2, 0.06, 0.22]} />
-          <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
-        </mesh>
-        <mesh position={[0, 4.25, 0.08]}>
-          <boxGeometry args={[3.9, 0.04, 0.16]} />
-          <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
-        </mesh>
+          {/* Gilded Architrave / Pediment Header */}
+          <mesh position={[0, 4.45, 0.08]}>
+            <boxGeometry args={[4.1, 0.35, 0.18]} />
+            <meshStandardMaterial color="#142e56" roughness={0.35} metalness={0.25} />
+          </mesh>
+          <mesh position={[0, 4.65, 0.1]}>
+            <boxGeometry args={[4.2, 0.06, 0.22]} />
+            <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+          </mesh>
+          <mesh position={[0, 4.25, 0.08]}>
+            <boxGeometry args={[3.9, 0.04, 0.16]} />
+            <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+          </mesh>
 
-        {/* Symmetrical Left & Right Door Leaves (Dark Teak with Royal Navy & Gold Insets) */}
-        {[-0.9, 0.9].map((dx, di) => (
-          <group key={di} position={[dx, 2.1, 0.08]}>
-            {/* Door Leaf Body */}
-            <mesh>
-              <boxGeometry args={[1.7, 4.0, 0.08]} />
-              <meshStandardMaterial color="#24150b" roughness={0.5} metalness={0.12} />
-            </mesh>
-
-            {/* Perimeter Gold Molding on Door Leaf */}
-            <mesh position={[0, 0, 0.042]}>
-              <boxGeometry args={[1.5, 3.8, 0.01]} />
-              <meshStandardMaterial color="#d4af37" roughness={0.28} metalness={0.85} />
-            </mesh>
-
-            {/* Upper Navy Inset Panel */}
-            <mesh position={[0, 0.7, 0.048]}>
-              <boxGeometry args={[1.34, 2.0, 0.015]} />
-              <meshStandardMaterial color="#142e56" roughness={0.4} metalness={0.2} />
-            </mesh>
-
-            {/* Lower Navy Inset Panel */}
-            <mesh position={[0, -0.9, 0.048]}>
-              <boxGeometry args={[1.34, 1.4, 0.015]} />
-              <meshStandardMaterial color="#142e56" roughness={0.4} metalness={0.2} />
-            </mesh>
-
-            {/* Polished Brass Vertical Bar Pull Handle (Centered near meeting stile) */}
-            <group position={[di === 0 ? 0.68 : -0.68, 0, 0.08]}>
+          {/* Symmetrical Left & Right Door Leaves (Dark Teak with Royal Navy & Gold Insets) */}
+          {[-0.9, 0.9].map((dx, di) => (
+            <group key={di} position={[dx, 2.1, 0.08]}>
+              {/* Door Leaf Body */}
               <mesh>
-                <cylinderGeometry args={[0.02, 0.02, 0.65, 16]} />
-                <meshStandardMaterial color="#ffd700" roughness={0.2} metalness={0.92} />
+                <boxGeometry args={[1.7, 4.0, 0.08]} />
+                <meshStandardMaterial color="#24150b" roughness={0.5} metalness={0.12} />
               </mesh>
-              {[-0.26, 0.26].map((hy, hi) => (
-                <mesh key={hi} position={[0, hy, -0.03]} rotation={[Math.PI / 2, 0, 0]}>
-                  <cylinderGeometry args={[0.015, 0.015, 0.06, 12]} />
-                  <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+
+              {/* Perimeter Gold Molding on Door Leaf */}
+              <mesh position={[0, 0, 0.042]}>
+                <boxGeometry args={[1.5, 3.8, 0.01]} />
+                <meshStandardMaterial color="#d4af37" roughness={0.28} metalness={0.85} />
+              </mesh>
+
+              {/* Upper Navy Inset Panel */}
+              <mesh position={[0, 0.7, 0.048]}>
+                <boxGeometry args={[1.34, 2.0, 0.015]} />
+                <meshStandardMaterial color="#142e56" roughness={0.4} metalness={0.2} />
+              </mesh>
+
+              {/* Lower Navy Inset Panel */}
+              <mesh position={[0, -0.9, 0.048]}>
+                <boxGeometry args={[1.34, 1.4, 0.015]} />
+                <meshStandardMaterial color="#142e56" roughness={0.4} metalness={0.2} />
+              </mesh>
+
+              {/* Polished Brass Vertical Bar Pull Handle (Centered near meeting stile) */}
+              <group position={[di === 0 ? 0.68 : -0.68, 0, 0.08]}>
+                <mesh>
+                  <cylinderGeometry args={[0.02, 0.02, 0.65, 16]} />
+                  <meshStandardMaterial color="#ffd700" roughness={0.2} metalness={0.92} />
                 </mesh>
-              ))}
+                {[-0.26, 0.26].map((hy, hi) => (
+                  <mesh key={hi} position={[0, hy, -0.03]} rotation={[Math.PI / 2, 0, 0]}>
+                    <cylinderGeometry args={[0.015, 0.015, 0.06, 12]} />
+                    <meshStandardMaterial color="#d4af37" roughness={0.25} metalness={0.88} />
+                  </mesh>
+                ))}
+              </group>
             </group>
-          </group>
-        ))}
-      </group>
+          ))}
+        </group>
+      </CulledEntity>
 
       {/* 8. Alternating Rectangular Gap Roof */}
       <CeilingRoof />
@@ -204,15 +212,21 @@ export const GalleryEnvironment = memo(function GalleryEnvironment({
       <RedCarpet />
 
       {/* 12. EXTRA ASSETS: Visitor Lounge */}
-      <VisitorLounge position={[4.8, 0, 3.8]} rotationY={-Math.PI / 6} />
-      <VisitorLounge position={[-4.8, 0, 3.8]} rotationY={Math.PI / 6} />
+      <CulledEntity position={[4.8, 0.5, 3.8]} radius={2.6} maxDistance={40} name="visitor-lounge-right">
+        <VisitorLounge position={[4.8, 0, 3.8]} rotationY={-Math.PI / 6} />
+      </CulledEntity>
+      <CulledEntity position={[-4.8, 0.5, 3.8]} radius={2.6} maxDistance={40} name="visitor-lounge-left">
+        <VisitorLounge position={[-4.8, 0, 3.8]} rotationY={Math.PI / 6} />
+      </CulledEntity>
 
       {/* 13. EXTRA ASSET: Standing Wayfinding Directory Board */}
-      <DirectoryBoard
-        position={DIRECTORY_BOARD_POS}
-        rotationY={-Math.PI / 4}
-        isNear={isNearDirectory}
-      />
+      <CulledEntity position={DIRECTORY_BOARD_POS} radius={2.5} maxDistance={40} name="directory-board">
+        <DirectoryBoard
+          position={DIRECTORY_BOARD_POS}
+          rotationY={-Math.PI / 4}
+          isNear={isNearDirectory}
+        />
+      </CulledEntity>
     </group>
   )
 })
